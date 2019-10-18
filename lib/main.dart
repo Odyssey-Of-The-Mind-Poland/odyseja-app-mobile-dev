@@ -1,11 +1,10 @@
 /*Core classes of the OotmApp, responsible for displaying pages, navigation bar and fetching of the data from a webserver 
 */
-// import 'dart:io';
+import 'dart:io';
 import 'package:flutter/material.dart';
-// import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
-// import 'package:path_provider/path_provider.dart';
-// import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
+// import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'dart:async';
 
@@ -27,9 +26,6 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  Future<List<Performance>> performances;
-  final String url = 'http://grzybek.bymarcin.com:8081/getAll';
-  factory() => performances = fetchTimetableData(url);
   int _selected = 0;
   final _pages = [
     CityPage(),
@@ -41,9 +37,8 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    print('init');
-    // pf = DefaultCacheManager().getSingleFile(url);
-    // syncData();
+    syncData();
+    // testStorage();
   }
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -89,42 +84,81 @@ class MyAppState extends State<MyApp> {
             ),
 
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              title: Text('Konto')
+              icon: Icon(Icons.favorite_border),
+              title: Text('Zaznaczone')
             ),
           ],
         ),
     ),
     );
   }
-  // void syncData() async {
-  //   String url = 'http://grzybek.bymarcin.com:8081/getAll';
-  //   List<Performance> performances = await fetchTimetableData(url);
-  //   // var _timetableData = DefaultCacheManager().getSingleFile(url);
-  //   // return timetableDataToList(_timetableData.whenComplete(action));
-  //   // timetableDataToList(_timetableData.then());
-  //   // fetchTimetableData();
-  //   // updateTimetable();
-  //   // updateInfo();
-  // }
 }
 
-Future<List<Performance>> fetchTimetableData(String url) async {
-  final response = await http.get(url);
-  print('fetchtimetabledata');
-  if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON.
-    return timetableDataToList(response.body);
-  } else {
-    // If that call was not successful, throw an error.
+// https://flutter.dev/docs/cookbook/persistence/reading-writing-files
+class Storage {
+  String fileName; 
+  String path;
+  File file;
+  String content;
+
+  Storage(this.fileName);
+
+  set setFileName(String fileName) {
+    this.fileName = fileName;
+  }
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+  Future<File> get _localFile async {
+    this.path = await _localPath;
+
+    return File('${this.path}/${this.fileName}');
+  }
+  Future<List<Performance>> readFileTT() async {
+    try {
+      this.file = await _localFile;
+      this.content = await file.readAsString();
+
+      return timetableDataToList(this.content);
+    } catch (e) {
+      return null;
+    }
+  }
+  // Future<List<Info>> readFileInfo() async {
+  //   try {
+  //     this.file = await _localFile;
+  //     this.content = await this.file.readAsString();
+  //     return this.content;
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }
+  Future<File> writeFile(String data) async {
+    this.file = await _localFile;
+
+    // Write the file
+    return this.file.writeAsString(data);
+  }
+}
+
+void syncData() async {
+  final String urlTimetable = 'http://grzybek.bymarcin.com:8081/getAll';
+  try {
+    final response = await http.get(urlTimetable);
+    if (response.statusCode == 200) {
+      // Storage('infoGetAll.json').writeFile('response.body');
+      Storage('timeTableGetAll.json').writeFile(response.body);
+    }
+  } catch (e) {
     throw Exception('Pobranie danych nie powiodło się.');
   }
-
 }
 
 List<Performance> timetableDataToList(String responseBody) {
   final parsedTT = json.decode(responseBody).cast<Map<String, dynamic>>();
-  // print(parsedTT);
+
   return parsedTT.map<Performance>((json) => Performance.fromJson(json)).toList();
 }
 
@@ -153,3 +187,7 @@ class Performance {
     );
   }
 }
+
+// class Info {
+
+// }
