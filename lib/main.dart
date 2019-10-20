@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'dart:async';
 
@@ -44,52 +44,55 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'OotmApp',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
         // brightness: Brightness.dark,
         primaryTextTheme: TextTheme(
           title: TextStyle(color: Colors.white),
         )
       ),
-      home: Scaffold(
-        // appBar: AppBar(),
-        body: SafeArea(child: _pages[_selected]),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          // showUnselectedLabels: false,
-          currentIndex: _selected,
-          onTap: (int index) {
-            setState(() {
-              _selected = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.location_city),
-              title: Text('Miasto')
-            ),
+      home: ChangeNotifierProvider(
+        builder: (context) => ChosenCity(),
+              child: Scaffold(
+          // appBar: AppBar(),
+          body: SafeArea(child: _pages[_selected]),
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            // showUnselectedLabels: false,
+            currentIndex: _selected,
+            onTap: (int index) {
+              setState(() {
+                _selected = index;
+              });
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.location_city),
+                title: Text('Miasto')
+              ),
 
-            BottomNavigationBarItem(
-              icon: Icon(Icons.info_outline),
-              title: Text('Info')
-            ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.info_outline),
+                title: Text('Info')
+              ),
 
-            BottomNavigationBarItem(
-              icon: Icon(Icons.date_range),
-              title: Text('Harmonogram')
-            ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.date_range),
+                title: Text('Harmonogram')
+              ),
 
-            BottomNavigationBarItem(
-              icon: Icon(Icons.map),
-              title: Text('Mapa')
-            ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.map),
+                title: Text('Mapa')
+              ),
 
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border),
-              title: Text('Zaznaczone')
-            ),
-          ],
-        ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border),
+                title: Text('Zaznaczone')
+              ),
+            ],
+          ),
     ),
+      ),
     );
   }
 }
@@ -168,11 +171,11 @@ class Performance {
   final String team;
   final String problem;
   final String age;
-  final String performance;
+  final String play;
   final String spontan;
   final String stage;
 
-  Performance({this.id, this.city, this.team, this.problem, this.age, this.performance, this.spontan, this.stage});
+  Performance({this.id, this.city, this.team, this.problem, this.age, this.play, this.spontan, this.stage});
 
   factory Performance.fromJson(Map<String, dynamic> json) {
     return Performance(
@@ -181,7 +184,7 @@ class Performance {
       team: json['team'],
       problem: json['problem'],
       age: json['age'],
-      performance: json['performance'],
+      play: json['performance'],
       spontan: json['spontan'],
       stage: json['stage'],
     );
