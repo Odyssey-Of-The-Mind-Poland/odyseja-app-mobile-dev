@@ -18,18 +18,16 @@ class _TimetablePageState extends State<TimetablePage> {
       child: Column(
         children: [
           ListTile(
-            title:  TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Szukaj',
-                ),
+            title: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Szukaj',
               ),
+            ),
             trailing: Icon(Icons.filter_list),
           ),
           // _rawtimetable(),
           _timetable(),
-          // _playBlock(),
-          // _playItem(),
         ]
       )
     );
@@ -83,67 +81,59 @@ class _TimetablePageState extends State<TimetablePage> {
     final chsnProvider = Provider.of<ChosenCity>(context);
 
     return FutureBuilder<List<Performance>>(
-            future: Storage('timeTableGetAll.json').readFileTT(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                var dataSubset = snapshot.data.where(((p) => p.city == chsnProvider.chosenCity)).toList();
-                var problems = new List();
-                var ages = new List();
-                var stages = new List();
-                for (var p in dataSubset) {
-                  problems.add(p.problem);
-                  ages.add(p.age);
-                  stages.add(p.stage);
-                }
-                var problemsPresent = Set.of(problems);
-                var agesPresent = Set.of(ages);
-                var stagesPresent = Set.of(stages);
-                List<Widget> blockList = new List<Widget>();
-                // print('\n$problemsPresent\n $agesPresent\n$stagesPresent');
-                for (var pr in problemsPresent) {
-                  for (var ag in agesPresent) {
-                    for (var st in stagesPresent) {
-                      List blockData = dataSubset.where(
-                        (p) =>
-                        p.problem == pr &&
-                        p.age == ag &&
-                        p.stage == st
-                      ).toList();
-                      if (blockData.isNotEmpty) {
-                        print('$pr, $ag, $st');
-                        blockList.add(_playBlock(blockData));
-                      }
-                      // return _playBlock(blockData);
-                      // return Text('data');
-                    }
-                  }
-                }
-                      // return null;
-                return Expanded(
-                  // child: ListView.builder(
-                    // itemCount: 2,
-                    // itemBuilder: (BuildContext context, int i) {
-                    child: ListView(
-                      children: <Widget>[...blockList],
-                      // children: <Widget>[Text('lll')],
-                    )
-                );
+      future: Storage('timeTableGetAll.json').readFileTT(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          var dataSubset = snapshot.data.where(((p) => p.city == chsnProvider.chosenCity)).toList();
 
-                  //   }
-                  // ),
-                // );
-              }
-              else if (snapshot.hasError) {
+          var problems = new List();
+          var ages = new List();
+          var stages = new List();
 
-                return Text("${snapshot.error}");
+          for (var p in dataSubset) {
+            problems.add(p.problem);
+            ages.add(p.age);
+            stages.add(p.stage);
+          }
+          var problemsPresent = Set.of(problems);
+          var agesPresent = Set.of(ages);
+          var stagesPresent = Set.of(stages);
+
+          List<Widget> blockList = new List<Widget>();
+          // print('\n$problemsPresent\n $agesPresent\n$stagesPresent');
+          for (var pr in problemsPresent) {
+            for (var ag in agesPresent) {
+              for (var st in stagesPresent) {
+                List blockData = dataSubset.where(
+                  (p) =>
+                  p.problem == pr &&
+                  p.age == ag &&
+                  p.stage == st
+                ).toList();
+                if (blockData.isNotEmpty) {
+                  print('$pr, $ag, $st\nLiczba drużyn: ${blockData.length}');
+                  blockList.add(_playBlock(blockData));
+                }
               }
-              return CircularProgressIndicator();
             }
+          }
+          return Expanded(
+              child: ListView(
+                children: <Widget>[...blockList],
+              )
           );
+        }
+        else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        return CircularProgressIndicator();
+      }
+    );
   }
+
   Widget _playBlock(List<Performance> blockData) {
     List<Widget> playList = new List<Widget>();
-    for (var perf in blockData) playList.add(_playItem(perf));
+    for (var play in blockData) playList.add(_playItem(play));
     return Custom.ExpansionTile(
       // backgroundColor: Colors.teal[300],
       title: Row(
@@ -199,12 +189,6 @@ Widget _playItem(Performance performance) {
         ]
       ),
       trailing: Icon(Icons.favorite_border, size: 12.0),
-      // subtitle: ,
-
     );
   }
-
-  // List dataSubdivision(List dataSubset) {
-    
-  // }
 }

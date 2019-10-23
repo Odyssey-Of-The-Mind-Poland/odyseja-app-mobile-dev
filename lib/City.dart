@@ -1,99 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// TODO: default city selection and persitance. 
 class CityPage extends StatelessWidget {
-  // TODO: default city selection and persitance. 
-  // int chosencity = 0;
-  // void changeValue(int value) => setState(() => chosencity = value);
   @override
     Widget build(BuildContext context) {
       final chsnProvider = Provider.of<ChosenCity>(context);
-      // return Text("Miasta");
+      List<String> _citiesValues = [
+        'Wrocław',
+        'Poznań',
+        'Katowice',
+        'Warszawa',
+        'Łódź',
+        'Gdańsk',
+        'Gdynia_Sobota',
+        'Gdynia_Niedziela'
+      ];
+      List<String> _citiesNames = [
+        'Wrocław',
+        'Poznań',
+        'Katowice',
+        'Warszawa',
+        'Łódź',
+        'Gdańsk',
+        'Gdynia Sobota',
+        'Gdynia Niedziela'
+      ];
+      List<Widget> _widgets = [];
+      for (var i =0; i< _citiesNames.length; i++) {
+        _widgets.add(new Row(
+          children: [
+            Radio(
+              value: _citiesValues[i],
+              groupValue: chsnProvider.chosenCity,
+              onChanged: (value) => chsnProvider.chosenCity = value,
+            ),
+            Text(_citiesNames[i]),
+          ]
+        ));
+      }
       return Container(
         padding: EdgeInsets.all(8.0),
         child: Column(
-          children: [
-            Row(
-              children: [
-                Radio(
-                  value: 'Wrocław',
-                  groupValue: chsnProvider.chosenCity,
-                  onChanged: (value) => chsnProvider.chosenCity = value,
-                ),
-                Text('Wrocław'),
-              ]
-            ),
-            Row(
-              children: <Widget>[
-                Radio(
-                  value: 'Poznań',
-                  groupValue: chsnProvider.chosenCity,
-                  onChanged: (value) => chsnProvider.chosenCity = value,
-                ),
-                Text('Poznań'),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Radio(
-                  value: 'Katowice',
-                  groupValue: chsnProvider.chosenCity,
-                  onChanged: (value) => chsnProvider.chosenCity = value,
-                ),
-                Text('Katowice'),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Radio(
-                  value: 'Warszawa',
-                  groupValue: chsnProvider.chosenCity,
-                  onChanged: (value) => chsnProvider.chosenCity = value,
-                ),
-                Text('Warszawa'),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Radio(
-                  value: 'Łódź',
-                  groupValue: chsnProvider.chosenCity,
-                  onChanged: (value) => chsnProvider.chosenCity = value,
-                ),
-                Text('Łódź'),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Radio(
-                  value: 'Gdańsk',
-                  groupValue: chsnProvider.chosenCity,
-                  onChanged: (value) => chsnProvider.chosenCity = value,
-                ),
-                Text('Gdańsk'),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Radio(
-                  value: 'Gdynia_Sobota',
-                  groupValue: chsnProvider.chosenCity,
-                  onChanged: (value) => chsnProvider.chosenCity = value,
-                ),
-                Text('Gdynia Sobota'),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Radio(
-                  value: 'Gdynia_Niedziela',
-                  groupValue: chsnProvider.chosenCity,
-                  onChanged: (value) => chsnProvider.chosenCity = value,
-                ),
-                Text('Gdynia Niedziela'),
-              ],
-            ),
-          ]
+          children: [..._widgets]
         )
       );
     }

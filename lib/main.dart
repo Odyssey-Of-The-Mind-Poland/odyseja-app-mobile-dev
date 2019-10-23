@@ -1,4 +1,4 @@
-/*Core classes of the OotmApp, responsible for displaying pages, navigation bar and fetching of the data from a webserver 
+/*Core classes of the OotmApp, responsible for displaying pages, navigation bar and fetching data from a webserver.
 */
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -38,7 +38,6 @@ class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     syncData();
-    // testStorage();
   }
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -97,7 +96,24 @@ class MyAppState extends State<MyApp> {
   }
 }
 
-// https://flutter.dev/docs/cookbook/persistence/reading-writing-files
+void syncData() async {
+  final String urlTimetable = 'http://grzybek.bymarcin.com:8081/getAll';
+  try {
+    final response = await http.get(urlTimetable);
+    if (response.statusCode == 200) {
+      // Storage('infoGetAll.json').writeFile('response.body');
+      Storage('timeTableGetAll.json').writeFile(response.body);
+    }
+  } catch (e) {
+    throw Exception('Pobranie danych nie powiodło się.');
+  }
+}
+
+/* Storage class is based on an example from flutter's documentation:
+https://flutter.dev/docs/cookbook/persistence/reading-writing-files
+It's reuse is governed by an unspecified BSD license.
+*/ 
+
 class Storage {
   String fileName; 
   String path;
@@ -110,9 +126,9 @@ class Storage {
     this.fileName = fileName;
   }
   Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
+    final _directory = await getApplicationDocumentsDirectory();
 
-    return directory.path;
+    return _directory.path;
   }
   Future<File> get _localFile async {
     this.path = await _localPath;
@@ -143,19 +159,6 @@ class Storage {
 
     // Write the file
     return this.file.writeAsString(data);
-  }
-}
-
-void syncData() async {
-  final String urlTimetable = 'http://grzybek.bymarcin.com:8081/getAll';
-  try {
-    final response = await http.get(urlTimetable);
-    if (response.statusCode == 200) {
-      // Storage('infoGetAll.json').writeFile('response.body');
-      Storage('timeTableGetAll.json').writeFile(response.body);
-    }
-  } catch (e) {
-    throw Exception('Pobranie danych nie powiodło się.');
   }
 }
 
@@ -192,5 +195,9 @@ class Performance {
 }
 
 // class Info {
+
+// }
+
+// class Location {
 
 // }
