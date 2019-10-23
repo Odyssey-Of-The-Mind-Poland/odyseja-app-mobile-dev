@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// TODO: default city selection and persitance. 
 class CityPage extends StatelessWidget {
   @override
     Widget build(BuildContext context) {
@@ -49,7 +48,7 @@ class CityPage extends StatelessWidget {
 }
 
 class ChosenCity extends ChangeNotifier {
-  String _chosenCity = 'Wrocław';
+  String _chosenCity = 'Poznań';
 
   String get chosenCity => _chosenCity;
   set chosenCity(String value) {
