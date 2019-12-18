@@ -8,12 +8,14 @@ import 'custom_expansion_tile.dart' as Custom;
 
 class TimetablePage extends StatefulWidget {
   @override
-  _TimetablePageState createState() => _TimetablePageState();
+  TimetablePageState createState() => TimetablePageState();
 }
   
-class _TimetablePageState extends State<TimetablePage> {
+class TimetablePageState extends State<TimetablePage> {
+  final List<Performance> _savedSet = <Performance>[];
   @override
   Widget build(BuildContext context) {
+    print("TimetablePage");
     return Container(
       child: Column(
         children: [
@@ -26,62 +28,16 @@ class _TimetablePageState extends State<TimetablePage> {
             ),
             trailing: Icon(Icons.filter_list),
           ),
-          // _rawtimetable(),
           _timetable(),
+          // null,
         ]
       )
     );
   }
-  Widget _rawtimetable() {
-    final chsnProvider = Provider.of<ChosenCity>(context);
-    return FutureBuilder<List<Performance>>(
-            future: Storage('timeTableGetAll.json').readFileTT(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                var dataSubset = snapshot.data.where(((p) => p.city == chsnProvider.chosenCity)).toList();
-                // print('Podzbiór danych: ${dataSubset[0].city}');
-                // print('Wybrane miasto: ${chsnProvider.chosenCity}');
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: 1,
-                    itemBuilder: (BuildContext context, int i) {
-                      return Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(dataSubset[i].problem),
-                              Text(dataSubset[i].age),
-                              Text(dataSubset[i].stage),
-                            ],
-                          ),
-                          Row( 
-                            children: [
-                              Text(dataSubset[i].play),
-                              Text(dataSubset[i].team),
-                              Text(dataSubset[i].spontan),
-                              // Text(dataSubset.[i].id.toString()),
-                              // Text(dataSubset.[i].city),
-                            ]
-                          ),
-                          Divider(),
-                        ]
-                      );
-                    }
-                  ),
-                );
-              }
-              else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-              return CircularProgressIndicator();
-            }
-          );
-  }
   Widget _timetable() {
     final chsnProvider = Provider.of<ChosenCity>(context);
-
     return FutureBuilder<List<Performance>>(
-      future: Storage('timeTableGetAll.json').readFileTT(),
+      future: Storage(fileName: 'timeTableGetAll.json').readFileSchedule(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           var dataSubset = snapshot.data.where(((p) => p.city == chsnProvider.chosenCity)).toList();
@@ -111,7 +67,7 @@ class _TimetablePageState extends State<TimetablePage> {
                   p.stage == st
                 ).toList();
                 if (blockData.isNotEmpty) {
-                  print('$pr, $ag, $st\nLiczba drużyn: ${blockData.length}');
+                  // print('$pr, $ag, $st\nLiczba drużyn: ${blockData.length}');
                   blockList.add(_playBlock(blockData));
                 }
               }
@@ -132,6 +88,7 @@ class _TimetablePageState extends State<TimetablePage> {
   }
 
   Widget _playBlock(List<Performance> blockData) {
+    print("playblock!");
     List<Widget> playList = new List<Widget>();
     for (var play in blockData) playList.add(_playItem(play));
     return Custom.ExpansionTile(
@@ -142,13 +99,13 @@ class _TimetablePageState extends State<TimetablePage> {
           Column(
             children: <Widget>[
               Text('Problem:'),
-              Text(blockData[0].problem.substring(9,10)),
+              Text(blockData[0].problem),
             ],
           ),
           Column(
             children: <Widget>[
               Text('Kategoria\nwiekowa:'),
-              Text(blockData[0].age.substring(15)),
+              Text(blockData[0].age),
             ],
           ),      
           Column(
@@ -173,6 +130,8 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 Widget _playItem(Performance performance) {
+    print("playitem!");
+    final bool saved = _savedSet.contains(performance);
     return ListTile(
       dense: true,
       title: Row(
@@ -188,7 +147,23 @@ Widget _playItem(Performance performance) {
             child: Text(performance.spontan)),
         ]
       ),
-      trailing: Icon(Icons.favorite_border, size: 12.0),
+      trailing: IconButton(
+        icon: Icon(
+          saved ? Icons.favorite : Icons.favorite_border,
+          color: saved ? Colors.orangeAccent : null),
+        iconSize: 12.0,
+        onPressed: () {
+          setState(() {
+            if (saved) {
+              _savedSet.remove(performance);
+                  print("removed!");
+            } else {
+              _savedSet.add(performance);
+                  print("added!!");
+            }
+          });
+        },
+      ),
     );
   }
 }

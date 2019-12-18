@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CityPage extends StatelessWidget {
+class SelectCity extends StatelessWidget {
   @override
     Widget build(BuildContext context) {
       final chsnProvider = Provider.of<ChosenCity>(context);
       List<String> _citiesValues = [
         'Wrocław',
+        'Warszawa',
         'Poznań',
         'Katowice',
-        'Warszawa',
         'Łódź',
         'Gdańsk',
-        'Gdynia_Sobota',
-        'Gdynia_Niedziela'
-      ];
+        'Gdynia',
+        ];
       List<String> _citiesNames = [
-        'Wrocław',
-        'Poznań',
-        'Katowice',
-        'Warszawa',
-        'Łódź',
-        'Gdańsk',
-        'Gdynia Sobota',
-        'Gdynia Niedziela'
-      ];
+        "Eliminacje Regionalne - Wrocław",
+        "Eliminacje Regionalne - Warszawa",
+        "Eliminacje Regionalne - Poznań",
+        "Eliminacje Regionalne - Katowice",
+        "Eliminacje Regionalne - Łódź",
+        "Eliminacje Regionalne - Gdańsk",
+        "Finał Ogólnopolski - Gdynia",
+        ];
       List<Widget> _widgets = [];
       for (var i =0; i< _citiesNames.length; i++) {
         _widgets.add(new Row(

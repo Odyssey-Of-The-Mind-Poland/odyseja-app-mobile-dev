@@ -1,3 +1,7 @@
+# My own
+lib/data/getAll.json
+.gitignore
+
 # Miscellaneous
 *.class
 *.log
@@ -71,3 +75,7 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+# /assets/
+workspace.code-workspace
+.flutter-plugins-dependencies
+lib/Widgets.dart
