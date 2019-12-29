@@ -1,22 +1,19 @@
 /*Core classes of the OotmApp, responsible for displaying pages, navigation bar and fetching data from a webserver.
 */
-import 'dart:io';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart' show rootBundle;
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'dart:convert';
-import 'dart:async' show Future;
+// import 'package:flutter/services.dart' show rootBundle;
 
-// Import pages
+
+// Import routes
 import './Home.dart';
 import './Info.dart';
 import './City.dart';
 import './Timetable.dart';
 import './Favourites.dart';
+
 import 'ootm_icon_pack.dart';
-// import 'Widgets.dart';
+import 'data.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,6 +21,9 @@ class MyApp extends StatefulWidget {
  const MyApp({ Key key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
+    syncSchedule();
+    syncInfo();
+    print("hello!");
     return MyAppState();
   }
 }
@@ -38,12 +38,10 @@ class MyAppState extends State<MyApp> {
     '/schedule',
     '/favs',
   ];
-  @override
-  void initState() {
-    super.initState();
-    syncData();
-    print("hello!");
-  }
+  // @override
+  // void initState() {
+    // super.initState();
+  // }
   Widget build(BuildContext context) {
     print("material");
     return MaterialApp(
@@ -137,7 +135,6 @@ class MyAppState extends State<MyApp> {
                   _selected = index;
                 });
                 _navigatorKey.currentState.pushNamed(_routeList[index]);
-                // _navigatorKey.pushNamed(context, "/list");
               },
               items: [
                 BottomNavigationBarItem(
@@ -248,149 +245,3 @@ Widget navBarBackground () {
       // child: Expansion(),
       );
 }  
-
-
-void syncData() async {
-  final String urlTimetable = 'http://grzybek.xyz:8081/timeTable/getAll';
-  final String urlInfo = 'http://grzybek.xyz:8081/info/getAllInfo';
-  try {
-    final response = await http.get(urlTimetable);
-    if (response.statusCode == 200) {
-      Storage(fileName: 'timeTableGetAll.json').writeFile(response.body);
-    }
-  } catch (e) {
-    throw Exception('Pobranie harmonogramu nie powiodło się.');
-  }
-
-  try {
-    final response = await http.get(urlInfo);
-    if (response.statusCode == 200) {
-      Storage(fileName: 'infoGetAll.json').writeFile('response.body');
-    }
-  } catch (e) {
-    throw Exception('Pobranie info nie powiodło się.');
-  }
-}
-
-
-/* Storage class is based on an example from flutter's documentation:
-https://flutter.dev/docs/cookbook/persistence/reading-writing-files
-It's reuse is governed by an unspecified BSD license.
-*/ 
-
-
-class Storage {
-  String fileName; 
-  String path;
-  File file;
-  String content;
-
-  Storage({@required this.fileName});
-
-  set setFileName(String fileName) {
-    this.fileName = fileName;
-  }
-
-
-  Future<File> get _localFile async {
-    final _directory = await getApplicationDocumentsDirectory();
-    this.path = _directory.path;
-
-    return File('${this.path}/${this.fileName}');
-  }
-
-
-  Future<File> writeFile(String data) async {
-    this.file = await _localFile;
-
-    return this.file.writeAsString(data);
-  }
-
-
-  Future<List<Performance>> readFileSchedule() async {
-    try {
-      this.file = await _localFile;
-      this.content = await file.readAsString();
-      // this.content = await rootBundle.loadString('assets/getAll.json');
-
-      return scheduleToList(this.content);
-    } catch (e) {
-      return null;
-    }
-  }
-
-
-  Future<List<Info>> readFileInfo() async {
-    try {
-      this.file = await _localFile;
-      this.content = await this.file.readAsString();
-      return infoToList(this.content);
-    } catch (e) {
-      return null;
-    }
-  }
-}
-
-
-List<Performance> scheduleToList(String responseBody) {
-  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed.map<Performance>((json) => Performance.fromJson(json)).toList();
-}
-
-
-List<Info> infoToList(String responseBody) {
-  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed.map<Info>((json) => Info.fromJson(json)).toList();
-}
-
-
-class Performance {
-  final int id;
-  final String city;
-  final String team;
-  final String problem;
-  final String age;
-  final String play;
-  final String spontan;
-  final String stage;
-
-  Performance({this.id, this.city, this.team, this.problem, this.age, this.play, this.spontan, this.stage});
-
-  factory Performance.fromJson(Map<String, dynamic> json) {
-    return Performance(
-      id: json['id'],
-      city: json['city'],
-      team: json['team'],
-      problem: json['problem'],
-      age: json['age'],
-      play: json['performance'],
-      spontan: json['spontan'],
-      stage: json['stage'],
-    );
-  }
-}
-
-
-class Info {
-  final int id;
-  final String infoText;
-  final String city;
-  final String infNam;
-
-  Info({this.id, this.infoText, this.city, this.infNam});
-
-  factory Info.fromJson(Map<String, dynamic> json) {
-    return Info(
-      id: json['id'],
-      infoText: json['infoText'],
-      city: json['city'],
-      infNam: json['infName']
-    );
-  }
-}
-
-
-// http://grzybek.xyz:8081/timeTable/getProblems
-// int id, String problemName, int problemNumber
