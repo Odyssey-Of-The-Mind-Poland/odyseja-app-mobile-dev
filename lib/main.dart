@@ -1,4 +1,4 @@
-/*Core classes of the OotmApp, responsible for displaying pages, navigation bar and fetching data from a webserver.
+/*Core classes of the OotmApp, responsible for app navigation and navBar.
 */
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,14 +6,15 @@ import 'package:provider/provider.dart';
 
 
 // Import routes
-import './Home.dart';
-import './Info.dart';
-import './City.dart';
-import './Timetable.dart';
-import './Favourites.dart';
+import './home.dart';
+import './info.dart';
+import './city.dart';
+import './favourites.dart';
+import 'schedule.dart';
 
 import 'ootm_icon_pack.dart';
 import 'data.dart';
+import 'common_widgets.dart';
 
 void main() => runApp(MyApp());
 
@@ -54,34 +55,12 @@ class MyAppState extends State<MyApp> {
         //   title: TextStyle(color: Colors.white),
         // )
         ),
-      home: ChangeNotifierProvider(
-        builder: (context) => ChosenCity(),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-          screenBackground(),
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              title: Text("Extravaganza"),
-              centerTitle: false,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              textTheme: TextTheme(
-                title: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 31,
-                  )
-                ),
-              actions: <Widget>[
-                IconButton(
-                  disabledColor: Colors.black,
-                  icon: Icon(OotmIconPack.sbar_button),
-                  onPressed: null
-                  )
-                ],
-              ),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(builder: (context) => ChosenCity()),
+          ],
+        child: SafeArea(
+            child: Scaffold(
               // CZX is the provider of the solution below.
               // https://stackoverflow.com/questions/49681415/flutter-persistent-navigation-bar-with-named-routes
             body: Navigator(
@@ -106,7 +85,7 @@ class MyAppState extends State<MyApp> {
                   }
                 switch (settings.name) {
                   case '/schedule':
-                    builder = (BuildContext context) => TimetablePage();
+                    builder = (BuildContext context) => ScheduleRoute();
                     break;
                   }
                 switch (settings.name) {
@@ -121,55 +100,60 @@ class MyAppState extends State<MyApp> {
                   );
                 }
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              showUnselectedLabels: false,
-              showSelectedLabels: false,
-              selectedItemColor: Color(0xFFFF951A),
-              unselectedItemColor: Color(0xFF333333),
-              currentIndex: _selected,
-              onTap: (int index) {
-                setState(() {
-                  _selected = index;
-                });
-                _navigatorKey.currentState.pushNamed(_routeList[index]);
-              },
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  title: Text('Home')
-                ),
-
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.info_outline),
-                  title: Text('Info')
-                ),
-
-                BottomNavigationBarItem(
-                  icon: Transform.translate(
-                    offset: Offset(0, -8),
-                    child: SizedOverflowBox(
-                      size: Size(24.0, 24.0),
-                      child: orangeQuadButton("E.R.", "POZ", false))),
-                  title: Text('City Selection'),
+            bottomNavigationBar: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                navBarBackground(),
+                BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                showUnselectedLabels: false,
+                showSelectedLabels: false,
+                selectedItemColor: Color(0xFFFF951A),
+                unselectedItemColor: Color(0xFF333333),
+                currentIndex: _selected,
+                onTap: (int index) {
+                  setState(() {
+                    _selected = index;
+                  });
+                  _navigatorKey.currentState.pushNamed(_routeList[index]);
+                },
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    title: Text('Home')
                   ),
 
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.date_range),
-                  title: Text('Harmonogram')
-                ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.info_outline),
+                    title: Text('Info')
+                  ),
 
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.star_border),
-                  title: Text('Ulubione')
-                ),
-              ],
+                  BottomNavigationBarItem(
+                    icon: Transform.translate(
+                      offset: Offset(0, -8),
+                      child: SizedOverflowBox(
+                        size: Size(24.0, 24.0),
+                        child: orangeQuadButton("E.R.", "POZ", false))),
+                    title: Text('City Selection'),
+                    ),
+
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.date_range),
+                    title: Text('Harmonogram')
+                  ),
+
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.star_border),
+                    title: Text('Ulubione')
+                  ),
+                ],
           ),
+          ]
+            ),
     ),
-      ],
-      )));
+        )));
   }
 }
   Widget orangeQuadButton(String _eventClass, String _eventCity, bool _opened) {
@@ -192,40 +176,12 @@ class MyAppState extends State<MyApp> {
               ),
             ],
           ),
-          decoration: orangeButtonDecoration()
+          decoration: orangeBoxDecoration()
           );
   }
 
 
-BoxDecoration orangeButtonDecoration() {
-  return BoxDecoration(
-    borderRadius: BorderRadius.circular(10.0),
-    color: const Color(0xFFFF951A),
-    boxShadow: [BoxShadow(
-      color: const Color(0x52FD8800),
-      blurRadius: 6.0,
-      offset: const Offset(0.0, 3.0),
-      )]
-    );
-} 
-
-
-Widget screenBackground() {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Color(0xFFFAFAFA),
-            ),
-          ),
-        navBarBackground()
-        ]
-      );
-    }
-
-
-Widget navBarBackground () {
+Widget navBarBackground() {
     return Container(
       height: 56.0,
       decoration: BoxDecoration(
