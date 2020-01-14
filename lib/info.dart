@@ -33,7 +33,10 @@ class _InfoPageState extends State<InfoPage> {
           }
           
           return Scaffold(
-            appBar: ootmAppBar("Info", false),
+            appBar: AppBarOotm(
+              leadingIcon: false,
+              title: "Info",
+            ),
             body: GridView.count(
               crossAxisCount: 3,
               crossAxisSpacing: 16.0,
@@ -68,10 +71,14 @@ class InfoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GreyBox(
       label: this.label,
+      fontSize: 15.0,
       onPressed: () {Navigator.of(context)
         .push(MaterialPageRoute<void>(builder: (BuildContext context) {
           return Scaffold(
-            appBar: ootmAppBar(this.label, true),
+            appBar: AppBarOotm(
+              leadingIcon: true,
+              title: this.label,
+            ),
             body: Markdown(data: this.data));
             // body: Markdown(data: "# headline \n something something",));
           })

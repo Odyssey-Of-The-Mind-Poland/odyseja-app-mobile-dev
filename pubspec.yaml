@@ -28,6 +28,7 @@ dependencies:
   provider: ^3.0.0
   flutter_markdown: ^0.3.2
   # google_fonts: ^0.1.1
+  flutter_slidable: ^0.5.4
 
 dev_dependencies:
   flutter_test:

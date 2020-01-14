@@ -145,3 +145,50 @@ class Info {
 
 // http://grzybek.xyz:8081/timeTable/getProblems
 // int id, String problemName, int problemNumber
+
+  // temporary solution
+
+List<String> sceneList() {
+  const List<String> _scenes =[
+    "Sala 17",
+    "Sala Koralowa",
+    "Sala 430",
+    "Sala 109",
+    "Sala 210",
+    ];
+  return _scenes;
+}
+List<String> problemList() {
+  const List<String> _problems = [
+    "Juniorki",
+    "Reakcja na ryzyko",
+    "Co leci w sieci",
+    "Perspektywa detektywa",
+    "Nisko zawieszona poprzeczka",
+    "Nonsensy z sensem"
+    ];
+  return _problems;
+}
+List<String> ageList() {
+  const List<String> _ages = [
+    "Juniorzy",
+    "<=V\nklasa",
+    "VI - VIII\nklasa",
+    "Lic./\ntechnik.",
+    "Uczelnie\nWyższe",
+    ];
+  return _ages;
+}
+
+List<String> eventList() {
+  const List<String> _events =[
+    "Eliminacje Regionalne - Wrocław",
+    "Eliminacje Regionalne - Poznań",
+    "Eliminacje Regionalne - Katowice",
+    "Eliminacje Regionalne - Warszawa",
+    "Eliminacje Regionalne - Łódź",
+    "Eliminacje Regionalne - Gdańsk",
+    "Finał Ogólnopolski - Gdynia",
+  ];
+  return _events;
+}
