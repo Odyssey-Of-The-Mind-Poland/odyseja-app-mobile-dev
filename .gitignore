@@ -1,6 +1,5 @@
 # My own
 lib/data/getAll.json
-.gitignore
 
 # Miscellaneous
 *.class
@@ -78,4 +77,3 @@ lib/data/getAll.json
 # /assets/
 workspace.code-workspace
 .flutter-plugins-dependencies
-lib/Widgets.dart
