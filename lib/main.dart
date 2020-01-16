@@ -2,22 +2,33 @@
 */
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+// import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:path_provider/path_provider.dart';
 // import 'package:flutter/services.dart' show rootBundle;
 
 
 // Import routes
-import './home.dart';
-import './info.dart';
-import './city.dart';
-import './favourites.dart';
+import 'home.dart';
+import 'info.dart';
+import 'city.dart';
+import 'favourites.dart';
 import 'schedule.dart';
 
 import 'ootm_icon_pack.dart';
 import 'data.dart';
 import 'common_widgets.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); 
+  final documentsDir = await getApplicationDocumentsDirectory();
+  Hive.registerAdapter(PerformanceAdapter());
+  Hive.registerAdapter(InfoAdapter());
+  // Hive.initFlutter(documentsDir.path);
+  Hive.init(documentsDir.path);
+  runApp(MyApp());
+}
 
 // final keyScaffold = new GlobalKey<ScaffoldState>();
 final key = new GlobalKey<_MainFrameState>();
@@ -27,8 +38,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO updating mechanism really need some love.
     syncSchedule();
     syncInfo();
+    savePerformances("Poznan");
     print("hello!");
     return MaterialApp(
       title: 'OotmApp',
@@ -76,8 +89,9 @@ class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMix
   }
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    Hive.close();
+    super.dispose();
   }
   
   
@@ -102,6 +116,14 @@ class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMix
               return SlideTransition(
                 position: _offsetAnimation,
                 child: GestureDetector(
+                  onPanUpdate: (details) {
+                    if (details.delta.dx > 0) {
+                      // swiping in right direction
+                      if (endDrawerProvider.opened) {
+                        endDrawerProvider.change();
+                      }
+                    }
+                  },
                   onTap: endDrawerProvider.opened ? 
                   () => endDrawerProvider.change() : null,
                   child: AbsorbPointer(
