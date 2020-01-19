@@ -10,91 +10,185 @@ import 'dart:io';
 // part 'info.g.dart';
 part 'data.g.dart';
 
+String urlSchedule(String _city) {
+  final String _address = 
+    'http://grzybek.xyz:8081/timeTable/getLike?city=$_city&team=&problem=&age=&stage=';
+  return  _address;
+}
+String urlInfo(String _city) {
+  final String _address = 'http://grzybek.xyz:8081/info/getInfo?city=$_city';
+  return  _address;
+}
+String urlStages(String _city) {
+  final String _address = 'http://grzybek.xyz:8081/info/getInfo?city=$_city';
+  return  _address;
+}
+String urlProblems(String _city) {
+  final String _address = 'http://grzybek.xyz:8081/info/getInfo?city=$_city';
+  return  _address;
+}
 
-void syncSchedule() async {
-  final String urlTimetable = 'http://grzybek.xyz:8081/timeTable/getAll';
-  try {
-    final response = await http.get(urlTimetable);
-    if (response.statusCode == 200) {
-      Storage(fileName: 'timeTableGetAll.json').writeFile(response.body);
-    }
-  } catch (e) {
-    throw Exception('Pobranie harmonogramu nie powiodło się.');
+void firstRun() {
+  // TODO problems
+  for (String city in cities()) {
+    CityData(city: city).syncData();
   }
 }
-void syncInfo() async {
-  final String urlInfo = 'http://grzybek.xyz:8081/info/getAllInfo';
-  try {
-    final response = await http.get(urlInfo);
-    if (response.statusCode == 200) {
-      Storage(fileName: 'infoGetAll.json').writeFile(response.body);
-    }
-  } catch (e) {
-    throw Exception('Pobranie info nie powiodło się.');
-  }
+List<CityData> cityDataList() {
+  
+  
+  return null;
 }
+
+class CityData {
+  final String city;
+  Box settings;
+  // Box schedule;
+  // Box info;
+  // Box stages;
+  Box box;
+  CityData({@required this.city});
+
+  Future<void> syncData() async {
+    this.box = await Hive.openBox(this.city);
+    settings = Hive.box("settings");
+    syncSchedule();
+    syncInfo();
+    // syncStages();
+    settings.put("${this.city}_syncDate", DateTime.now());
+  }
+    
+  Future<void> syncSchedule() async {
+    // this.schedule = await Hive.openBox(this.city+"_schedule");
+    try {
+      final response = await http.get(urlSchedule(this.city));
+      if (response.statusCode == 200) {
+        List<Performance> pfList = scheduleToList(response.body);
+        List<String> keys = new List<String>.generate(pfList.length, (i) => "p$i");
+        Map map = Map.fromIterables(keys, pfList);
+        this.box.putAll(map);
+        this.box.put("performances", keys);
+      }
+    } catch (e) {
+      throw Exception("Pobranie harmonogramu nie powiodło się.");
+    }
+  }
+
+  Future<void> syncInfo() async {
+    // this.info = await Hive.openBox(this.city+"_info");
+    try {
+      final response = await http.get(urlInfo(this.city));
+      if (response.statusCode == 200) {
+        this.box.put("info", infoToList(response.body));
+      }
+    } catch (e) {
+      throw Exception("Pobranie harmonogramu nie powiodło się.");
+    }
+  }
+
+  // Future<void> syncStages() async {
+  //   this.stages = await Hive.openBox(this.city);
+  //   try {
+  //     final response = await http.get(urlStages(this.city));
+  //     if (response.statusCode == 200) {
+  //       // this.stages.addAll(scheduleToList(response.body));
+  //     }
+  //   } catch (e) {
+  //     throw Exception("Pobranie harmonogramu nie powiodło się.");
+  //   }
+  // }
+
+  // void closeBoxes() {
+  //   this.schedule.close();
+  //   this.info.close();
+  //   this.stages.close();
+  // }  
+}
+
+
+// void syncSchedule(String _url) async {
+//   try {
+//     final response = await http.get(_url);
+//     if (response.statusCode == 200) {
+//       Storage(fileName: 'timeTableGetAll.json').writeFile(response.body);
+//     }
+//   } catch (e) {
+//     throw Exception('Pobranie harmonogramu nie powiodło się.');
+//   }
+// }
+// void syncInfo() async {
+//   final String urlInfo = 'http://grzybek.xyz:8081/info/getAllInfo';
+//   try {
+//     final response = await http.get(urlInfo);
+//     if (response.statusCode == 200) {
+//       Storage(fileName: 'infoGetAll.json').writeFile(response.body);
+//     }
+//   } catch (e) {
+//     throw Exception('Pobranie info nie powiodło się.');
+//   }
+// }
 
 
 /* Storage class is based on an example from flutter's documentation:
 https://flutter.dev/docs/cookbook/persistence/reading-writing-files
 It's reuse is governed by an unspecified BSD license.
 */ 
-Future<void> savePerformances(String city) async {
-  Box box = await Hive.openBox(
-    city,
-    compactionStrategy: (int total, int deleted) {
-      return deleted > 1;
-    }
-  );
-  List<Performance> performanceList = new List<Performance>();
-  performanceList = await Storage(fileName: 'timeTableGetAll.json').readFileSchedule();
-  box.add(performanceList);
-}
+// Future<void> savePerformances(String city) async {
+//   Box box = await Hive.openBox(
+//     city,
+//     compactionStrategy: (int total, int deleted) {
+//       return deleted > 1;
+//     }
+//   );
+//   List<Performance> performanceList = new List<Performance>();
+//   performanceList = await Storage(fileName: 'timeTableGetAll.json').readFileSchedule();
+//   box.put("performanceList", performanceList);
+// }
 
-class Storage {
-  String fileName; 
-  String content;
+// class Storage {
+//   String fileName; 
+//   String content;
 
-  Storage({@required this.fileName});
-
-
-  Future<File> get _localFile async {
-    final _directory = await getApplicationDocumentsDirectory();
-
-    return File('${_directory.path}/${this.fileName}');
-  }
+//   Storage({@required this.fileName});
 
 
-  Future<File> writeFile(String data) async {
-    File _file = await _localFile;
+//   Future<File> get _localFile async {
+//     final _directory = await getApplicationDocumentsDirectory();
 
-    return _file.writeAsString(data);
-  }
-
-
-  Future<List<Performance>> readFileSchedule() async {
-    try {
-      File _file = await _localFile;
-      this.content = await _file.readAsString();
-      // this.content = await rootBundle.loadString('assets/getAll.json');
-
-      return scheduleToList(this.content);
-    } catch (e) {
-      return null;
-    }
-  }
+//     return File('${_directory.path}/${this.fileName}');
+//   }
 
 
-  Future<List<Info>> readFileInfo() async {
-    try {
-      File _file = await _localFile;
-      this.content = await _file.readAsString();
-      return infoToList(this.content);
-    } catch (e) {
-      return null;
-    }
-  }
-}
+//   Future<File> writeFile(String data) async {
+//     File _file = await _localFile;
+
+//     return _file.writeAsString(data);
+//   }
+
+
+//   Future<List<Performance>> readFileSchedule() async {
+//     try {
+//       File _file = await _localFile;
+//       this.content = await _file.readAsString();
+//       // this.content = await rootBundle.loadString('assets/getAll.json');
+
+//       return scheduleToList(this.content);
+//     } catch (e) {
+//       return null;
+//     }
+//   }
+
+
+//   Future<List<Info>> readFileInfo() async {
+//     try {
+//       File _file = await _localFile;
+//       this.content = await _file.readAsString();
+//       return infoToList(this.content);
+//     } catch (e) {
+//       return null;
+//     }
+//   }
+// }
 
 
 List<Performance> scheduleToList(String responseBody) {
@@ -190,7 +284,6 @@ List<String> sceneList(String city) {
         "Sala 210",
         ];
       return _scenes;
-      break;
     case "Poznań" :
       const List<String> _scenes = [
         "Sala 17",
@@ -200,7 +293,6 @@ List<String> sceneList(String city) {
         "Sala 210",
         ];
       return _scenes;
-      break;
     case "Katowice" :
       const List<String> _scenes = [
         "Sala 17",
@@ -210,7 +302,6 @@ List<String> sceneList(String city) {
         "Sala 210",
         ];
       return _scenes;
-      break;
     case "Warszawa" :
       const List<String> _scenes = [
         "Sala 17",
@@ -220,7 +311,6 @@ List<String> sceneList(String city) {
         "Sala 210",
         ];
       return _scenes;
-      break;
     case "Łódź" :
       const List<String> _scenes = [
         "Sala 17",
@@ -230,7 +320,6 @@ List<String> sceneList(String city) {
         "Sala 210",
         ];
       return _scenes;
-      break;
     case "Gdańsk" :
       const List<String> _scenes = [
         "Sala 17",
@@ -240,7 +329,6 @@ List<String> sceneList(String city) {
         "Sala 210",
         ];
       return _scenes;
-      break;
     case "Gdynia_sobota" :
       const List<String> _scenes = [
         "Sala 17",
@@ -250,7 +338,6 @@ List<String> sceneList(String city) {
         "Sala 210",
         ];
       return _scenes;
-      break;
     case "Gdynia_niedziela" :
       const List<String> _scenes = [
         "Sala 17",
@@ -260,7 +347,6 @@ List<String> sceneList(String city) {
         "Sala 210",
         ];
       return _scenes;
-      break;
     // default:
   }
   Exception("No such city");
