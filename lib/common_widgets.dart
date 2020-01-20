@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:ootm_app/schedule.dart';
 import 'ootm_icon_pack.dart';
 import 'data.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,23 +7,41 @@ import 'package:provider/provider.dart';
 
 class PerformanceGroup extends StatelessWidget {
   final List<Performance> data;
-  const PerformanceGroup({Key key, this.data}) : super(key: key);
+  final String age;
+  final String problem;
+  final String stage;
+  final String filterBy;
+
+  const PerformanceGroup({Key key, this.data, this.age, this.problem, this.stage, this.filterBy}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> performanceCardList = new List<Widget>();
     for (Performance pf in this.data) {
       performanceCardList.add(
-        // new PerformanceCard(performance: pf,)
-        new SwipeStack(performance: pf,)
+        new SwipeStack(performance: pf)
       );
+    }
+    String headline;
+    String problem = "Problem ${this.problem}";
+    String stage = "Scena ${this.stage}";
+    String age = "Gr. wiekowa ${this.age}";
+    switch (filterBy) {
+      case 'stage':
+        headline = "$problem - $age";
+        break;
+      case 'problem':
+        headline = "$stage - $age";
+        break;
+      case 'age':
+        headline = "$stage - $problem";
+        break;
+      default: headline = "$stage - $problem - $age";
     }
     return Column(
       children: <Widget>[
         Headline(
-          text:
-          """${data[0].stage} - Problem ${data[0].problem}
-          """
+          text: headline
           ),
         ...performanceCardList,
         ],
@@ -46,33 +63,61 @@ class PerformanceGroupHeadline extends StatelessWidget {
 }
 
 
-class SwipeStack extends StatelessWidget {
+class SwipeStack extends StatefulWidget {
   final Performance performance;
-  final bool finals;
-  const SwipeStack({Key key, this.performance, this.finals}) : super(key: key);
+  
+  const SwipeStack({Key key, this.performance}) : super(key: key);
+  @override
+  _SwipeStackState createState() => _SwipeStackState();
+}
 
+class _SwipeStackState extends State<SwipeStack> {
   @override
   Widget build(BuildContext context) {
-    // final SlidableController slidableController = SlidableController();
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
-        Container(
-          height: 48.0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            color: Color(0xFF333333),
-            // boxShadow: z,
-          ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                height: 48.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: widget.performance.faved ? 
+                  Color(0xFFFF951A) : Color(0xFF333333),
+                  // boxShadow: z,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                height: 48.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Color(0xFF333333),
+                ),
+              ),
+            )
+          ],
         ),
         Slidable(
           actionPane: SlidableBehindActionPane(),
           actionExtentRatio: 0.30,
-          child: PerformanceCard(performance: performance,),
+          child: RawMaterialButton(
+            onPressed: () => _showPerformancePopup(context),
+            child: PerformanceCard(performance: widget.performance, favColor: Color(0xFFFF951A))),
           actions: <Widget>[
             RawMaterialButton(
-              child: Icon(OotmIconPack.favs_outline, color: Colors.white),
-              onPressed: null,
+              child: widget.performance.faved ? 
+                Icon(OotmIconPack.favs_full, color: Colors.white) :
+                Icon(OotmIconPack.favs_outline, color: Colors.white),
+              onPressed: () {
+                setState(() =>
+                widget.performance.faved = !widget.performance.faved);
+              },
             )
           ],
           secondaryActions: <Widget>[
@@ -80,7 +125,7 @@ class SwipeStack extends StatelessWidget {
               height: 48.0,
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 14.0),
               child: Text(
-                "SPO ${performance.spontan}",
+                "SPO ${widget.performance.spontan}",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 17.0,
@@ -93,103 +138,139 @@ class SwipeStack extends StatelessWidget {
       ],
     );
   }
+
+
+  _showPerformancePopup(context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            bool _faved = widget.performance.faved;
+            return CupertinoAlertDialog(
+              content: 
+                Text(
+                  """${widget.performance.team}\n
+                  Scena ${widget.performance.stage} - 
+                  Gr. wiekowa ${widget.performance.age} - 
+                  Problem ${widget.performance.problem}\n
+                  ${widget.performance.play} - Występ\n
+                  ${widget.performance.spontan} - Spontan
+                  """,
+                  style: TextStyle(color: _faved ? Colors.white : Colors.black),
+                  ),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: _faved ? 
+                    Icon(OotmIconPack.favs_full) :
+                    Icon(OotmIconPack.favs_outline),
+                  onPressed: () {
+                    setState(() =>
+                      widget.performance.faved = !widget.performance.faved);
+                      super.setState(() {});
+                  }
+                ),
+                CupertinoDialogAction(
+                  child: Icon(OotmIconPack.close),
+                  onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+                ),
+              ],
+            );
+          }
+        );
+      }
+    );
+  }
 }
 
 
-class PerformanceCard extends StatefulWidget {
+class PerformanceCard extends StatelessWidget {
   final Performance performance;
-  final bool finals;
+  final Color favColor;
 
-  PerformanceCard({Key key, this.finals, this.performance}): super(key: key);
+  PerformanceCard({Key key, @required this.performance, @required this.favColor}): super(key: key);
 
-  @override
-  _PerformanceCardState createState() => _PerformanceCardState();
-}
-
-class _PerformanceCardState extends State<PerformanceCard> {
   @override
   Widget build(BuildContext context) {
+    bool finals;
+    String day;
+    if (performance.city == "Gdynia_Sobota") {
+      finals = true;
+      day = "Sobota";
+    } else if (performance.city == "Gdynia_Niedziela"){
+      finals = true;
+      day = "Niedziea";
+    } else {
+      finals = false;
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Container(
         height: 48.0,
-        child: RawMaterialButton(
-          onPressed: () {
-            _showPerformancePopup(context);
-          },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.performance.play,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: finals ?
+              Stack(
+                // overflow: Overflow.visible,
+                alignment: Alignment.bottomCenter,
+                children: <Widget>[
+                  Positioned(
+                    bottom: 24.0,
+                    child: Text(day, style: TextStyle(fontSize: 8.0),)),
+                  Text(
+                    performance.play,
                     style: TextStyle(
+                      height: 1.5,
+                      color: performance.faved ?
+                        this.favColor
+                        :
+                        Colors.black,
                       fontSize: 23.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                ],
+              )
+              : 
+              Text(
+                performance.play,
+                style: TextStyle(
+                  color: performance.faved ?
+                    this.favColor
+                    :
+                    Colors.black,
+                  fontSize: 23.0,
+                  fontWeight: FontWeight.bold,
                 ),
-                Expanded(
-                  child: Text(
-                    widget.performance.team,
-                    softWrap: true,
-                    style: TextStyle(
-                      fontSize: 13.0,
-                    ),
-                    overflow: TextOverflow.fade,
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.keyboard_arrow_right),
-                  onPressed: null,
-                )],
-            )
+              ),
             ),
+            Expanded(
+              child: Text(
+                performance.team,
+                softWrap: true,
+                style: TextStyle(
+                  color: performance.faved ?
+                    this.favColor
+                    :
+                    Colors.black,
+                  fontSize: 13.0,
+                ),
+                overflow: TextOverflow.fade,
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.keyboard_arrow_right),
+              onPressed: null,
+              padding: EdgeInsets.all(0.0),
+            )],
+        ),
             decoration: whiteBoxDecoration(),
         ),
     );
-    }
-
-
-  _showPerformancePopup(BuildContext context) {
-
-    Widget _favButton = CupertinoDialogAction(
-      child: Icon(OotmIconPack.favs_outline),
-      onPressed: null,
-    );
-    Widget _closeButton = CupertinoDialogAction(
-      child: Icon(OotmIconPack.close),
-      onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
-    );
-
-    CupertinoAlertDialog _dialog = CupertinoAlertDialog(
-      content: Text(
-        """${widget.performance.team}\n
-        Scena ${widget.performance.stage} - 
-        Gr. wiekowa ${widget.performance.age} - 
-        Problem ${widget.performance.problem}\n
-        ${widget.performance.play} - Występ\n
-        ${widget.performance.spontan} - Spontan
-        """
-        ),
-      actions: <Widget>[
-        _favButton,
-        _closeButton,
-      ],
-    );
-    
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return _dialog;
-      }
-    );
   }
-// GestureDetector(onPanUpdate: (details) {
-//   if (details.delta.dx > 0) {
-//     // swiping in right direction
-//   }
 }
 
 
@@ -335,43 +416,8 @@ class EndDrawerProvider with ChangeNotifier {
   bool opened = false;
 
   void change() {
-    if (opened == false) {
-      opened = true;
-    } else {
-      opened = false;
-    }
+    opened = !opened;
     // print(opened);
     notifyListeners();
   }
 }
-// class OpenDrawer extends ChangeNotifier {
-
-//   var Scaffold.of(context).OpenDrawer;// set 
-// }
-
-// PreferredSizeWidget ootmAppBar(String title, bool leadingIcon) {
-//   return AppBar(
-//     automaticallyImplyLeading: leadingIcon,
-//     // leading: leadingIcon ? IconButton(
-//     //     icon: Icon(OotmIconPack.favs_outline),
-//     //     onPressed: () => Navigator.of(context).maybePop()) : null,
-//     title: Text(title),
-//     centerTitle: false,
-//     backgroundColor: Colors.transparent,
-//     elevation: 0,
-//     textTheme: TextTheme(
-//       title: TextStyle(
-//         fontWeight: FontWeight.bold,
-//         color: Colors.black,
-//         fontSize: 31,
-//         )
-//       ),
-//     actions: <Widget>[
-//       IconButton(
-//         disabledColor: Colors.black,
-//         icon: Icon(OotmIconPack.sbar_button),
-//         onPressed: null,
-//         )
-//       ],
-//     );
-// }
