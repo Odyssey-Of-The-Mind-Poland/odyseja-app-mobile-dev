@@ -24,82 +24,253 @@ String urlProblems(String _city) {
   return  _address;
 }
 
-// void firstRun() {
-//   // TODO problems
-//   for (String city in cities()) {
-//     CityData(city: city).syncData();
-//   }
-// }
-// List<CityData> cityDataList() {
-  
-  
-//   return null;
-// }
+void firstRun() {
+  // FUTURE: getCities, to get events and dates for the current year.
+  // FUTURE: getProblems, to get problem names for the current year.
+  // CitySet.generate();
+  Box cityAgnostic = Hive.box("cityAgnostic");
+  syncRegio();
+  syncFinals();
+  cityAgnostic.put("firstRun", false);
+}
+
+void defaultRun() {
+  // first city of regional eliminations; the start of the season
+  DateTime regioSeasonS = CitySet.cities.first.eventDate;
+  // last city of regional eliminations; the end of the season
+  DateTime regioSeasonE = CitySet.cities.elementAt(CitySet.cities.length - 2).eventDate;
+  DateTime finalsSeason = CitySet.cities.last.eventDate;
+  DateTime today = DateTime.now();
+  syncRegio(); // DEBUG
+  if (today.isAfter(regioSeasonS.subtract(new Duration(days: 14)))) {
+    if (today.isBefore(regioSeasonS.subtract(new Duration(days: 1)))) {
+      syncRegio();
+    }
+  }
+  else if (today.isAfter(regioSeasonE.add(new Duration(days: 7)))) {
+    if (today.isBefore(finalsSeason.subtract(new Duration(days: 1)))) {
+      syncFinals();
+    }
+  }
+}
+
+void syncRegio() {
+  print("syncRegio");
+  List<City> cities = CitySet.cities;
+  for (City city in cities.sublist(0, cities.length - 1)) {
+    print(city.shortName);
+    CityData(
+      hiveName: city.hiveName,
+      apiName: city.apiName,
+    ).syncData();
+  }
+}
+
+void syncFinals() {
+  print("syncFinals");
+  City finals = CitySet.cities.last;
+  print(finals.shortName);
+  CityData(
+    hiveName: finals.hiveName,
+    apiNameList: finals.apiName,
+  ).syncData();
+}
+
 
 class CityData {
   final String hiveName;
   final String apiName;
-  Box settings;
-  Box box;
+  final List<String> apiNameList;
+  Box cityAgnostic;
+  Box cityBox;
   List<int> favIndices; 
-  CityData({@required this.hiveName, @required this.apiName});
+  CityData({@required this.hiveName, this.apiName, this.apiNameList,});
 
   Future<void> syncData() async {
-    this.box = await Hive.openBox(this.hiveName);
-    settings = Hive.box("settings");
-    syncSchedule();
-    syncInfo();
+    this.cityBox = await Hive.openBox(this.hiveName);
+    cityAgnostic = await Hive.openBox("cityAgnostic");
+
+    bool gotSchedule = await _syncSchedule();
+    bool gotInfo = await _syncInfo();
     // syncStages();
-    // settings.put("${this.city}_syncDate", DateTime.now());
+    if (gotSchedule == true && gotInfo == true) {
+      cityAgnostic.put(this.hiveName, true);
+    } else {
+      cityAgnostic.put(this.hiveName, false);
+    }
+    cityBox.close();
   }
     
-  Future<void> syncSchedule() async {
-    // this.schedule = await Hive.openBox(this.city+"_schedule");
+  Future<bool> _syncSchedule() async {
+
+    List<String> _apiNameList = new List<String>();
+    if (this.apiName != null && this.apiNameList == null) {
+      _apiNameList.add(this.apiName);
+    }
+    else if (this.apiName == null && this.apiNameList != null) {
+      _apiNameList = this.apiNameList;
+    }
+    else {
+      throw Exception("apiName and apiNameList fields cannot be used simultaneously!");
+    }
+
+    List<Performance> pfList = new List<Performance>();
     try {
-      final response = await http.get(urlSchedule(this.apiName));
-      if (response.statusCode == 200) {
-        // salveFavs();
-        List<Performance> pfList = scheduleToList(response.body);
-        List<String> keys = new List<String>.generate(pfList.length, (i) => "p$i");
-        Map map = Map.fromIterables(keys, pfList);
-        this.box.putAll(map);
-        this.box.put("performances", keys);
+      for (String _apiName in _apiNameList) {
+        final response = await http.get(urlSchedule(_apiName));
+        if (response.statusCode == 200) {
+          pfList.addAll(scheduleToList(response.body));
+        }
+        else return false;
       }
     } catch (e) {
       throw Exception("Pobranie harmonogramu nie powiodło się.");
     }
+
+    if (this.cityBox.get("performances") != null) {
+      assert(true, "Loading old favs");
+      List<String> boxKeys = this.cityBox.get("performances");
+      List<Performance> pfListOld = [for(String k in boxKeys) this.cityBox.get(k)];
+      List<Performance> pfListOldFavs = pfListOld.where((p) => p.faved == true).toList();
+      List<int> indexes = pfListOldFavs.map((p) => p.id).toList();
+      
+      if (pfListOldFavs.isNotEmpty) {
+        pfList.forEach((p) {
+          if (indexes.contains(p.id)) {
+            p.faved = true;
+          }
+        });
+      }
+    }
+
+    List<String> keys = new List<String>.generate(pfList.length, (i) => "p$i");
+    Map map = Map.fromIterables(keys, pfList);
+    this.cityBox.putAll(map);
+    this.cityBox.put("performances", keys);
+    return true;
   }
 
-  Future<void> syncInfo() async {
+  Future<bool> _syncInfo() async {
     try {
       final response = await http.get(urlInfo(this.apiName));
       if (response.statusCode == 200) {
-        this.box.put("info", infoToList(response.body));
+        this.cityBox.put("info", infoToList(response.body));
+        return true;
       }
     } catch (e) {
       throw Exception("Pobranie harmonogramu nie powiodło się.");
     }
+    return false;
   }
 
-  Future<void> syncStages() async {
-    try {
-      final response = await http.get(urlStages(this.apiName));
-      if (response.statusCode == 200) {
-        // this.stages.addAll(scheduleToList(response.body));
-      }
-    } catch (e) {
-      throw Exception("Pobranie harmonogramu nie powiodło się.");
-    }
-  }
-  void salveFavs() {
-
-  }
-  void embossFavs() {
-
-  }
+  // Future<void> syncStages() async {
+  //   try {
+  //     final response = await http.get(urlStages(this.apiName));
+  //     if (response.statusCode == 200) {
+  //       // this.stages.addAll(scheduleToList(response.body));
+  //     }
+  //   } catch (e) {
+  //     throw Exception("Pobranie harmonogramu nie powiodło się.");
+  //   }
+  // }
 }
 
 
+class CitySet {
+  static List<City> cities = new List<City>();
+
+  CitySet({cities});
+
+  factory CitySet.generate() {
+    cities.clear();
+      for (int i=0; i<City.hiveNames().length; i++) {
+        cities.add(new City.generate(i));
+      }
+    return CitySet(cities: cities);
+  }
+
+}
+
+
+class City {
+  dynamic apiName;
+  String fullName;
+  String shortName;
+  String hiveName;
+  DateTime eventDate;
+
+  City({this.apiName, this.fullName, this.shortName, this.hiveName, this.eventDate});
+
+  factory City.generate(int idx) { 
+    return City(
+      apiName: apiNames()[idx],
+      fullName: fullNames()[idx],
+      shortName: shortNames()[idx],
+      hiveName: hiveNames()[idx],
+      eventDate: eventDates()[idx],
+    );
+  }
+  static List<dynamic> apiNames() {
+    const List<dynamic> _events = [
+      "Wrocław",
+      "Poznań",
+      "Katowice",
+      "Warszawa",
+      "Łódź",
+      "Gdańsk",
+      ["Gdynia_sobota","Gdynia_niedziela"],
+    ];
+    return _events;
+  }
+  static List<String> fullNames() {
+    const List<String> _events = [
+      "Eliminacje Regionalne - Wrocław",
+      "Eliminacje Regionalne - Poznań",
+      "Eliminacje Regionalne - Katowice",
+      "Eliminacje Regionalne - Warszawa",
+      "Eliminacje Regionalne - Łódź",
+      "Eliminacje Regionalne - Gdańsk",
+      "Finał Ogólnopolski - Gdynia",
+    ];
+    return _events;
+  }
+  static List<String> shortNames() {
+    const List<String> _events = [
+      "WRO",
+      "POZ",
+      "KATO",
+      "WAW",
+      "ŁÓDŹ",
+      "GDA",
+      "GDY",
+      ];
+    return _events;
+  }
+  static List<String> hiveNames() {
+    const List<String> _events = [
+      "Wroclaw",
+      "Poznan",
+      "Katowice",
+      "Warszawa",
+      "Lodz",
+      "Gdansk",
+      "Gdynia",
+      ];
+    return _events;
+  }
+  static List<DateTime> eventDates() {
+    List<DateTime> _dates = [
+      DateTime(2020,02,29),
+      DateTime(2020,03,01),
+      DateTime(2020,03,07),
+      DateTime(2020,03,08),
+      DateTime(2020,03,14),
+      DateTime(2020,03,15),
+      DateTime(2020,04,04),
+      ];
+    return _dates;
+  }
+}
 
 
 List<Performance> scheduleToList(String responseBody) {
@@ -285,7 +456,7 @@ List<String> ageList() {
   return _ages;
 }
 List<String> sceneShorts(){
-  const List<String> _shorts = ['1', '2', '3', '4', '5'];
+  const List<String> _shorts = ['1', '2', '3', '4', '5','6'];
   return _shorts;
 }
 List<String> problemShorts(){
@@ -295,101 +466,4 @@ List<String> problemShorts(){
 List<String> ageShorts(){
   const List<String> _shorts = ['J', 'I', 'II', 'III', 'IV', 'V'];
   return _shorts;
-}
-
-
-class CitySet {
-  static List<City> cities = new List<City>();
-
-  CitySet({cities});
-
-  factory CitySet.generate() {
-    // List<City> cities = new List<City>(); 
-      for (int i=0; i<City.hiveNames().length; i++) {
-        cities.add(new City.generate(i));
-      }
-    return CitySet(cities: cities);
-  }
-
-}
-
-
-class City {
-  dynamic apiName;
-  String fullName;
-  String shortName;
-  String hiveName;
-  DateTime eventDate;
-
-  City({this.apiName, this.fullName, this.shortName, this.hiveName, this.eventDate});
-
-  factory City.generate(int idx) { 
-    return City(
-      apiName: apiNames()[idx],
-      fullName: fullNames()[idx],
-      shortName: shortNames()[idx],
-      hiveName: hiveNames()[idx],
-      eventDate: eventDates()[idx],
-    );
-  }
-  static List<dynamic> apiNames() {
-    const List<dynamic> _events = [
-      "Wrocław",
-      "Poznań",
-      "Katowice",
-      "Warszawa",
-      "Łódź",
-      "Gdańsk",
-      ["Gdynia_sobota","Gdynia_niedziela"],
-    ];
-    return _events;
-  }
-  static List<String> fullNames() {
-    const List<String> _events = [
-      "Eliminacje Regionalne - Wrocław",
-      "Eliminacje Regionalne - Poznań",
-      "Eliminacje Regionalne - Katowice",
-      "Eliminacje Regionalne - Warszawa",
-      "Eliminacje Regionalne - Łódź",
-      "Eliminacje Regionalne - Gdańsk",
-      "Finał Ogólnopolski - Gdynia",
-    ];
-    return _events;
-  }
-  static List<String> shortNames() {
-    const List<String> _events = [
-      "WRO",
-      "POZ",
-      "KATO",
-      "WAW",
-      "ŁÓDŹ",
-      "GDA",
-      "GDY",
-      ];
-    return _events;
-  }
-  static List<String> hiveNames() {
-    const List<String> _events = [
-      "Wroclaw",
-      "Poznan",
-      "Katowice",
-      "Warszawa",
-      "Lodz",
-      "Gdansk",
-      "Gdynia",
-      ];
-    return _events;
-  }
-  static List<DateTime> eventDates() {
-    List<DateTime> _dates = [
-      DateTime(2020,29,02),
-      DateTime(2020,01,03),
-      DateTime(2020,07,03),
-      DateTime(2020,08,03),
-      DateTime(2020,14,03),
-      DateTime(2020,15,03),
-      DateTime(2020,04,04),
-      ];
-    return _dates;
-  }
 }
