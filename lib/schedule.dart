@@ -20,9 +20,11 @@ class ScheduleMenuRoute extends StatelessWidget {
         title: "Harmonogram",
       ),
       body: FutureBuilder(
-        future: Hive.openBox("Warszawa"),
+        future: Hive.openBox('Warszawa'),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
+          Box cityBox = Hive.box('Warszawa');
+          List<String> stages = cityBox.get('stages');
             // final data = snapshot.data.get(0);
             return Column(
           children: <Widget>[
@@ -31,21 +33,30 @@ class ScheduleMenuRoute extends StatelessWidget {
               // padding: EdgeInsets.only(left: 8.0, top: 8.0),
               children: <Widget>[
                 SearchField(),
-                Headline(text: "Scena"),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Headline(text: "Scena"),
+                ),
                 ScheduleTileList(
-                  labels: sceneList("Warszawa"),
+                  labels: stages,
                   superScripts: sceneShorts(),
                   routeTitle: "Scena",
                   filterBy: "stage",
                 ),
-                Headline(text: "Problem Długoterminowy"),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Headline(text: "Problem Długoterminowy"),
+                ),
                 ScheduleTileList(
                   routeTitle: "Problem",
                   labels: problemList(),
                   superScripts:  problemShorts(),
                   filterBy: "problem",
                 ),
-                Headline(text: "Grupa Wiekowa"),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Headline(text: "Grupa Wiekowa"),
+                ),
                 ScheduleTileList(
                   routeTitle: "Gr. Wiekowa",
                   labels: ageList(),
@@ -178,42 +189,30 @@ class ScheduleViewRoute extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: Hive.box("Warszawa").listenable(),
       builder: (context, box, widget) {
-        var agesPresent = ageShorts();
-        var stagesPresent = sceneShorts();
-        var problemsPresent = problemShorts();
+
+        List<Widget> performanceGroupWidgets = new List<Widget>();
+        List<PerformanceGroup> pfGroups = box.get("performanceGroups").cast<PerformanceGroup>();
+
         switch (filterBy) {
           case 'stage':
-            stagesPresent = sceneShorts().where((s) => s == filterValue).toList();
+            pfGroups = pfGroups.where((pg) => pg.stage.toString() == filterValue).toList();
             break;
           case 'problem':
-            problemsPresent = problemShorts().where((s) => s == filterValue).toList();
+            pfGroups = pfGroups.where((pg) => pg.problem == filterValue).toList();
             break;
           case 'age':  
-            agesPresent = ageShorts().where((s) => s == filterValue).toList();
+            pfGroups = pfGroups.where((pg) => pg.age == filterValue).toList();
             break;
         }
-
-        List<Widget> performanceGroups = new List<Widget>();
-        List<String> boxKeys = box.get("performances");
-        List<Performance> pf = [for(String k in boxKeys) box.get(k)];
-        // print(pf);
-        for (var pr in problemsPresent) {
-          for (var ag in agesPresent) {
-            for (var st in stagesPresent) {
-              List<Performance> groupData = pf.where(
-                (p) =>
-                p.problem.startsWith(pr) &&
-                p.age == ag &&
-                p.stage.substring(6,7) == st
-              ).toList();
-              if (groupData.isNotEmpty) {
-                performanceGroups.add(
-                  new PerformanceGroup(data: groupData, problem: pr, age: ag, stage: st, filterBy: filterBy)
-                );
-              }
-            }
-          }
+        for (PerformanceGroup pg in pfGroups) {
+          List<String> groupBoxKeys = pg.performanceKeys;
+          List<Performance> performances = [for(String k in groupBoxKeys) box.get(k)];
+          performanceGroupWidgets.add(
+            new PerformanceGroupWidget(data: performances, problem: pg.problem, age: pg.age, stage: pg.age, filterBy: filterBy)
+          );
         }
+
+
         return Scaffold(
           appBar: AppBarOotm(
             leadingIcon: true,
@@ -221,7 +220,7 @@ class ScheduleViewRoute extends StatelessWidget {
           ),
             body: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Column(children: <Widget>[...performanceGroups],),
+                      child: Column(children: <Widget>[...performanceGroupWidgets],),
             ),
         );
       }

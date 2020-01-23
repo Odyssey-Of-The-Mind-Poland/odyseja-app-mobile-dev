@@ -86,3 +86,36 @@ class InfoAdapter extends TypeAdapter<Info> {
       ..write(obj.infName);
   }
 }
+
+class PerformanceGroupAdapter extends TypeAdapter<PerformanceGroup> {
+  @override
+  final typeId = 2;
+
+  @override
+  PerformanceGroup read(BinaryReader reader) {
+    var numOfFields = reader.readByte();
+    var fields = <int, dynamic>{
+      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return PerformanceGroup(
+      stage: fields[0] as int,
+      problem: fields[1] as String,
+      age: fields[2] as String,
+      performanceKeys: (fields[3] as List)?.cast<String>(),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, PerformanceGroup obj) {
+    writer
+      ..writeByte(4)
+      ..writeByte(0)
+      ..write(obj.stage)
+      ..writeByte(1)
+      ..write(obj.problem)
+      ..writeByte(2)
+      ..write(obj.age)
+      ..writeByte(3)
+      ..write(obj.performanceKeys);
+  }
+}

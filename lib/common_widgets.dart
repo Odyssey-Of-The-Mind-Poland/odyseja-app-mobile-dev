@@ -5,14 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
-class PerformanceGroup extends StatelessWidget {
+class PerformanceGroupWidget extends StatelessWidget {
   final List<Performance> data;
   final String age;
   final String problem;
   final String stage;
   final String filterBy;
 
-  const PerformanceGroup({Key key, this.data, this.age, this.problem, this.stage, this.filterBy}) : super(key: key);
+  const PerformanceGroupWidget({Key key, this.data, this.age, this.problem, this.stage, this.filterBy}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +39,7 @@ class PerformanceGroup extends StatelessWidget {
       default: headline = "$stage - $problem - $age";
     }
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Headline(
           text: headline
@@ -117,6 +118,7 @@ class _SwipeStackState extends State<SwipeStack> {
               onPressed: () {
                 setState(() =>
                 widget.performance.faved = !widget.performance.faved);
+                widget.performance.save();
               },
             )
           ],
@@ -167,6 +169,7 @@ class _SwipeStackState extends State<SwipeStack> {
                   onPressed: () {
                     setState(() =>
                       widget.performance.faved = !widget.performance.faved);
+                      widget.performance.save();
                       super.setState(() {});
                   }
                 ),
@@ -282,7 +285,7 @@ class Headline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
         text,
         style: TextStyle(
@@ -389,6 +392,7 @@ class AppBarOotm extends StatelessWidget implements PreferredSizeWidget {
     title: Text(title),
     centerTitle: false,
     backgroundColor: Colors.transparent,
+    brightness: Brightness.light,
     elevation: 0,
     textTheme: TextTheme(
       title: TextStyle(

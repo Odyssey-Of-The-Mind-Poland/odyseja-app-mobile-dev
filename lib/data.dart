@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async' show Future;
 import 'package:hive/hive.dart';
-
+import 'package:strings/strings.dart';
 part 'data.g.dart';
 
 String urlSchedule(String _city) {
@@ -81,17 +81,16 @@ class CityData {
   final String hiveName;
   final String apiName;
   final List<String> apiNameList;
-  Box cityAgnostic;
   Box cityBox;
   List<int> favIndices; 
   CityData({@required this.hiveName, this.apiName, this.apiNameList,});
 
   Future<void> syncData() async {
     this.cityBox = await Hive.openBox(this.hiveName);
-    cityAgnostic = await Hive.openBox("cityAgnostic");
+    final cityAgnostic = await Hive.openBox("cityAgnostic");
 
-    bool gotSchedule = await _syncSchedule();
-    bool gotInfo = await _syncInfo();
+    final bool gotSchedule = await _syncSchedule();
+    final bool gotInfo = await _syncInfo();
     // syncStages();
     if (gotSchedule == true && gotInfo == true) {
       cityAgnostic.put(this.hiveName, true);
@@ -127,12 +126,13 @@ class CityData {
       throw Exception("Pobranie harmonogramu nie powiodło się.");
     }
 
+
     if (this.cityBox.get("performances") != null) {
       assert(true, "Loading old favs");
-      List<String> boxKeys = this.cityBox.get("performances");
-      List<Performance> pfListOld = [for(String k in boxKeys) this.cityBox.get(k)];
-      List<Performance> pfListOldFavs = pfListOld.where((p) => p.faved == true).toList();
-      List<int> indexes = pfListOldFavs.map((p) => p.id).toList();
+      final List<String> boxKeys = this.cityBox.get("performances");
+      final List<Performance> pfListOld = [for(String k in boxKeys) this.cityBox.get(k)];
+      final List<Performance> pfListOldFavs = pfListOld.where((p) => p.faved == true).toList();
+      final List<int> indexes = pfListOldFavs.map((p) => p.id).toList();
       
       if (pfListOldFavs.isNotEmpty) {
         pfList.forEach((p) {
@@ -143,10 +143,57 @@ class CityData {
       }
     }
 
-    List<String> keys = new List<String>.generate(pfList.length, (i) => "p$i");
-    Map map = Map.fromIterables(keys, pfList);
+
+    // final List<String> keys = new List<String>.generate(pfList.length, (i) => "p$i");
+    final List<String> keys = pfList.map((p) => "p${p.id}").toList();
+    final Map map = Map.fromIterables(keys, pfList);
     this.cityBox.putAll(map);
     this.cityBox.put("performances", keys);
+
+
+    // scrapping stages from the schedule
+    List<String> stages = pfList.map((str) => str.stage.substring(6)).toSet().toList();
+    stages.sort();
+
+    // TODO? Why the commented code below doesn't work as intended? 
+    // stages.forEach((str) => str.substring(4));
+
+    final List<String> formattedStages = stages.map((s) => 
+      capitalize(s.substring(4).toLowerCase())).toList();
+    // print(uniq);
+    this.cityBox.put("stages", formattedStages);
+
+
+    // creating problemGroups for easier access
+    List<PerformanceGroup> pfGroups = new List<PerformanceGroup>();
+    final List<String> problemsPresent = problemShorts();
+    final List<String> agesPresent = ageShorts();
+
+    for (int i=0; i<stages.length; i++){
+      for (String problem in problemsPresent) {
+        for (String age in agesPresent) {
+          List<Performance> groupData = pfList.where(
+            (p) =>
+            p.stage.substring(6,7) == i.toString() &&
+            p.problem ==  problem && 
+            p.age == age
+          ).toList();
+
+          if (groupData.isNotEmpty) {
+            final List<String> pfKeys = groupData.map((p) => "p${p.id}").toList();
+            pfGroups.add(PerformanceGroup(
+              age: age,
+              problem: problem,
+              stage: i,
+              performanceKeys: pfKeys,
+            ));
+          }
+          
+        }
+      }
+    }
+    this.cityBox.put("performanceGroups",pfGroups);
+
     return true;
   }
 
@@ -350,90 +397,24 @@ class Info extends HiveObject {
 }
 
 
+@HiveType(typeId: 2)
+class PerformanceGroup {
+  @HiveField(0)
+  final int stage;
+  @HiveField(1)
+  final String problem;
+  @HiveField(2)
+  final String age;
+  @HiveField(3)
+  final List<String> performanceKeys;
+
+  PerformanceGroup({@required this.stage, @required this.problem, @required this.age, @required this.performanceKeys});
+}
 // http://grzybek.xyz:8081/timeTable/getProblems
 // int id, String problemName, int problemNumber
 
   // temporary solution
 
-List<String> sceneList(String city) {
-  switch (city) {
-    case "Wrocław":
-      const List<String> _scenes = [
-        "Sala 17",
-        "Sala Koralowa",
-        "Sala 430",
-        "Sala 109",
-        "Sala 210",
-        ];
-      return _scenes;
-    case "Poznań" :
-      const List<String> _scenes = [
-        "Sala 17",
-        "Sala Koralowa",
-        "Sala 430",
-        "Sala 109",
-        "Sala 210",
-        ];
-      return _scenes;
-    case "Katowice" :
-      const List<String> _scenes = [
-        "Sala 17",
-        "Sala Koralowa",
-        "Sala 430",
-        "Sala 109",
-        "Sala 210",
-        ];
-      return _scenes;
-    case "Warszawa" :
-      const List<String> _scenes = [
-        "Sala 17",
-        "Sala Koralowa",
-        "Sala 430",
-        "Sala 109",
-        "Sala 210",
-        ];
-      return _scenes;
-    case "Łódź" :
-      const List<String> _scenes = [
-        "Sala 17",
-        "Sala Koralowa",
-        "Sala 430",
-        "Sala 109",
-        "Sala 210",
-        ];
-      return _scenes;
-    case "Gdańsk" :
-      const List<String> _scenes = [
-        "Sala 17",
-        "Sala Koralowa",
-        "Sala 430",
-        "Sala 109",
-        "Sala 210",
-        ];
-      return _scenes;
-    case "Gdynia_sobota" :
-      const List<String> _scenes = [
-        "Sala 17",
-        "Sala Koralowa",
-        "Sala 430",
-        "Sala 109",
-        "Sala 210",
-        ];
-      return _scenes;
-    case "Gdynia_niedziela" :
-      const List<String> _scenes = [
-        "Sala 17",
-        "Sala Koralowa",
-        "Sala 430",
-        "Sala 109",
-        "Sala 210",
-        ];
-      return _scenes;
-    // default:
-  }
-  Exception("No such city");
-  return null;
-}
 List<String> problemList() {
   const List<String> _problems = [
     "Juniorki",
