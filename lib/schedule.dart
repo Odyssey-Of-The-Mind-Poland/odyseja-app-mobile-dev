@@ -190,7 +190,6 @@ class ScheduleViewRoute extends StatelessWidget {
       valueListenable: Hive.box("Warszawa").listenable(),
       builder: (context, box, widget) {
 
-        List<Widget> performanceGroupWidgets = new List<Widget>();
         List<PerformanceGroup> pfGroups = box.get("performanceGroups").cast<PerformanceGroup>();
 
         switch (filterBy) {
@@ -204,13 +203,6 @@ class ScheduleViewRoute extends StatelessWidget {
             pfGroups = pfGroups.where((pg) => pg.age == filterValue).toList();
             break;
         }
-        for (PerformanceGroup pg in pfGroups) {
-          List<String> groupBoxKeys = pg.performanceKeys;
-          List<Performance> performances = [for(String k in groupBoxKeys) box.get(k)];
-          performanceGroupWidgets.add(
-            new PerformanceGroupWidget(data: performances, problem: pg.problem, age: pg.age, stage: pg.age, filterBy: filterBy)
-          );
-        }
 
 
         return Scaffold(
@@ -218,9 +210,27 @@ class ScheduleViewRoute extends StatelessWidget {
             leadingIcon: true,
             title: title,
           ),
-            body: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Column(children: <Widget>[...performanceGroupWidgets],),
+            body: Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView.builder(
+                    
+                    shrinkWrap: true,
+                    itemCount: pfGroups.length,
+                    itemBuilder: (BuildContext context, int i) {
+                      List<String> groupBoxKeys = pfGroups[i].performanceKeys;
+                      List<Performance> performances = [for(String k in groupBoxKeys) box.get(k)];
+                      return new PerformanceGroupWidget(
+                        data: performances,
+                        stage: pfGroups[i].stage.toString(),
+                        problem: pfGroups[i].problem,
+                        age: pfGroups[i].age,
+                        filterBy: filterBy,
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
         );
       }
@@ -257,4 +267,3 @@ class _SearchFieldState extends State<SearchField> {
     );
   }
 }
-// });
