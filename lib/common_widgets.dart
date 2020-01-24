@@ -21,21 +21,18 @@ class PerformanceGroupWidget extends StatefulWidget {
   _PerformanceGroupWidgetState createState() => _PerformanceGroupWidgetState();
 }
 
-class _PerformanceGroupWidgetState extends State<PerformanceGroupWidget> {
+class _PerformanceGroupWidgetState extends State<PerformanceGroupWidget> with AutomaticKeepAliveClientMixin{
   bool folded = true;
-  @override
-  Widget build(BuildContext context) {
-  int count = widget.data.length;
-  // print(count);
-  // print(widget.data);
     int itemCounter(int _count) {
       if (_count < 3)
       return _count;
       else 
       return 3;
     } 
-
-
+  @override
+  Widget build(BuildContext context) {
+  super.build(context);
+  int count = widget.data.length;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -82,6 +79,9 @@ class _PerformanceGroupWidgetState extends State<PerformanceGroupWidget> {
         ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 

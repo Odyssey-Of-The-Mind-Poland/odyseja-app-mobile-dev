@@ -18,13 +18,10 @@ class FavouritesPage extends StatelessWidget {
           builder: (context, box, widget) {
             List<String> stages = box.get("stages");
             List<PerformanceGroup> pfGroups = box.get("performanceGroups").cast<PerformanceGroup>();
-            Map<PerformanceGroup, bool> pfGroupsMask = new Map.fromIterable(
-              pfGroups, key: (pf) => pf, value: (bool) => false);
             return FavouritesView(
               box: box,
               pfGroups: pfGroups,
               stages: stages,
-              mask: pfGroupsMask,
             );
           },
         ),
@@ -36,8 +33,7 @@ class FavouritesView extends StatefulWidget {
   final Box box;
   final List<PerformanceGroup> pfGroups;
   final List<String> stages;
-  final Map<PerformanceGroup, bool> mask;
-  FavouritesView({Key key, this.box, this.pfGroups, this.stages, this.mask}) : super(key: key);
+  FavouritesView({Key key, this.box, this.pfGroups, this.stages}) : super(key: key);
 
   @override
   _FavouritesViewState createState() => _FavouritesViewState();
@@ -62,18 +58,6 @@ class _FavouritesViewState extends State<FavouritesView> {
   Widget build(BuildContext context) {
     
     List<PerformanceGroup> filteredPfGroups = filter();
-    // filteredPfGroups = filteredPfGroups();
-
-    // if (this.widget.mask.containsValue(true)) {
-    //   this.widget.mask.forEach((pf, val) {
-    //     if (val) {
-    //       filteredPfGroups.add(pf);
-    //     }
-    //   });
-
-    // } else {
-    //   filteredPfGroups = this.widget.pfGroups;
-    // }
     return Column(
       children: <Widget>[
         Expanded(
@@ -157,10 +141,11 @@ class FilterSet extends StatefulWidget {
   _FilterSetState createState() => _FilterSetState();
 }
 
-class _FilterSetState extends State<FilterSet> {
+class _FilterSetState extends State<FilterSet> with AutomaticKeepAliveClientMixin{
   List<String> categoryFilter = new List<String>();
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     List<Widget> filterChips = new List<Widget>();
     for (String label in this.widget.labels) {
         filterChips.add(
@@ -182,6 +167,9 @@ class _FilterSetState extends State<FilterSet> {
     return Row(
       children: <Widget>[...filterChips]);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 
