@@ -3,12 +3,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 // import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
 // import 'package:flutter/services.dart' show rootBundle;
 
 
+import 'package:ootm_app/routes/help_feedback.dart';
+import 'package:ootm_app/routes/data_privacy.dart';
 // Import routes
 import 'home.dart';
 import 'info.dart';
@@ -24,37 +27,56 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized(); 
   final documentsDir = await getApplicationDocumentsDirectory();
   Hive.registerAdapter(PerformanceAdapter());
+  Hive.registerAdapter(PerformanceGroupAdapter());
   Hive.registerAdapter(InfoAdapter());
   // Hive.initFlutter(documentsDir.path);
   Hive.init(documentsDir.path);
+  await Hive.openBox("cityAgnostic");
   runApp(MyApp());
 }
 
 // final keyScaffold = new GlobalKey<ScaffoldState>();
-final key = new GlobalKey<_MainFrameState>();
+// final key = new GlobalKey<_MainFrameState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO updating mechanism really need some love.
-    syncSchedule();
-    syncInfo();
-    savePerformances("Poznan");
     print("hello!");
-    return MaterialApp(
-      title: 'OotmApp',
-      theme: ThemeData(
-        primaryColor: Color(0xFFFF951A),
-        fontFamily: 'Raleway', // Odyssey Orange
-        // primaryTextTheme: TextTheme(
-        //   body1: TextStyle(color: Color(0xFF333333)),
-        //   title: TextStyle(color: Colors.white),
-        // )
-        ),
-      home: SafeArea(
-        child: MainFrame(),
+    Box cityAgnostic = Hive.box("cityAgnostic");
+    CitySet.generate();
+    if (cityAgnostic.get("firstRun", defaultValue: true) == true) {
+      print("firstRun");
+      firstRun();
+    } else {
+      print("defaultRun");
+      defaultRun();
+    }
+    Future<void> loadCityBox() async {
+      await Hive.openBox("Warszawa");
+      // await Hive.openBox("Katowice");
+    }
+
+    loadCityBox();
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (context) => ChosenCity()),
+        ChangeNotifierProvider(builder: (context) => EndDrawerProvider()),
+        ],
+        child: MaterialApp(
+          // debugShowMaterialGrid: true,
+          title: 'OotmApp',
+          theme: ThemeData(
+            primaryColor: Color(0xFFFF951A),
+            fontFamily: 'Raleway', // Odyssey Orange
+            // primaryTextTheme: TextTheme(
+            //   body1: TextStyle(color: Color(0xFF333333)),
+            //   title: TextStyle(color: Colors.white),
+            // )
+            ),
+        home: MainFrame(),
       ),
     );
   }
@@ -69,9 +91,9 @@ class MainFrame extends StatefulWidget {
 }
 
 class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixin{
-  final _navigatorKey = GlobalKey<NavigatorState>();
   AnimationController _controller;
   Animation<Offset> _offsetAnimation;
+  static const double endDrawerAnimationOffset = -0.70;
   // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   void initState() {
     super.initState();
@@ -81,7 +103,7 @@ class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMix
     );
     _offsetAnimation = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(-0.64, 0.0)
+      end: const Offset(endDrawerAnimationOffset, 0.0)
     ).animate(CurvedAnimation(
       parent: _controller,
       curve: Curves.linear,
@@ -97,52 +119,74 @@ class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMix
   
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(builder: (context) => ChosenCity()),
-        ChangeNotifierProvider(builder: (context) => EndDrawerProvider()),
-        ],
-      child: Stack(
-        alignment: Alignment.topRight,
-        children: <Widget>[
-          Drawer(child: Container(color: Colors.grey, child: Text("Ustawienia"),)),
-          Consumer<EndDrawerProvider>(
-            builder: (context, endDrawerProvider, child) {
-              if(endDrawerProvider.opened) {
-                _controller.forward();
-              } else {
-                _controller.reverse();
-              }
-              return SlideTransition(
-                position: _offsetAnimation,
-                child: GestureDetector(
-                  onPanUpdate: (details) {
-                    if (details.delta.dx > 0) {
-                      // swiping in right direction
-                      if (endDrawerProvider.opened) {
-                        endDrawerProvider.change();
-                      }
-                    }
-                  },
-                  onTap: endDrawerProvider.opened ? 
-                  () => endDrawerProvider.change() : null,
-                  child: AbsorbPointer(
-                    absorbing: endDrawerProvider.opened,
-                    child: Scaffold(
-                      // key: keyScaffold,
-                      body: navigatorDestinations(_navigatorKey),
-                      bottomNavigationBar: OotmNavBar(
-                        navigatorKey: _navigatorKey,
-                      )
-                    ),
-                  ),
-                ),
-              );
+    return Stack(
+      alignment: Alignment.topRight,
+      children: <Widget>[
+        OotmEndDrawer(
+          endDrawerAnimationOffset: endDrawerAnimationOffset,
+        ),
+        Consumer<EndDrawerProvider>(
+          builder: (context, endDrawerProvider, child) {
+            if(endDrawerProvider.opened) {
+              _controller.forward();
+            } else {
+              _controller.reverse();
             }
-          )
-        ],
-      )
+            return SlideTransition(
+              position: _offsetAnimation,
+              child: GestureDetector(
+                onPanUpdate: (details) {
+                  if (details.delta.dx > 0) {
+                    // swiping in right direction
+                    if (endDrawerProvider.opened) {
+                      endDrawerProvider.change();
+                    }
+                  }
+                },
+                onTap: endDrawerProvider.opened ? 
+                () => endDrawerProvider.change() : null,
+                child: AbsorbPointer(
+                  absorbing: endDrawerProvider.opened,
+                  
+                  child: MainFrameWindow()
+                ),
+              ),
+            );
+          }
+        )
+      ],
     ); 
+  }
+}
+
+
+
+class MainFrameWindow extends StatefulWidget {
+  MainFrameWindow({Key key}) : super(key: key);
+  @override
+  _MainFrameWindowState createState() => _MainFrameWindowState();
+}
+
+class _MainFrameWindowState extends State<MainFrameWindow> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // key: keyScaffold,
+      body: Stack(
+        children: <Widget>[
+          navigatorDestinations(_navigatorKey)
+          // AnimatedOpacity(
+          //   curve: Curves.bounceInOut,
+          //   duration: Duration(milliseconds: 600),
+          //   child: ModalBarrier(color: Colors.black,),
+          // ),
+        ],
+      ),
+      bottomNavigationBar: OotmNavBar(
+        navigatorKey: _navigatorKey,
+      )
+    );
   }
 }
 
@@ -170,6 +214,7 @@ class _OotmNavBarState extends State<OotmNavBar> {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
+        // CitySelectionSheet(),
         navBarBackground(),
         BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -186,21 +231,6 @@ class _OotmNavBarState extends State<OotmNavBar> {
               _selected = index;
             });
             widget.navigatorKey.currentState.pushNamed(OotmNavBar._routeList[index]);
-          } else {
-            void _showBottomSheet(context) {
-                showModalBottomSheet(
-                  // useRootNavigator: true,
-                  // clipBehavior: ,
-                  context: context,
-                  builder: (BuildContext bc) {
-                    return Container(
-                      child: Text("lol"),
-                      height: 400.0,
-                    );
-                  }
-                );
-            }
-          _showBottomSheet(context);
           }
         },
           items: [
@@ -217,7 +247,7 @@ class _OotmNavBarState extends State<OotmNavBar> {
                 offset: Offset(0, -8),
                 child: SizedOverflowBox(
                   size: Size(24.0, 24.0),
-                  child: orangeQuadButton("E.R.", "POZ", false))),
+                  child: CityButton())),
               title: Text('City Selection'),
               ),
             BottomNavigationBarItem(
@@ -232,6 +262,161 @@ class _OotmNavBarState extends State<OotmNavBar> {
     ),
     ]
   );
+  }
+}
+
+
+
+class CityButton extends StatefulWidget {
+  CityButton({Key key}) : super(key: key);
+  final List<City> cities = CitySet.cities;
+  
+  @override
+  _CityButtonState createState() => _CityButtonState();
+}
+
+class _CityButtonState extends State<CityButton> {
+  
+  @override
+  Widget build(BuildContext context) {
+    // final cityProvider = Provider.of<ChosenCity>(context);
+
+    bool _opened = false;
+    return RawMaterialButton(
+      onPressed: () {
+        _opened = !_opened;
+        // showModalBottomSheet(
+        //   useRootNavigator: true,
+        //   // clipBehavior: ,
+        //   backgroundColor: Colors.transparent,
+        //   context: context,
+        //   builder: (BuildContext bc) {
+        //     return CitySelectionSheet();
+        //   }
+        // );
+      },
+      child: Container(
+        width: 56.0,
+        height: 56.0,
+        decoration: orangeBoxDecoration(),
+        child: _opened ?
+            Icon(OotmIconPack.close,size: 24.0,color: Colors.white,): 
+            Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(DateFormat('MM.dd').format(widget.cities[1].eventDate), style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 16.0,
+        ),),
+        Text(widget.cities[1].shortName, style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 16.0,
+        ),
+        ),
+      ],
+            ),
+      ),
+    );
+  }
+}
+
+Widget navBarBackground() {
+    return Container(
+      height: 56.0,
+      decoration: BoxDecoration(
+        color: Color(0xFFFAFAFA),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
+          ),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 6.0,
+            offset: Offset(0.0, -3.0),
+            color: Color(0x3333333D),
+            )
+          ],
+        ),
+      // child: Expansion(),
+      );
+}
+
+class OotmEndDrawer extends StatelessWidget {
+  final double endDrawerAnimationOffset;
+  const OotmEndDrawer({Key key, this.endDrawerAnimationOffset}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final endDrawerProvider = Provider.of<EndDrawerProvider>(context);
+    return Material(
+      child: Container(
+        width: MediaQuery.of(context).size.width * this.endDrawerAnimationOffset.abs(),
+        color: Color(0xFF333333),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24.0),
+              child: ListTile(
+                title: Text(
+                  "Ustawienia",
+                  style: TextStyle(color: Colors.white, fontSize: 23.0, fontWeight: FontWeight.bold),
+                ),
+                trailing: IconButton(
+                  icon: Icon(OotmIconPack.close, color: Colors.white),
+                  onPressed: () => endDrawerProvider.change(),
+                  // ,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                OotmIconPack.sbar_notifications, color: Colors.white,
+              ),
+              title: Text(
+                "Powiadomienia",
+                style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
+              ),
+            ),
+            ListTile(
+              leading: Icon(OotmIconPack.sbar_helper,color: Colors.white,),
+              title: Text(
+                "Samouczek",
+                style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
+              ),
+            ),
+            ListTile(
+              leading: Icon(OotmIconPack.sbar_help, color: Colors.white,),
+              title: Text(
+                "Pomoc i feedback",
+                style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(builder: (BuildContext context) {
+                    return HelpFeedbackRoute();
+                  })
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(OotmIconPack.sbar_privacy, color: Colors.white,),
+              title: Text(
+                "Dane i prywatność",
+                style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(builder: (BuildContext context) {
+                    return DataPrivacyRoute();
+                  })
+                );
+              },
+            ),
+          ],
+        ),),
+    );
   }
 }
 
@@ -269,56 +454,10 @@ Navigator navigatorDestinations(Key _navigatorKey) {
         }
       return MaterialPageRoute(
         maintainState: false,
+        // maintainState: true,
         builder: builder,
         settings: settings,
         );
       }
   );
 }
-
-
-  Widget orangeQuadButton(String _eventClass, String _eventCity, bool _opened) {
-    return Container(
-      width: 56.0,
-      height: 56.0,
-      child: _opened ? Icon(OotmIconPack.close,size: 24.0,color: Colors.white,): Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(_eventClass, style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16.0,
-          ),),
-          Text(_eventCity, style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16.0,
-          ),
-          ),
-        ],
-      ),
-      decoration: orangeBoxDecoration()
-    );
-  }
-
-
-Widget navBarBackground() {
-    return Container(
-      height: 56.0,
-      decoration: BoxDecoration(
-        color: Color(0xFFFAFAFA),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10.0),
-          topRight: Radius.circular(10.0),
-          ),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 6.0,
-            offset: Offset(0.0, -3.0),
-            color: Color(0x3333333D),
-            )
-          ],
-        ),
-      // child: Expansion(),
-      );
-}  
