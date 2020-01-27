@@ -62,6 +62,7 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(builder: (context) => CitySelector()),
         ChangeNotifierProvider(builder: (context) => ChosenCity()),
         ChangeNotifierProvider(builder: (context) => EndDrawerProvider()),
         ],
@@ -167,20 +168,122 @@ class MainFrameWindow extends StatefulWidget {
   _MainFrameWindowState createState() => _MainFrameWindowState();
 }
 
-class _MainFrameWindowState extends State<MainFrameWindow> {
+class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProviderStateMixin{
   final _navigatorKey = GlobalKey<NavigatorState>();
+  Animation<double> _animation;
+  Animation<double> _fadeAnimation;
+  AnimationController _controller;
+  bool _visibility = false;
+
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut,)
+      ..addStatusListener((status) {
+      if (status == AnimationStatus.forward) {
+        _visibility = true;
+      } else if (status == AnimationStatus.dismissed) {
+        setState(() {
+        _visibility = false;
+        });
+      }
+    });
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 0.7).animate(_animation);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  // bool visibility = false;
   @override
   Widget build(BuildContext context) {
+  final cityProvider = Provider.of<ChosenCity>(context);
     return Scaffold(
       // key: keyScaffold,
       body: Stack(
         children: <Widget>[
-          navigatorDestinations(_navigatorKey)
-          // AnimatedOpacity(
-          //   curve: Curves.bounceInOut,
-          //   duration: Duration(milliseconds: 600),
-          //   child: ModalBarrier(color: Colors.black,),
-          // ),
+          navigatorDestinations(_navigatorKey),
+          Consumer<CitySelector>(
+            builder: (context, citySelector, widget) {
+              if (citySelector.opened) {
+                _controller.forward();
+              }
+              else {
+                _controller.reverse();
+              }
+              List<Widget> cityButtons= [];
+              double _offset = -0.25;
+              List<City> cities = CitySet.cities.reversed.toList();
+              for (City city in cities) {
+                cityButtons.add(new SlideTransition(
+                  position: new Tween<Offset>(
+                    begin: Offset(0.0, 1.0),
+                    end: Offset(0.0, _offset), 
+                  ).animate(new CurvedAnimation(
+                    curve: Curves.easeInOut,
+                    parent: _controller,
+                  )),
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      cityProvider.chosenCity = city;
+                      citySelector.change();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 4.0),
+                      child: Flex(
+                        direction: Axis.horizontal,
+                        children: <Widget>[
+                          Expanded(
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 40.0,
+                            decoration: orangeBoxDecoration(),
+                            child: Text(
+                              city.fullName,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                      ),
+                    ),
+                  ),
+                ));
+                _offset-=1;
+              }
+              
+              return  
+              _visibility ? Stack(
+                alignment: Alignment.bottomCenter,
+                children: <Widget>[
+                  FadeTransition(
+                    opacity: _fadeAnimation,
+                    // child: ModalBarrier(color: Colors.red,),
+                    child: IgnorePointer(
+                      ignoring: true,
+                                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black
+                        ),
+                      ),
+                    ),
+                  ),
+                  ...cityButtons,
+                ],
+              ) : SizedBox();
+            },
+          )
         ],
       ),
       bottomNavigationBar: OotmNavBar(
@@ -211,6 +314,7 @@ class _OotmNavBarState extends State<OotmNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final citySelectorProvider = Provider.of<CitySelector>(context);
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -231,6 +335,8 @@ class _OotmNavBarState extends State<OotmNavBar> {
               _selected = index;
             });
             widget.navigatorKey.currentState.pushNamed(OotmNavBar._routeList[index]);
+          } else {
+            citySelectorProvider.change();
           }
         },
           items: [
@@ -269,47 +375,41 @@ class _OotmNavBarState extends State<OotmNavBar> {
 
 class CityButton extends StatefulWidget {
   CityButton({Key key}) : super(key: key);
-  final List<City> cities = CitySet.cities;
+  // final List<City> cities = CitySet.cities;
   
   @override
   _CityButtonState createState() => _CityButtonState();
 }
 
 class _CityButtonState extends State<CityButton> {
-  
+  // bool _opened = false;
   @override
   Widget build(BuildContext context) {
-    // final cityProvider = Provider.of<ChosenCity>(context);
-
-    bool _opened = false;
+  final citySelectorProvider = Provider.of<CitySelector>(context);
+  final cityProvider = Provider.of<ChosenCity>(context);
+  bool _opened = citySelectorProvider.opened;
     return RawMaterialButton(
       onPressed: () {
-        _opened = !_opened;
-        // showModalBottomSheet(
-        //   useRootNavigator: true,
-        //   // clipBehavior: ,
-        //   backgroundColor: Colors.transparent,
-        //   context: context,
-        //   builder: (BuildContext bc) {
-        //     return CitySelectionSheet();
-        //   }
-        // );
+        setState(() {
+          citySelectorProvider.change();
+          print([_opened, citySelectorProvider.opened]);
+        });
       },
       child: Container(
         width: 56.0,
         height: 56.0,
         decoration: orangeBoxDecoration(),
         child: _opened ?
-            Icon(OotmIconPack.close,size: 24.0,color: Colors.white,): 
+            Icon(OotmIconPack.close,size: 24.0,color: Colors.white): 
             Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(DateFormat('MM.dd').format(widget.cities[1].eventDate), style: TextStyle(
+        Text(DateFormat('MM.dd').format(cityProvider.chosenCity.eventDate), style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16.0,
         ),),
-        Text(widget.cities[1].shortName, style: TextStyle(
+        Text(cityProvider.chosenCity.shortName, style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16.0,
@@ -321,6 +421,20 @@ class _CityButtonState extends State<CityButton> {
     );
   }
 }
+
+
+
+class CitySelector with ChangeNotifier {
+  bool opened = false;
+
+  void change() {
+    opened = !opened;
+    // print(opened);
+    notifyListeners();
+  }
+}
+
+
 
 Widget navBarBackground() {
     return Container(

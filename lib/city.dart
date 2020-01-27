@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'data.dart';
 
 class SelectCity extends StatelessWidget {
   @override
@@ -37,21 +38,26 @@ class SelectCity extends StatelessWidget {
         ));
       }
       return Container(
-        padding: EdgeInsets.all(8.0),
+        // padding: EdgeInsets.all(8.0),
         child: Column(
-          children: [..._widgets]
+          children: [
+            // ..._widgets,
+          Expanded(child: ModalBarrier(color: Colors.red.withOpacity(0.5),)),
+            ],
+          
+
         )
       );
     }
 }
 
 class ChosenCity extends ChangeNotifier {
-  String _chosenCity = 'Poznań';
+  City _chosenCity = CitySet.cities[0];
 
-  String get chosenCity => _chosenCity;
-  set chosenCity(String value) {
+  City get chosenCity => _chosenCity;
+  set chosenCity(City value) {
     _chosenCity = value;
     notifyListeners();
-    print(_chosenCity);
+    print(_chosenCity.hiveName);
   }
 }
