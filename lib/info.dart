@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:provider/provider.dart';
-import 'city.dart';
+// import 'city.dart';
 import 'data.dart';
 import 'common_widgets.dart';
-// import 'main.dart';
+import 'package:hive/hive.dart';
+import 'main.dart';
 
 
 class InfoPage extends StatefulWidget {
@@ -17,15 +18,18 @@ class _InfoPageState extends State<InfoPage> {
   Widget build(BuildContext context) {
     final cityProvider = Provider.of<ChosenCity>(context);
     print("info");
-    return FutureBuilder<List<Info>>(
-      future: Storage(fileName: 'infoGetAll.json').readFileInfo(),
+    return FutureBuilder(
+      future: Hive.openBox(cityProvider.chosenCity.hiveName),
       builder: (BuildContext _context, AsyncSnapshot _snapshot) {
         if (_snapshot.hasData) {
-          var _dataSubset = _snapshot.data.where(
-            ((p) => p.city == cityProvider.chosenCity)).toList();
-          _dataSubset = _snapshot.data;
+          // print(_snapshot.data);
+          // print(_snapshot.data.get("info"));
+          List<Info> info = _snapshot.data.get("info").cast<Info>();
+          // List<Info> dataSubset = info.where(
+          //   ((p) => p.city == cityProvider.chosenCity)).toList();
+          // dataSubset = info;
           List<Widget> _infoTiles = new List<Widget>();
-          for (Info _infoItem in _dataSubset) {
+          for (Info _infoItem in info) {
             _infoTiles.add(new InfoTile(
               label: _infoItem.infName,
               data: _infoItem.infoText,
@@ -44,11 +48,11 @@ class _InfoPageState extends State<InfoPage> {
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
               children: <Widget>[
                 ..._infoTiles,
-                InfoTile(label: "Lo\u00adrem ip\u00adsum"), 
+                InfoTile(label: "Lo\u00adrem ip\u00adsum", data: "# headline \n something something"), 
                 InfoTile(label: "dolor sit amet", data: "# headline \n something something"),
-                InfoTile(label: "consectetur adipiscing elit"),
-                InfoTile(label: "sed do eiusmod"),
-                InfoTile(label: "tempor incididunt"),
+                InfoTile(label: "consectetur adipiscing elit", data: "# headline \n something something"),
+                InfoTile(label: "sed do eiusmod", data: "# headline \n something something"),
+                InfoTile(label: "tempor incididunt", data: "# headline \n something something"),
                 ],
               ),
           );

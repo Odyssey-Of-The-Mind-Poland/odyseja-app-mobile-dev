@@ -7,24 +7,26 @@ import 'common_widgets.dart';
 import 'data.dart';
 // import 'ootm_icon_pack.dart';
 import 'package:quiver/iterables.dart';
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
+import 'main.dart';
 
 class ScheduleMenuRoute extends StatelessWidget {
   const ScheduleMenuRoute({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final cityProvider = Provider.of<ChosenCity>(context);
     return Scaffold(
       appBar: AppBarOotm(
         leadingIcon: false,
         title: "Harmonogram",
       ),
       body: FutureBuilder(
-        future: Hive.openBox('Warszawa'),
+        future: Hive.openBox(cityProvider.chosenCity.hiveName),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-          Box cityBox = Hive.box('Warszawa');
-          List<String> stages = cityBox.get('stages');
+          // Box cityBox = Hive.box();
+          List<String> stages = snapshot.data.get('stages');
             // final data = snapshot.data.get(0);
             return Column(
           children: <Widget>[
@@ -186,11 +188,18 @@ class ScheduleViewRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: Hive.box("Warszawa").listenable(),
-      builder: (context, box, widget) {
+    final cityProvider = Provider.of<ChosenCity>(context);
+    return FutureBuilder(
+      future: Hive.openBox(cityProvider.chosenCity.hiveName),
+      // initialData: null,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+    //   },
+    // ),
+    // return ValueListenableBuilder(
+    //   valueListenable: Hive.box(cityProvider.chosenCity.hiveName).listenable(),
+    //   builder: (context, box, widget) {
 
-        List<PerformanceGroup> pfGroups = box.get("performanceGroups").cast<PerformanceGroup>();
+        List<PerformanceGroup> pfGroups = snapshot.data.get("performanceGroups").cast<PerformanceGroup>();
 
         switch (filterBy) {
           case 'stage':
@@ -219,7 +228,7 @@ class ScheduleViewRoute extends StatelessWidget {
                     itemCount: pfGroups.length,
                     itemBuilder: (BuildContext context, int i) {
                       List<String> groupBoxKeys = pfGroups[i].performanceKeys;
-                      List<Performance> performances = [for(String k in groupBoxKeys) box.get(k)];
+                      List<Performance> performances = [for(String k in groupBoxKeys) snapshot.data.get(k)];
                       return new PerformanceGroupWidget(
                         data: performances,
                         stage: pfGroups[i].stage.toString(),

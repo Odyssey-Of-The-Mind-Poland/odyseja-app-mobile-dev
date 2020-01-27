@@ -6,12 +6,12 @@
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="ootm_app"
+        android:label="ootm_app_alpha"
         android:icon="@mipmap/ic_launcher">
-        <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyAP_8yxTecVUovzlpzaASnbqv6SQp_Sv1o"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -3,19 +3,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:intl/intl.dart';
 // import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
-// import 'package:flutter/services.dart' show rootBundle;
-
 
 import 'package:ootm_app/routes/help_feedback.dart';
 import 'package:ootm_app/routes/data_privacy.dart';
 // Import routes
 import 'home.dart';
 import 'info.dart';
-import 'city.dart';
+// import 'city.dart';
 import 'favourites.dart';
 import 'schedule.dart';
 
@@ -29,7 +27,7 @@ void main() async {
   Hive.registerAdapter(PerformanceAdapter());
   Hive.registerAdapter(PerformanceGroupAdapter());
   Hive.registerAdapter(InfoAdapter());
-  // Hive.initFlutter(documentsDir.path);
+  // Hive.initFlutter("Hive");
   Hive.init(documentsDir.path);
   await Hive.openBox("cityAgnostic");
   runApp(MyApp());
@@ -53,12 +51,12 @@ class MyApp extends StatelessWidget {
       print("defaultRun");
       defaultRun();
     }
-    Future<void> loadCityBox() async {
-      await Hive.openBox("Warszawa");
-      // await Hive.openBox("Katowice");
-    }
+    // Future<void> loadCityBox() async {
+    //   await Hive.openBox("Warszawa");
+    //   // await Hive.openBox("Katowice");
+    // }
 
-    loadCityBox();
+    // loadCityBox();
 
     return MultiProvider(
       providers: [
@@ -318,7 +316,6 @@ class _OotmNavBarState extends State<OotmNavBar> {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        // CitySelectionSheet(),
         navBarBackground(),
         BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -431,6 +428,17 @@ class CitySelector with ChangeNotifier {
     opened = !opened;
     // print(opened);
     notifyListeners();
+  }
+}
+
+class ChosenCity extends ChangeNotifier {
+  City _chosenCity = CitySet.cities[0];
+
+  City get chosenCity => _chosenCity;
+  set chosenCity(City value) {
+    _chosenCity = value;
+    notifyListeners();
+    print(_chosenCity.hiveName);
   }
 }
 
@@ -551,11 +559,11 @@ Navigator navigatorDestinations(Key _navigatorKey) {
           builder = (BuildContext context) => InfoPage();
           break;
         }
-      switch (settings.name) {
-        case '/city':
-          builder = (BuildContext context) => SelectCity();
-          break;
-        }
+      // switch (settings.name) {
+      //   case '/city':
+      //     builder = (BuildContext context) => SelectCity();
+      //     break;
+      //   }
       switch (settings.name) {
         case '/schedule':
           builder = (BuildContext context) => ScheduleMenuRoute();

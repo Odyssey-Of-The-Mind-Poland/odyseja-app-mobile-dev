@@ -41,7 +41,7 @@ void defaultRun() {
   DateTime regioSeasonE = CitySet.cities.elementAt(CitySet.cities.length - 2).eventDate;
   DateTime finalsSeason = CitySet.cities.last.eventDate;
   DateTime today = DateTime.now();
-  syncRegio(); // DEBUG
+  // syncRegio(); // DEBUG
   if (today.isAfter(regioSeasonS.subtract(new Duration(days: 14)))) {
     if (today.isBefore(regioSeasonS.subtract(new Duration(days: 1)))) {
       syncRegio();
@@ -445,6 +445,6 @@ List<String> problemShorts(){
   return _shorts;
 }
 List<String> ageShorts(){
-  const List<String> _shorts = ['J', 'I', 'II', 'III', 'IV', 'V'];
+  const List<String> _shorts = ['J', 'I', 'II', 'III', 'IV'];
   return _shorts;
 }
