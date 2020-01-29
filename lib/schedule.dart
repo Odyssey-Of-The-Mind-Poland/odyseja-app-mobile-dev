@@ -1,7 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+// import 'package:hive_flutter/hive_flutter.dart';
 // import 'city.dart';
 import 'common_widgets.dart';
 import 'data.dart';
@@ -193,56 +193,56 @@ class ScheduleViewRoute extends StatelessWidget {
       future: Hive.openBox(cityProvider.chosenCity.hiveName),
       // initialData: null,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //   },
-    // ),
-    // return ValueListenableBuilder(
-    //   valueListenable: Hive.box(cityProvider.chosenCity.hiveName).listenable(),
-    //   builder: (context, box, widget) {
+        if (snapshot.hasData) {
+          List<PerformanceGroup> pfGroups = snapshot.data.get("performanceGroups").cast<PerformanceGroup>();
 
-        List<PerformanceGroup> pfGroups = snapshot.data.get("performanceGroups").cast<PerformanceGroup>();
-
-        switch (filterBy) {
-          case 'stage':
-            pfGroups = pfGroups.where((pg) => pg.stage.toString() == filterValue).toList();
-            break;
-          case 'problem':
-            pfGroups = pfGroups.where((pg) => pg.problem == filterValue).toList();
-            break;
-          case 'age':  
-            pfGroups = pfGroups.where((pg) => pg.age == filterValue).toList();
-            break;
-        }
+          switch (filterBy) {
+            case 'stage':
+              pfGroups = pfGroups.where((pg) => pg.stage.toString() == filterValue).toList();
+              break;
+            case 'problem':
+              pfGroups = pfGroups.where((pg) => pg.problem == filterValue).toList();
+              break;
+            case 'age':  
+              pfGroups = pfGroups.where((pg) => pg.age == filterValue).toList();
+              break;
+          }
 
 
-        return Scaffold(
-          appBar: AppBarOotm(
-            leadingIcon: true,
-            title: title,
-          ),
-            body: Column(
-              children: <Widget>[
-                Expanded(
-                  child: ListView.builder(
-                    
-                    shrinkWrap: true,
-                    itemCount: pfGroups.length,
-                    itemBuilder: (BuildContext context, int i) {
-                      List<String> groupBoxKeys = pfGroups[i].performanceKeys;
-                      List<Performance> performances = [for(String k in groupBoxKeys) snapshot.data.get(k)];
-                      return new PerformanceGroupWidget(
-                        data: performances,
-                        stage: pfGroups[i].stage.toString(),
-                        problem: pfGroups[i].problem,
-                        age: pfGroups[i].age,
-                        filterBy: filterBy,
-                      );
-                    },
-                  ),
-                ),
-              ],
+          return Scaffold(
+            appBar: AppBarOotm(
+              leadingIcon: true,
+              title: title,
             ),
-        );
-      }
+              body: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: ListView.builder(
+                      
+                      shrinkWrap: true,
+                      itemCount: pfGroups.length,
+                      itemBuilder: (BuildContext context, int i) {
+                        List<String> groupBoxKeys = pfGroups[i].performanceKeys;
+                        List<Performance> performances = [for(String k in groupBoxKeys) snapshot.data.get(k)];
+                        return new PerformanceGroupWidget(
+                          data: performances,
+                          stage: pfGroups[i].stage.toString(),
+                          problem: pfGroups[i].problem,
+                          age: pfGroups[i].age,
+                          filterBy: filterBy,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+          );
+          
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        return CircularProgressIndicator();
+        }
     );
   }
 }

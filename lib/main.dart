@@ -27,7 +27,7 @@ void main() async {
   Hive.registerAdapter(PerformanceAdapter());
   Hive.registerAdapter(PerformanceGroupAdapter());
   Hive.registerAdapter(InfoAdapter());
-  // Hive.initFlutter("Hive");
+  // Hive.initFlutter();
   Hive.init(documentsDir.path);
   await Hive.openBox("cityAgnostic");
   runApp(MyApp());
@@ -401,7 +401,7 @@ class _CityButtonState extends State<CityButton> {
             Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(DateFormat('MM.dd').format(cityProvider.chosenCity.eventDate), style: TextStyle(
+        Text(DateFormat('dd.MM').format(cityProvider.chosenCity.eventDate), style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16.0,
