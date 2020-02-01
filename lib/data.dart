@@ -41,7 +41,7 @@ void defaultRun() {
   DateTime regioSeasonE = CitySet.cities.elementAt(CitySet.cities.length - 2).eventDate;
   DateTime finalsSeason = CitySet.cities.last.eventDate;
   DateTime today = DateTime.now();
-  // syncRegio(); // DEBUG
+  syncRegio(); // DEBUG
   if (today.isAfter(regioSeasonS.subtract(new Duration(days: 14)))) {
     if (today.isBefore(regioSeasonS.subtract(new Duration(days: 1)))) {
       syncRegio();
@@ -83,7 +83,7 @@ class CityData {
   final List<String> apiNameList;
   Box cityBox;
   List<int> favIndices; 
-  CityData({@required this.hiveName, this.apiName, this.apiNameList,});
+  CityData({@required this.hiveName, this.apiName, this.apiNameList});
 
   Future<void> syncData() async {
     this.cityBox = await Hive.openBox(this.hiveName);
@@ -92,11 +92,16 @@ class CityData {
     final bool gotSchedule = await _syncSchedule();
     final bool gotInfo = await _syncInfo();
     // syncStages();
-    if (gotSchedule == true && gotInfo == true) {
+
+    // if (gotSchedule == true && gotInfo == true) {
+    if (gotSchedule == true) { // DEBUG
+      print([this.hiveName, "true"]);
       cityAgnostic.put(this.hiveName, true);
     } else {
+      print([this.hiveName, "false"]);
       cityAgnostic.put(this.hiveName, false);
     }
+
     cityBox.close();
   }
     
@@ -121,6 +126,9 @@ class CityData {
           pfList.addAll(scheduleToList(response.body));
         }
         else return false;
+        if (pfList.isEmpty) {
+          return false;
+        }
       }
     } catch (e) {
       throw Exception("Pobranie harmonogramu nie powiodło się.");
@@ -201,8 +209,11 @@ class CityData {
     try {
       final response = await http.get(urlInfo(this.apiName));
       if (response.statusCode == 200) {
-        this.cityBox.put("info", infoToList(response.body));
-        return true;
+        List<Info> infoList = infoToList(response.body);
+        if (infoList.isNotEmpty) {
+          this.cityBox.put("info", infoList);
+          return true;
+        }
       }
     } catch (e) {
       throw Exception("Pobranie harmonogramu nie powiodło się.");

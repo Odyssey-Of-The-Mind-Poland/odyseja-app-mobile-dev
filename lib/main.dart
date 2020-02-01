@@ -172,6 +172,7 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
   Animation<double> _fadeAnimation;
   AnimationController _controller;
   bool _visibility = false;
+  Box box = Hive.box("cityAgnostic");
 
   void initState() {
     super.initState();
@@ -218,7 +219,9 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
               List<Widget> cityButtons= [];
               double _offset = -0.25;
               List<City> cities = CitySet.cities.reversed.toList();
+              bool isData;
               for (City city in cities) {
+                isData = box.get(city.hiveName);
                 cityButtons.add(new SlideTransition(
                   position: new Tween<Offset>(
                     begin: Offset(0.0, 1.0),
@@ -228,10 +231,10 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
                     parent: _controller,
                   )),
                   child: RawMaterialButton(
-                    onPressed: () {
+                    onPressed: isData ? () {
                       cityProvider.chosenCity = city;
                       citySelector.change();
-                    },
+                    } : null,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 4.0),
                       child: Flex(
@@ -241,7 +244,7 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
                           child: Container(
                             alignment: Alignment.center,
                             height: 40.0,
-                            decoration: orangeBoxDecoration(),
+                            decoration: isData ? orangeBoxDecoration() : greyBoxDecoration(),
                             child: Text(
                               city.fullName,
                               textAlign: TextAlign.center,
