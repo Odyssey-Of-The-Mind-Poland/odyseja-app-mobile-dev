@@ -97,12 +97,13 @@ class CityData {
     if (gotSchedule == true) { // DEBUG
       print([this.hiveName, "true"]);
       cityAgnostic.put(this.hiveName, true);
+      cityBox.close();
     } else {
       print([this.hiveName, "false"]);
       cityAgnostic.put(this.hiveName, false);
+      cityBox.close();
     }
 
-    cityBox.close();
   }
     
   Future<bool> _syncSchedule() async {
