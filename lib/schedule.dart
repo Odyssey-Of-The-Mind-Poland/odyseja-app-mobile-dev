@@ -9,6 +9,7 @@ import 'data.dart';
 import 'package:quiver/iterables.dart';
 import 'package:provider/provider.dart';
 import 'main.dart';
+import 'ootm_icon_pack.dart';
 
 class ScheduleMenuRoute extends StatelessWidget {
   const ScheduleMenuRoute({Key key}) : super(key: key);
@@ -34,7 +35,7 @@ class ScheduleMenuRoute extends StatelessWidget {
               child: ListView(
               // padding: EdgeInsets.only(left: 8.0, top: 8.0),
               children: <Widget>[
-                SearchField(),
+                SearchField(box: snapshot.data),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: Headline(text: "Scena"),
@@ -247,31 +248,170 @@ class ScheduleViewRoute extends StatelessWidget {
   }
 }
 
-
+/*
+Search field is kind of a cheat. It requires semi-transparent modal barier
+and list with suggestions and seems to be easier done with fake button launching
+a dialog rather than a sophisticated, proper, stacked widget. 
+*/
 class SearchField extends StatefulWidget {
-  SearchField({Key key}) : super(key: key);
+  final Box box;
+  SearchField({Key key, this.box}) : super(key: key);
 
   @override
   _SearchFieldState createState() => _SearchFieldState();
 }
 
 class _SearchFieldState extends State<SearchField> {
+  GlobalKey keyFakeSearchField = GlobalKey();
+  bool _isVisible = true;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        // padding: EdgeInsets.symmetric(horizontal: 16.0),
-        height: 48.0,
-        child: TextField(
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(left: 8.0),
-            labelText: "Szukaj drużyny...",
-            hasFloatingPlaceholder: false,
-            // icon: Icon(Icon),
+      child: RawMaterialButton(
+        key: keyFakeSearchField,
+        onPressed: () {
+          setState(() {
+            _isVisible = !_isVisible;
+          });
+          return showDialog<void>(
+            /// Barrier is overriden by [Material], thus enforicing [GestureDetectors].
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return SearchDialog(parentKey: keyFakeSearchField);
+            },
+          );
+        },
+        child: Container(
+          height: 40.0,
+          decoration: whiteBoxDecoration(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Text("Szukaj Drużyny..."),
+              ),
+              Container(
+                height: 40.0,
+                width: 40.0,
+                decoration: orangeBoxDecoration(),
+                child: Icon(OotmIconPack.info, color: Colors.white,),
+              ),
+            ],
           ),
         ),
-        decoration: whiteBoxDecoration(),
+      ),
+    );
+  }
+}
+
+class SearchDialog extends StatefulWidget {
+  final GlobalKey parentKey;
+  SearchDialog({Key key, this.parentKey}) : super(key: key);
+
+  @override
+  _SearchDialogState createState() => _SearchDialogState();
+}
+
+class _SearchDialogState extends State<SearchDialog> {
+  TextEditingController controller = new TextEditingController();
+  String searchQuery;
+  
+  
+  @override
+  void initState() {
+    super.initState();
+    // controller.addListener(() {
+    //   setState(() {
+    //     searchQuery = controller.text;
+    //   });
+    // });
+  }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final RenderBox renderBoxRed = this.widget.parentKey.currentContext.findRenderObject();
+    final position = renderBoxRed.localToGlobal(Offset(-16.0, -21.0));
+    return GestureDetector(
+      onTap: () => Navigator.of(context).maybePop(),
+      child: Material(
+        type: MaterialType.button,
+        color: Colors.transparent,
+        child: Transform.translate(
+          offset: position,
+          // offset: Offset(0, 0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Stack(
+                children: <Widget>[
+                  Positioned(
+                    top: 0.0,
+                    bottom: 0.0,
+                    left: 0.0,
+                    right: 0.0,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 60),
+                          decoration: whiteBoxDecoration(),
+                            child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            primary: false,
+                            itemCount: 5,
+                            itemBuilder: (context, idx) {
+                              return Text("tada!");
+                            }
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    decoration: whiteBoxDecoration(),
+                    height: 40.0,
+                    child: TextField(
+                    controller: controller,
+                    textAlign: TextAlign.start,
+                      textAlignVertical: TextAlignVertical.center,
+                    decoration: InputDecoration(
+                      // icon: Icon(OotmIconPack.info),
+                      border: InputBorder.none,
+                      isDense: true,
+                      contentPadding: EdgeInsets.only(left: 16.0),
+                      suffixText: null,
+                      suffixIcon: Transform.translate(
+                        offset: Offset(24.0, 0.0),
+                                              child: RawMaterialButton(
+                          child: Container(
+                            height: 40.0,
+                            width: 40.0,
+                            decoration: orangeBoxDecoration(),
+                            child: Icon(OotmIconPack.info, color: Colors.white, size: 24.0,),
+                          ),
+                          onPressed: null
+                        ),
+                      ),
+                    ),
+                    autofocus: true,
+                    
+                    style: TextStyle(
+                      fontSize: 15.0,
+                    ),
+                    ),
+                  ),
+                ],
+                ),
+          ),
+        ),
       ),
     );
   }
