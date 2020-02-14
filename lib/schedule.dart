@@ -25,9 +25,25 @@ class ScheduleMenuRoute extends StatelessWidget {
         future: Hive.openBox(cityProvider.chosenCity.hiveName),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-          // Box cityBox = Hive.box();
-          List<String> stages = snapshot.data.get('stages');
-            // final data = snapshot.data.get(0);
+            List<String> stages = snapshot.data.get('stages');
+            List<PerformanceGroup> pfGroups = snapshot.data.get("performanceGroups")
+              .cast<PerformanceGroup>();
+            
+            List<String> emptyStages = sceneShorts().where((stage) {
+              return pfGroups.where((pfg) => pfg.stage.toString() == stage).isEmpty;
+            }).toList();
+            print(emptyStages);
+
+            List<String> emptyProblems = problemShorts().where((problem) {
+              return pfGroups.where((pfg) => pfg.problem == problem).isEmpty;
+            }).toList();
+            print(emptyProblems);
+            
+            List<String> emptyAges = ageShorts().where((age) {
+              return pfGroups.where((pfg) => pfg.age == age).isEmpty;
+            }).toList();
+            print(emptyAges);
+
             return Column(
           children: <Widget>[
             Expanded(
@@ -44,6 +60,7 @@ class ScheduleMenuRoute extends StatelessWidget {
                   superScripts: sceneShorts(),
                   routeTitle: "Scena",
                   filterBy: "stage",
+                  emptyCategories: emptyStages,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
@@ -54,6 +71,7 @@ class ScheduleMenuRoute extends StatelessWidget {
                   labels: problemList(),
                   superScripts:  problemShorts(),
                   filterBy: "problem",
+                  emptyCategories: emptyProblems,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
@@ -64,6 +82,7 @@ class ScheduleMenuRoute extends StatelessWidget {
                   labels: ageList(),
                   superScripts: ageShorts(),
                   filterBy: "age",
+                  emptyCategories: emptyAges,
                 ),
                 ],
               ),
@@ -89,7 +108,8 @@ class ScheduleTileList extends StatelessWidget {
   final List<String> superScripts;
   final String routeTitle;
   final String filterBy;
-  ScheduleTileList({this.labels, this.superScripts, this.routeTitle, this.filterBy});
+  final List<String> emptyCategories;
+  ScheduleTileList({this.labels, this.superScripts, this.routeTitle, this.filterBy, this.emptyCategories});
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +120,7 @@ class ScheduleTileList extends StatelessWidget {
         superScript: pair[1],
         routeTitle: routeTitle + " " + pair[1],
         filterBy: this.filterBy,
+        isEmpty: emptyCategories.contains(pair[1]),
       ));
     }
     return SizedBox(
@@ -127,6 +148,7 @@ class ScheduleCategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Align(
@@ -136,8 +158,10 @@ class ScheduleCategoryTile extends StatelessWidget {
           height: 96.0,
           child: Stack(
             alignment: Alignment.topRight,
-              children: [
-                GreyBox(
+            children: [
+              isEmpty
+              ? Container(color: Colors.red) 
+              : GreyBox(
               label: this.label,
               fontSize: 13.0,
               onPressed: () {Navigator.of(context)
@@ -237,7 +261,7 @@ class ScheduleViewRoute extends StatelessWidget {
                 ],
               ),
           );
-          
+
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
