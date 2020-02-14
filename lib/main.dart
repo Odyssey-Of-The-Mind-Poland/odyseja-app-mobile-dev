@@ -87,6 +87,7 @@ class MyApp extends StatelessWidget {
     if (savedHiveName != null) {
       savedCity = cities.firstWhere((city) => city.hiveName == savedHiveName);
     } else {
+      // TODO cities[0] assert that cities[0] has data, which might not be the case. ``
       savedCity = cities[0];
     }
     cityProvider.chosenCity = savedCity;
@@ -279,6 +280,7 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
                     onPressed: isData ? () {
                       cityProvider.chosenCity = city;
                       citySelector.change();
+                    // } : Scaffold.of(context).showSnackBar(SnackBar(content: Text("Prosimy uzbroić się w cierpliwość :)"))),
                     } : null,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 4.0),
@@ -289,15 +291,24 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
                           child: Container(
                             alignment: Alignment.center,
                             height: 40.0,
-                            decoration: isData ? orangeBoxDecoration() : greyBoxDecoration(),
-                            child: Text(
-                              city.fullName,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            decoration: orangeBoxDecoration(),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  city.fullName,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                if (!isData) Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Icon(OotmIconPack.locked, size: 14.0, color: Colors.white,),
+                                ), 
+                              ],
                             ),
                           ),
                         ),
