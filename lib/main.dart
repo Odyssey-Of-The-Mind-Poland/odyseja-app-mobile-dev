@@ -30,33 +30,30 @@ void main() async {
   // Hive.initFlutter();
   Hive.init(documentsDir.path);
   await Hive.openBox("cityAgnostic");
-  runApp(MyApp());
+  runApp(CentralProvider());
 }
 
 // final keyScaffold = new GlobalKey<ScaffoldState>();
 // final key = new GlobalKey<_MainFrameState>();
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+
+
+class CentralProvider extends StatelessWidget {
+  const CentralProvider({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print("hello!");
-    Box cityAgnostic = Hive.box("cityAgnostic");
+    Box box = Hive.box("cityAgnostic");
     CitySet.generate();
-    if (cityAgnostic.get("firstRun", defaultValue: true) == true) {
+
+    if (box.get("firstRun", defaultValue: true) == true) {
       print("firstRun");
       firstRun();
     } else {
       print("defaultRun");
       defaultRun();
     }
-    // Future<void> loadCityBox() async {
-    //   await Hive.openBox("Warszawa");
-    //   // await Hive.openBox("Katowice");
-    // }
 
-    // loadCityBox();
 
     return MultiProvider(
       providers: [
@@ -64,7 +61,57 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(builder: (context) => ChosenCity()),
         ChangeNotifierProvider(builder: (context) => EndDrawerProvider()),
         ],
-        child: MaterialApp(
+      child: MyApp()
+    );
+  }
+}
+
+void showCitySelectionDialog() {
+}
+
+
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final cityProvider = Provider.of<ChosenCity>(context);
+    Box box = Hive.box("cityAgnostic");
+    DateTime time = DateTime.now();
+    DateTime today = DateTime(time.year, time.month, time.day);
+    List<City> cities = CitySet.cities;
+    String savedHiveName = box.get("savedCity");
+    City savedCity;
+
+    if (savedHiveName != null) {
+      savedCity = cities.firstWhere((city) => city.hiveName == savedHiveName);
+    } else {
+      // TODO cities[0] assert that cities[0] has data, which might not be the case. ``
+      savedCity = cities[0];
+    }
+    cityProvider.chosenCity = savedCity;
+    
+    for (City city in cities) {
+      if (today.isAfter(city.eventDate)) {
+        if (today.isAfter(savedCity.eventDate)) {
+          showCitySelectionDialog();
+          print("time for city change!");
+          break;
+        }
+      }
+    }
+
+    
+    // cityProvider.chosenCity = CitySet.cities[5];
+    // Future<void> loadCityBox() async {
+    //   await Hive.openBox("Warszawa");
+    //   // await Hive.openBox("Katowice");
+    // }
+
+    // loadCityBox();
+
+    return MaterialApp(
           // debugShowMaterialGrid: true,
           title: 'OotmApp',
           theme: ThemeData(
@@ -76,8 +123,7 @@ class MyApp extends StatelessWidget {
             // )
             ),
         home: MainFrame(),
-      ),
-    );
+      );
   }
 }
 
@@ -172,6 +218,7 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
   Animation<double> _fadeAnimation;
   AnimationController _controller;
   bool _visibility = false;
+  Box box = Hive.box("cityAgnostic");
 
   void initState() {
     super.initState();
@@ -218,7 +265,9 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
               List<Widget> cityButtons= [];
               double _offset = -0.25;
               List<City> cities = CitySet.cities.reversed.toList();
+              bool isData;
               for (City city in cities) {
+                isData = box.get(city.hiveName);
                 cityButtons.add(new SlideTransition(
                   position: new Tween<Offset>(
                     begin: Offset(0.0, 1.0),
@@ -228,10 +277,11 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
                     parent: _controller,
                   )),
                   child: RawMaterialButton(
-                    onPressed: () {
+                    onPressed: isData ? () {
                       cityProvider.chosenCity = city;
                       citySelector.change();
-                    },
+                    // } : Scaffold.of(context).showSnackBar(SnackBar(content: Text("Prosimy uzbroić się w cierpliwość :)"))),
+                    } : null,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 4.0),
                       child: Flex(
@@ -242,14 +292,23 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
                             alignment: Alignment.center,
                             height: 40.0,
                             decoration: orangeBoxDecoration(),
-                            child: Text(
-                              city.fullName,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  city.fullName,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                if (!isData) Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Icon(OotmIconPack.locked, size: 14.0, color: Colors.white,),
+                                ), 
+                              ],
                             ),
                           ),
                         ),
@@ -338,11 +397,11 @@ class _OotmNavBarState extends State<OotmNavBar> {
         },
           items: [
             BottomNavigationBarItem(
-              icon: Icon(OotmIconPack.home),
+              icon: Icon(OotmIconPack.navbar_home),
               title: Text('Home')
             ),
             BottomNavigationBarItem(
-              icon: Icon(OotmIconPack.info),
+              icon: Icon(OotmIconPack.navbar_info),
               title: Text('Info')
             ),
             BottomNavigationBarItem(
@@ -354,7 +413,7 @@ class _OotmNavBarState extends State<OotmNavBar> {
               title: Text('City Selection'),
               ),
             BottomNavigationBarItem(
-              icon: Icon(OotmIconPack.schedule),
+              icon: Icon(OotmIconPack.navbar_schedule),
               title: Text('Harmonogram')
             ),
             BottomNavigationBarItem(
@@ -426,18 +485,19 @@ class CitySelector with ChangeNotifier {
 
   void change() {
     opened = !opened;
-    // print(opened);
     notifyListeners();
   }
 }
 
 class ChosenCity extends ChangeNotifier {
-  City _chosenCity = CitySet.cities[0];
+  static final Box box = Hive.box("cityAgnostic");
+  City _chosenCity;
 
   City get chosenCity => _chosenCity;
   set chosenCity(City value) {
     _chosenCity = value;
     notifyListeners();
+    box.put("savedCity", _chosenCity.hiveName);
     print(_chosenCity.hiveName);
   }
 }
@@ -492,24 +552,24 @@ class OotmEndDrawer extends StatelessWidget {
                 ),
               ),
             ),
+            // ListTile(
+            //   leading: Icon(
+            //     OotmIconPack.sbar_notifications, color: Colors.white,
+            //   ),
+            //   title: Text(
+            //     "Powiadomienia",
+            //     style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
+            //   ),
+            // ),
             ListTile(
-              leading: Icon(
-                OotmIconPack.sbar_notifications, color: Colors.white,
-              ),
-              title: Text(
-                "Powiadomienia",
-                style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
-              ),
-            ),
-            ListTile(
-              leading: Icon(OotmIconPack.sbar_helper,color: Colors.white,),
+              leading: Icon(OotmIconPack.menu_onboarding,color: Colors.white,),
               title: Text(
                 "Samouczek",
                 style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
               ),
             ),
             ListTile(
-              leading: Icon(OotmIconPack.sbar_help, color: Colors.white,),
+              leading: Icon(OotmIconPack.menu_help_feedback, color: Colors.white,),
               title: Text(
                 "Pomoc i feedback",
                 style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
@@ -523,7 +583,7 @@ class OotmEndDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(OotmIconPack.sbar_privacy, color: Colors.white,),
+              leading: Icon(OotmIconPack.menu_privacy, color: Colors.white,),
               title: Text(
                 "Dane i prywatność",
                 style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
