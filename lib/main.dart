@@ -383,11 +383,11 @@ class _OotmNavBarState extends State<OotmNavBar> {
         },
           items: [
             BottomNavigationBarItem(
-              icon: Icon(OotmIconPack.home),
+              icon: Icon(OotmIconPack.navbar_home),
               title: Text('Home')
             ),
             BottomNavigationBarItem(
-              icon: Icon(OotmIconPack.info),
+              icon: Icon(OotmIconPack.navbar_info),
               title: Text('Info')
             ),
             BottomNavigationBarItem(
@@ -399,7 +399,7 @@ class _OotmNavBarState extends State<OotmNavBar> {
               title: Text('City Selection'),
               ),
             BottomNavigationBarItem(
-              icon: Icon(OotmIconPack.schedule),
+              icon: Icon(OotmIconPack.navbar_schedule),
               title: Text('Harmonogram')
             ),
             BottomNavigationBarItem(
@@ -538,24 +538,24 @@ class OotmEndDrawer extends StatelessWidget {
                 ),
               ),
             ),
+            // ListTile(
+            //   leading: Icon(
+            //     OotmIconPack.sbar_notifications, color: Colors.white,
+            //   ),
+            //   title: Text(
+            //     "Powiadomienia",
+            //     style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
+            //   ),
+            // ),
             ListTile(
-              leading: Icon(
-                OotmIconPack.sbar_notifications, color: Colors.white,
-              ),
-              title: Text(
-                "Powiadomienia",
-                style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
-              ),
-            ),
-            ListTile(
-              leading: Icon(OotmIconPack.sbar_helper,color: Colors.white,),
+              leading: Icon(OotmIconPack.menu_onboarding,color: Colors.white,),
               title: Text(
                 "Samouczek",
                 style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
               ),
             ),
             ListTile(
-              leading: Icon(OotmIconPack.sbar_help, color: Colors.white,),
+              leading: Icon(OotmIconPack.menu_help_feedback, color: Colors.white,),
               title: Text(
                 "Pomoc i feedback",
                 style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
@@ -569,7 +569,7 @@ class OotmEndDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(OotmIconPack.sbar_privacy, color: Colors.white,),
+              leading: Icon(OotmIconPack.menu_privacy, color: Colors.white,),
               title: Text(
                 "Dane i prywatność",
                 style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),

@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
         //   ),
         // )
         body: ListTile(
-          leading: Icon(OotmIconPack.info),
+          leading: Icon(OotmIconPack.navbar_info),
           subtitle: Text("Subtitle"),
           title: Text("Title"),
         ),
