@@ -442,7 +442,7 @@ class AppBarOotm extends StatelessWidget implements PreferredSizeWidget {
     automaticallyImplyLeading: false,
     leading: leadingIcon ?
       IconButton(
-        icon: Icon(OotmIconPack.favs_outline),
+        icon: Icon(OotmIconPack.arrow_back),
         onPressed: () => Navigator.of(context).maybePop())
       : null,
     title: Text(title),
@@ -451,7 +451,7 @@ class AppBarOotm extends StatelessWidget implements PreferredSizeWidget {
     brightness: Brightness.light,
     elevation: 0,
     textTheme: TextTheme(
-      title: TextStyle(
+      headline6: TextStyle(
         fontWeight: FontWeight.bold,
         color: Colors.black,
         fontSize: 31,
@@ -460,7 +460,7 @@ class AppBarOotm extends StatelessWidget implements PreferredSizeWidget {
     actions: <Widget>[
       IconButton(
         disabledColor: Colors.black,
-        icon: Icon(OotmIconPack.sbar_button),
+        icon: Icon(OotmIconPack.menu),
         // onPressed: () => keyScaffold.currentState.openEndDrawer()
         onPressed: () => endDrawerProvider.change()
         )
