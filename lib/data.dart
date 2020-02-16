@@ -367,7 +367,6 @@ class Performance extends HiveObject {
       team: json['team'],
       problem: json['problem'],
       age: json['age'],
-      // TODO TEST processing hours of performances
       play: (json['performance'].length < 5)
       ? "0" + json['performance']
       : json['performance'],
