@@ -63,7 +63,10 @@ class _PerformanceGroupWidgetState extends State<PerformanceGroupWidget> with Au
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "ZOBACZ WSZYSTKO",
+                // TODO Test new folded sign
+                folded 
+                ? "ZOBACZ WSZYSTKO"
+                : "ZWIŃ",
                 style: TextStyle(
                   color: Color(0xFFFF951A)
                 ),
