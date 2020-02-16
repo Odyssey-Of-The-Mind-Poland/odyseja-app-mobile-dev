@@ -72,7 +72,7 @@ void syncFinals() {
   print(finals.shortName);
   CityData(
     hiveName: finals.hiveName,
-    apiNameList: finals.apiName,
+    apiName: finals.apiName,
   ).syncData();
 }
 
@@ -81,10 +81,9 @@ void syncFinals() {
 class CityData {
   final String hiveName;
   final String apiName;
-  final List<String> apiNameList;
   Box cityBox;
   List<int> favIndices; 
-  CityData({@required this.hiveName, this.apiName, this.apiNameList});
+  CityData({@required this.hiveName, @required this.apiName});
 
   Future<void> syncData() async {
     this.cityBox = await Hive.openBox(this.hiveName);
@@ -109,28 +108,15 @@ class CityData {
     
   Future<bool> _syncSchedule() async {
 
-    List<String> _apiNameList = new List<String>();
-    if (this.apiName != null && this.apiNameList == null) {
-      _apiNameList.add(this.apiName);
-    }
-    else if (this.apiName == null && this.apiNameList != null) {
-      _apiNameList = this.apiNameList;
-    }
-    else {
-      throw Exception("apiName and apiNameList fields cannot be used simultaneously!");
-    }
-
     List<Performance> pfList = new List<Performance>();
     try {
-      for (String _apiName in _apiNameList) {
-        final response = await http.get(urlSchedule(_apiName));
-        if (response.statusCode == 200) {
-          pfList.addAll(scheduleToList(response.body));
-        }
-        else return false;
-        if (pfList.isEmpty) {
-          return false;
-        }
+      final response = await http.get(urlSchedule(this.apiName));
+      if (response.statusCode == 200) {
+        pfList.addAll(scheduleToList(response.body));
+      }
+      else return false;
+      if (pfList.isEmpty) {
+        return false;
       }
     } catch (e) {
       throw Exception("Pobranie harmonogramu nie powiodło się.");
@@ -213,12 +199,15 @@ class CityData {
       if (response.statusCode == 200) {
         List<Info> infoList = infoToList(response.body);
         if (infoList.isNotEmpty) {
+          // print(infoList[0].infoText);
           this.cityBox.put("info", infoList);
+          // List<Info> getInfo = this.cityBox.get("info").cast<Info>();
+          // print(getInfo[0].infoText);
           return true;
         }
       }
     } catch (e) {
-      throw Exception("Pobranie harmonogramu nie powiodło się.");
+      throw Exception("Pobranie info nie powiodło się.");
     }
     return false;
   }
@@ -253,7 +242,7 @@ class CitySet {
 
 
 class City {
-  dynamic apiName;
+  String apiName;
   String fullName;
   String shortName;
   String hiveName;
@@ -270,15 +259,15 @@ class City {
       eventDate: eventDates()[idx],
     );
   }
-  static List<dynamic> apiNames() {
-    const List<dynamic> _events = [
+  static List<String> apiNames() {
+    const List<String> _events = [
       "Wrocław",
       "Poznań",
       "Katowice",
       "Warszawa",
       "Łódź",
       "Gdańsk",
-      ["Gdynia_sobota","Gdynia_niedziela"],
+      "Gdynia",
     ];
     return _events;
   }
@@ -378,7 +367,10 @@ class Performance extends HiveObject {
       team: json['team'],
       problem: json['problem'],
       age: json['age'],
-      play: json['performance'],
+      // TODO TEST processing hours of performances
+      play: (json['performance'].length < 5)
+      ? "0" + json['performance']
+      : json['performance'],
       spontan: json['spontan'],
       stage: json['stage'],
       faved: false,
