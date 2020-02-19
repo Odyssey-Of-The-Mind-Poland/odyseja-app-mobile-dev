@@ -1,9 +1,10 @@
 /*Core classes of the OotmApp, responsible for app navigation and navBar.
 */
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-// import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
@@ -22,14 +23,27 @@ import 'data.dart';
 import 'common_widgets.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); 
-  final documentsDir = await getApplicationDocumentsDirectory();
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    Hive.initFlutter();
+  } else {
+    final documentsDir = await getApplicationDocumentsDirectory();
+    Hive.init(documentsDir.path);
+  }
   Hive.registerAdapter(PerformanceAdapter());
   Hive.registerAdapter(PerformanceGroupAdapter());
   Hive.registerAdapter(InfoAdapter());
-  // Hive.initFlutter();
-  Hive.init(documentsDir.path);
   await Hive.openBox("cityAgnostic");
+  Box box = Hive.box("cityAgnostic");
+  CitySet.generate();
+
+  if (box.get("firstRun", defaultValue: true) == true) {
+    print("firstRun");
+    firstRun();
+  } else {
+    print("defaultRun");
+    defaultRun();
+  }
   runApp(CentralProvider());
 }
 
@@ -43,18 +57,6 @@ class CentralProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Box box = Hive.box("cityAgnostic");
-    CitySet.generate();
-
-    if (box.get("firstRun", defaultValue: true) == true) {
-      print("firstRun");
-      firstRun();
-    } else {
-      print("defaultRun");
-      defaultRun();
-    }
-
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(builder: (context) => CitySelector()),
@@ -157,7 +159,7 @@ class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMix
   @override
   void dispose() {
     _controller.dispose();
-    Hive.close();
+    // Hive.close();
     super.dispose();
   }
   
@@ -267,7 +269,7 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
               List<City> cities = CitySet.cities.reversed.toList();
               bool isData;
               for (City city in cities) {
-                isData = box.get(city.hiveName);
+                isData = box.get(city.hiveName, defaultValue: false);
                 cityButtons.add(new SlideTransition(
                   position: new Tween<Offset>(
                     begin: Offset(0.0, 1.0),
