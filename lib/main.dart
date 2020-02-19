@@ -244,8 +244,19 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
     _controller.dispose();
     super.dispose();
   }
-
+  static const _routeList = [
+    '/',
+    '/info',
+    '/schedule',
+    '/favs',
+    ];
   // bool visibility = false;
+  void _selectedTab(int index) {
+    setState(() {
+    });
+    _navigatorKey.currentState.pushNamed(_routeList[index]);
+  }
+  
   @override
   Widget build(BuildContext context) {
   final cityProvider = Provider.of<ChosenCity>(context);
@@ -267,6 +278,7 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
               List<City> cities = CitySet.cities.reversed.toList();
               bool isData;
               for (City city in cities) {
+                // isData = box.get(city.hiveName, defaultValue: false);
                 isData = box.get(city.hiveName);
                 cityButtons.add(new SlideTransition(
                   position: new Tween<Offset>(
@@ -343,10 +355,119 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
           )
         ],
       ),
-      bottomNavigationBar: OotmNavBar(
-        navigatorKey: _navigatorKey,
-      )
+      // body: Container(),
+      // bottomNavigationBar: OotmNavBar(
+      //   navigatorKey: _navigatorKey,
+      // )
+      // appBar: AppBar(title: Text("Hello!"),),
+      bottomNavigationBar: OotmBottomAppBar(
+        onTabSelected: _selectedTab,
+        height: 56.0,
+        iconSize: 24.0,
+        selectedColor: Colors.orange,
+        items: [
+          BottomAppBarItem(iconData: OotmIconPack.navbar_home),
+          BottomAppBarItem(iconData: OotmIconPack.navbar_info),
+          BottomAppBarItem(iconData: OotmIconPack.navbar_schedule),
+          BottomAppBarItem(iconData: OotmIconPack.favs_outline),
+        ],
+      ),
+      // primary: true,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Transform.translate(
+        offset: Offset(0.0, 20.0),
+        child: CityButton()
+        ),
     );
+  }
+}
+
+class BottomAppBarItem {
+  BottomAppBarItem({this.iconData});
+  IconData iconData;
+}
+
+class OotmBottomAppBar extends StatefulWidget {
+  final List<BottomAppBarItem> items;
+  final ValueChanged<int> onTabSelected;
+  final Color selectedColor;
+  final double height;
+  final Color color;
+  final double iconSize;
+  OotmBottomAppBar({
+    Key key,
+    this.items,
+    this.onTabSelected,
+    this.selectedColor,
+    this.height,
+    this.color,
+    this.iconSize
+    }) : super(key: key);
+
+  @override
+  _OotmBottomAppBarState createState() => _OotmBottomAppBarState();
+}
+
+class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
+  int _selectedIndex = 0;
+
+  _updateIndex(int index) {
+    widget.onTabSelected(index);
+    // setState(() {
+      _selectedIndex = index;
+    // });
+  }
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> items = List.generate(widget.items.length, (int index) {
+    return _buildTabItem(
+      item: widget.items[index],
+      index: index,
+      onPressed: _updateIndex,
+    );
+  });
+  items.insert(items.length >> 1, _buildMiddleTabItem());
+
+  return BottomAppBar(
+        child: Stack(
+          // alignment: Alignment.,
+          children: <Widget>[
+            navBarBackground(),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: items,
+            ),
+          ],
+        ),
+        // shape: CircularNotchedRectangle(),
+        // color: Colors.white
+        color: Colors.transparent
+  );
+  }
+
+  Widget _buildTabItem({
+    BottomAppBarItem item,
+    int index,
+    ValueChanged<int> onPressed,
+    }) {
+    Color color = _selectedIndex == index ? widget.selectedColor : widget.color;
+    return Expanded(
+      child: SizedBox(
+        height: widget.height,
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            onTap: () => onPressed(index),
+            child: Icon(item.iconData, color: color, size: widget.iconSize),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMiddleTabItem() {
+    return Expanded(child: SizedBox());
   }
 }
 
