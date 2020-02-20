@@ -150,7 +150,18 @@ class ScheduleCategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    String _imageName;
+    switch (filterBy) {
+      case 'stage':
+        _imageName = "assets/graphics/Harmo 1.png";
+        break;
+      case 'problem':
+        _imageName = "assets/graphics/Harmo 2.png";
+        break;
+      case 'age':  
+        _imageName = "assets/graphics/Harmo 3.png";
+        break;
+    }
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Align(
@@ -164,6 +175,7 @@ class ScheduleCategoryTile extends StatelessWidget {
               isEmpty
               ? Container(color: Colors.red) 
               : GreyBox(
+              decoration: imageBoxDecoration(_imageName),
               label: this.label,
               fontSize: 13.0,
               onPressed: () {Navigator.of(context)

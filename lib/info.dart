@@ -48,11 +48,11 @@ class _InfoPageState extends State<InfoPage> {
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
               children: <Widget>[
                 ..._infoTiles,
-                InfoTile(label: "Lo\u00adrem ip\u00adsum", data: "# headline \n something something"), 
-                InfoTile(label: "dolor sit amet", data: "# headline \n something something"),
-                InfoTile(label: "consectetur adipiscing elit", data: "# headline \n something something"),
-                InfoTile(label: "sed do eiusmod", data: "# headline \n something something"),
-                InfoTile(label: "tempor incididunt", data: "# headline \n something something"),
+                // InfoTile(label: "Lo\u00adrem ip\u00adsum", data: "# headline \n something something"), 
+                // InfoTile(label: "dolor sit amet", data: "# headline \n something something"),
+                // InfoTile(label: "consectetur adipiscing elit", data: "# headline \n something something"),
+                // InfoTile(label: "sed do eiusmod", data: "# headline \n something something"),
+                // InfoTile(label: "tempor incididunt", data: "# headline \n something something"),
                 ],
               ),
           );
@@ -74,6 +74,7 @@ class InfoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GreyBox(
+      decoration: greyBoxDecoration(),
       label: this.label,
       fontSize: 15.0,
       onPressed: () {Navigator.of(context)

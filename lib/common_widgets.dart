@@ -359,35 +359,45 @@ class Headline extends StatelessWidget {
 class GreyBox extends StatelessWidget {
   final String label;
   final double fontSize;
+  final Decoration decoration;
   final GestureTapCallback onPressed;
-  GreyBox({this.onPressed, @required this.label, @required this.fontSize});
+  GreyBox({this.onPressed, @required this.label, @required this.fontSize, @required this.decoration});
 
   @override
   Widget build(BuildContext context) {
-  return Container(
-    child: RawMaterialButton(
-      onPressed: this.onPressed,
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            this.label,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: this.fontSize,
-              fontWeight: FontWeight.w500,
-              ), 
-            softWrap: true,
+    return Container(
+      child: RawMaterialButton(
+        
+        onPressed: this.onPressed,
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              this.label,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: this.fontSize,
+                fontWeight: FontWeight.w500,
+                ), 
+              softWrap: true,
+              ),
             ),
-          ),
+        ),
       ),
-    ),
-    decoration: greyBoxDecoration(),
+      decoration: this.decoration,
     );
   }
 }
 
+Decoration imageBoxDecoration(imageName) {
+  return BoxDecoration(
+    image: DecorationImage(image: AssetImage(imageName)),
+    // borderRadius: BorderRadius.circular(10.0),
+    // color: Color(0xFF333333),
+    boxShadow: [blackShadow()]
+  );
+}
 
 Decoration whiteBoxDecoration() {
   return BoxDecoration(
