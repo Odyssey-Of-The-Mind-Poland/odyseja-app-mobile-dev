@@ -252,8 +252,8 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
     ];
   // bool visibility = false;
   void _selectedTab(int index) {
-    setState(() {
-    });
+    // setState(() {
+    // });
     _navigatorKey.currentState.pushNamed(_routeList[index]);
   }
   
@@ -278,8 +278,8 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
               List<City> cities = CitySet.cities.reversed.toList();
               bool isData;
               for (City city in cities) {
-                // isData = box.get(city.hiveName, defaultValue: false);
-                isData = box.get(city.hiveName);
+                isData = box.get(city.hiveName, defaultValue: false);
+                // isData = box.get(city.hiveName);
                 cityButtons.add(new SlideTransition(
                   position: new Tween<Offset>(
                     begin: Offset(0.0, 1.0),
@@ -355,11 +355,9 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
           )
         ],
       ),
-      // body: Container(),
       // bottomNavigationBar: OotmNavBar(
       //   navigatorKey: _navigatorKey,
-      // )
-      // appBar: AppBar(title: Text("Hello!"),),
+      // ),
       bottomNavigationBar: OotmBottomAppBar(
         onTabSelected: _selectedTab,
         height: 56.0,
@@ -413,9 +411,9 @@ class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
 
   _updateIndex(int index) {
     widget.onTabSelected(index);
-    // setState(() {
+    setState(() {
       _selectedIndex = index;
-    // });
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -457,9 +455,18 @@ class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
         height: widget.height,
         child: Material(
           type: MaterialType.transparency,
-          child: InkWell(
-            onTap: () => onPressed(index),
-            child: Icon(item.iconData, color: color, size: widget.iconSize),
+          // child: InkWell(
+          //   customBorder: new CircleBorder(),
+          //   // borderRadius: BorderRadius.circular(10.0),
+          //   onTap: () => onPressed(index),
+          //   child: Icon(item.iconData, color: color, size: widget.iconSize),
+          // ),
+          child: IconButton(
+            icon: Icon(item.iconData),
+            onPressed: () => onPressed(index),
+            iconSize: widget.iconSize,
+            color: color,
+
           ),
         ),
       ),
@@ -526,13 +533,17 @@ class _OotmNavBarState extends State<OotmNavBar> {
               title: Text('Info')
             ),
             BottomNavigationBarItem(
-              icon: Transform.translate(
-                offset: Offset(0, -8),
-                child: SizedOverflowBox(
-                  size: Size(24.0, 24.0),
-                  child: CityButton())),
-              title: Text('City Selection'),
+              icon: SizedBox(),
+              title: SizedBox(),
               ),
+            // BottomNavigationBarItem(
+            //   icon: Transform.translate(
+            //     offset: Offset(0, -8),
+            //     child: SizedOverflowBox(
+            //       size: Size(24.0, 24.0),
+            //       child: CityButton())),
+            //   title: Text('City Selection'),
+            //   ),
             BottomNavigationBarItem(
               icon: Icon(OotmIconPack.navbar_schedule),
               title: Text('Harmonogram')
