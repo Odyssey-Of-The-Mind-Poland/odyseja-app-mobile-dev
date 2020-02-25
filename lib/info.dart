@@ -29,6 +29,8 @@ class _InfoPageState extends State<InfoPage> {
             _infoTilesAll.add(new InfoTile(
               label: _infoItem.infName,
               data: _infoItem.infoText,
+              imageName: "assets/graphics/Info 1.png",
+
             ));
           }
           List<Widget> _infoTilesTeams = new List<Widget>();
@@ -36,6 +38,7 @@ class _InfoPageState extends State<InfoPage> {
             _infoTilesTeams.add(new InfoTile(
               label: _infoItem.infName,
               data: _infoItem.infoText,
+              imageName: "assets/graphics/Info 3.png",
             ));
           }
           List<Widget> _infoTilesThanks = new List<Widget>();
@@ -43,6 +46,7 @@ class _InfoPageState extends State<InfoPage> {
             _infoTilesThanks.add(new InfoTile(
               label: _infoItem.infName,
               data: _infoItem.infoText,
+              imageName: "assets/graphics/Info 2.png",
             ));
           }
           
@@ -102,12 +106,13 @@ class InfoGridView extends StatelessWidget {
 class InfoTile extends StatelessWidget {
   final String label;
   final String data;
-  const InfoTile({Key key, @required this.label, this.data}) : super(key: key);
+  final String imageName;
+  const InfoTile({Key key, @required this.label, this.data, this.imageName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GreyBox(
-      decoration: greyBoxDecoration(),
+      decoration: imageBoxDecoration(this.imageName),
       label: this.label,
       fontSize: 15.0,
       onPressed: () {Navigator.of(context)
