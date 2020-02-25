@@ -444,13 +444,16 @@ BoxShadow orangeShadow() {
 
 class AppBarOotm extends StatelessWidget implements PreferredSizeWidget {
   final bool leadingIcon;
+  final List<Widget> actions;
   final String title;
-  const AppBarOotm({Key key, this.leadingIcon, this.title}) : super(key: key);
+  final Widget bottom;
+  const AppBarOotm({Key key, this.leadingIcon, this.title, this.bottom, this.actions}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final endDrawerProvider = Provider.of<EndDrawerProvider>(context);
     return AppBar(
+      bottom: this.bottom,
     automaticallyImplyLeading: false,
     leading: leadingIcon ?
       IconButton(
@@ -469,14 +472,7 @@ class AppBarOotm extends StatelessWidget implements PreferredSizeWidget {
         fontSize: 31,
         )
       ),
-    actions: <Widget>[
-      IconButton(
-        disabledColor: Colors.black,
-        icon: Icon(OotmIconPack.menu),
-        // onPressed: () => keyScaffold.currentState.openEndDrawer()
-        onPressed: () => endDrawerProvider.change()
-        )
-      ],
+    actions: this.actions,
     );
   }
 
