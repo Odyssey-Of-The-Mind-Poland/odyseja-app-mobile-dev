@@ -350,7 +350,8 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
                 _controller.reverse();
               }
               List<Widget> cityButtons= [];
-              double _offset = -0.25;
+              // double _offset = -0.25;
+              double _offset = -1.4166;
               List<City> cities = CitySet.cities.reversed.toList();
               bool isData;
               for (City city in cities) {
@@ -529,11 +530,14 @@ class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
     return Expanded(
       child: SizedBox(
         height: widget.height,
-        child: IconButton(
-          icon: Icon(item.iconData),
-          onPressed: () => onPressed(index),
-          iconSize: widget.iconSize,
-          color: color,
+        child: Material(
+          type: MaterialType.transparency,
+                  child: IconButton(
+            icon: Icon(item.iconData),
+            onPressed: () => onPressed(index),
+            iconSize: widget.iconSize,
+            color: color,
+          ),
         ),
       ),
     );
