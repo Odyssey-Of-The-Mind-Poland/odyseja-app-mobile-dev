@@ -27,7 +27,6 @@ String urlProblems(String _city) {
 void firstRunSync() {
   // FUTURE: getCities, to get events and dates for the current year.
   // FUTURE: getProblems, to get problem names for the current year.
-  // CitySet.generate();
   syncRegio();
   syncFinals();
 }
@@ -56,7 +55,7 @@ void syncRegio() {
   print("syncRegio");
   List<City> cities = CitySet.cities;
   for (City city in cities.sublist(0, cities.length - 1)) {
-    print(city.shortName);
+    print(city.shortName[0]);
     CityData(
       hiveName: city.hiveName,
       apiName: city.apiName,
@@ -67,7 +66,7 @@ void syncRegio() {
 void syncFinals() {
   print("syncFinals");
   City finals = CitySet.cities.last;
-  print(finals.shortName);
+  print(finals.shortName[0]);
   CityData(
     hiveName: finals.hiveName,
     apiName: finals.apiName,
@@ -147,7 +146,7 @@ class CityData {
     List<String> stages = pfList.map((str) => str.stage.substring(6)).toSet().toList();
     stages.sort();
 
-    // TODO? Why the commented code below doesn't work as intended? 
+    // Why the commented code below doesn't work as intended? 
     // stages.forEach((str) => str.substring(4));
 
     final List<String> formattedStages = stages.map((s) => 
@@ -195,10 +194,7 @@ class CityData {
       if (response.statusCode == 200) {
         List<Info> infoList = infoToList(response.body);
         if (infoList.isNotEmpty) {
-          // print(infoList[0].infoText);
           await this.cityBox.put("info", infoList);
-          // List<Info> getInfo = this.cityBox.get("info").cast<Info>();
-          // print(getInfo[0].infoText);
           return true;
         }
       }
@@ -240,7 +236,7 @@ class CitySet {
 class City {
   String apiName;
   String fullName;
-  String shortName;
+  List<String> shortName;
   String hiveName;
   DateTime eventDate;
 
@@ -279,15 +275,15 @@ class City {
     ];
     return _events;
   }
-  static List<String> shortNames() {
-    const List<String> _events = [
-      "WRO",
-      "POZ",
-      "KATO",
-      "WAW",
-      "ŁÓDŹ",
-      "GDA",
-      "GDY",
+  static List<List<String>> shortNames() {
+    const List<List<String>> _events = [
+      ["WRO", "CŁAW"],
+      ["POZ", "NAŃ"],
+      ["KATO", "WICE"],
+      ["WA", "WA"],
+      ["ŁÓ", "DŹ"],
+      ["GDA", "ŃSK"],
+      ["GDY", "NIA"],
       ];
     return _events;
   }
@@ -436,10 +432,7 @@ List<String> ageList() {
     ];
   return _ages;
 }
-List<String> sceneShorts(){
-  const List<String> _shorts = ['1', '2', '3', '4', '5','6'];
-  return _shorts;
-}
+
 List<String> problemShorts(){
   const List<String> _shorts = ['J', '1', '2', '3', '4', '5'];
   return _shorts;

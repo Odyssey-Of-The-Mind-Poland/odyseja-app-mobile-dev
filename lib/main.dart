@@ -6,7 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -145,12 +145,12 @@ class DataManager extends StatelessWidget {
       box.put("firstRun", false);
     } else {
       print("defaultRun");
-      // defaultRunSync();
+      defaultRunSync();
     }
     List<City> cities = CitySet.cities;
-    // DateTime time = DateTime.now();
+    DateTime time = DateTime.now();
     // DateTime time = cities.last.eventDate;
-    DateTime time = cities[1].eventDate;
+    // DateTime time = cities[1].eventDate;
     DateTime today = DateTime(time.year, time.month, time.day);
     City savedCity;
     String savedCityName = box.get("savedCity");
@@ -265,8 +265,8 @@ class _MainFrameWindowState extends State<MainFrameWindow> {
 
     final cityProvider = Provider.of<ChosenCity>(context);
     return FutureBuilder(
-      future: Hive.openBox("warszawa"),
-      // future: Hive.openBox(cityProvider.chosenCity.hiveName),
+      // future: Hive.openBox("warszawa"),
+      future: Hive.openBox(cityProvider.chosenCity.hiveName),
       initialData: Text("Lol, brak danych"),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -505,7 +505,6 @@ class _OotmNavBarState extends State<OotmNavBar> {
 
 class CityButton extends StatefulWidget {
   CityButton({Key key}) : super(key: key);
-  // final List<City> cities = CitySet.cities;
   
   @override
   _CityButtonState createState() => _CityButtonState();
@@ -522,7 +521,7 @@ class _CityButtonState extends State<CityButton> {
       onPressed: () {
         setState(() {
           citySelectorProvider.change();
-          print([_opened, citySelectorProvider.opened]);
+          // print([_opened, citySelectorProvider.opened]);
         });
       },
       child: Container(
@@ -534,12 +533,13 @@ class _CityButtonState extends State<CityButton> {
             Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(DateFormat('dd.MM').format(cityProvider.chosenCity.eventDate), style: TextStyle(
+        // Text(DateFormat('dd.MM').format(cityProvider.chosenCity.eventDate), style: TextStyle(
+        Text(cityProvider.chosenCity.shortName[0], style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16.0,
         ),),
-        Text(cityProvider.chosenCity.shortName, style: TextStyle(
+        Text(cityProvider.chosenCity.shortName[1], style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16.0,
@@ -565,9 +565,6 @@ class CitySelector with ChangeNotifier {
 
 class ChosenCity extends ChangeNotifier {
   static final Box box = Hive.box("cityAgnostic");
-  // static final List<City> cities = CitySet.cities;
-  // static final String savedCity = box.get("savedCity");
-  // static City _chosenCity = cities.firstWhere((city) => city.hiveName == savedCity);
   City _chosenCity;
   City get chosenCity => _chosenCity;
   set chosenCity(City value) {

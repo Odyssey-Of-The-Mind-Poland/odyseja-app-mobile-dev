@@ -27,14 +27,9 @@ class ScheduleMenuRoute extends StatelessWidget {
           if (snapshot.hasData) {
           // TODO ticket on why it works on mobile, but not on web 
           // List<String> stages = snapshot.data.get("stages");
-          List<String> stages = snapshot.data.get("stages").cast<String>();
+            List<String> stages = snapshot.data.get("stages").cast<String>();
             List<PerformanceGroup> pfGroups = snapshot.data.get("performanceGroups")
               .cast<PerformanceGroup>();
-            
-            List<String> emptyStages = sceneShorts().where((stage) {
-              return pfGroups.where((pfg) => pfg.stage.toString() == stage).isEmpty;
-            }).toList();
-            print(emptyStages);
 
             List<String> emptyProblems = problemShorts().where((problem) {
               return pfGroups.where((pfg) => pfg.problem == problem).isEmpty;
@@ -52,17 +47,17 @@ class ScheduleMenuRoute extends StatelessWidget {
               child: ListView(
               // padding: EdgeInsets.only(left: 8.0, top: 8.0),
               children: <Widget>[
-                SearchField(),
+                // SearchField(),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: Headline(text: "Scena"),
                 ),
                 ScheduleTileList(
                   labels: stages,
-                  superScripts: sceneShorts(),
+                  superScripts: new List<String>.generate(stages.length, (i) => "${i + 1}"),
                   routeTitle: "Scena",
                   filterBy: "stage",
-                  emptyCategories: emptyStages,
+                  emptyCategories: [],
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
