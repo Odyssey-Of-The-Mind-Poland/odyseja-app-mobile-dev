@@ -22,39 +22,59 @@ class _InfoPageState extends State<InfoPage> {
       future: Hive.openBox(cityProvider.chosenCity.hiveName),
       builder: (BuildContext _context, AsyncSnapshot _snapshot) {
         if (_snapshot.hasData) {
-          // print(_snapshot.data);
-          // print(_snapshot.data.get("info"));
           List<Info> info = _snapshot.data.get("info").cast<Info>();
-          // List<Info> dataSubset = info.where(
-          //   ((p) => p.city == cityProvider.chosenCity)).toList();
-          // dataSubset = info;
-          List<Widget> _infoTiles = new List<Widget>();
-          for (Info _infoItem in info) {
-            _infoTiles.add(new InfoTile(
+          
+          List<Widget> _infoTilesAll = new List<Widget>();
+          for (Info _infoItem in info.sublist(0,9)) {
+            _infoTilesAll.add(new InfoTile(
               label: _infoItem.infName,
               data: _infoItem.infoText,
+              imageName: "assets/graphics/Info 1.png",
+
+            ));
+          }
+          List<Widget> _infoTilesTeams = new List<Widget>();
+          for (Info _infoItem in info.sublist(9,18)) {
+            _infoTilesTeams.add(new InfoTile(
+              label: _infoItem.infName,
+              data: _infoItem.infoText,
+              imageName: "assets/graphics/Info 3.png",
+            ));
+          }
+          List<Widget> _infoTilesThanks = new List<Widget>();
+          for (Info _infoItem in info.sublist(18,21)) {
+            _infoTilesThanks.add(new InfoTile(
+              label: _infoItem.infName,
+              data: _infoItem.infoText,
+              imageName: "assets/graphics/Info 2.png",
             ));
           }
           
-          return Scaffold(
-            appBar: AppBarOotm(
-              leadingIcon: false,
-              title: "Info",
-            ),
-            body: GridView.count(
-              crossAxisCount: 3,
-              crossAxisSpacing: 16.0,
-              mainAxisSpacing: 16.0,
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-              children: <Widget>[
-                ..._infoTiles,
-                InfoTile(label: "Lo\u00adrem ip\u00adsum", data: "# headline \n something something"), 
-                InfoTile(label: "dolor sit amet", data: "# headline \n something something"),
-                InfoTile(label: "consectetur adipiscing elit", data: "# headline \n something something"),
-                InfoTile(label: "sed do eiusmod", data: "# headline \n something something"),
-                InfoTile(label: "tempor incididunt", data: "# headline \n something something"),
-                ],
+          return DefaultTabController(
+            length: 3,
+            initialIndex: 0,
+            child: Scaffold(
+              appBar: AppBarOotm(
+                leadingIcon: false,
+                title: "Info",
+                bottom: TabBar(
+                  indicatorColor: Color(0xFFFF951A),
+                  labelPadding: EdgeInsets.only(bottom: 4.0),
+                  tabs: [
+                    Text("Dla wszystkich"),
+                    Text("Dla drużyn"),
+                    Text("Podziękowania"),
+                    ]
+                  ),
               ),
+              body: TabBarView(
+                children: <Widget>[
+                  InfoGridView(children: <Widget>[..._infoTilesAll]),
+                  InfoGridView(children: <Widget>[..._infoTilesTeams]),
+                  InfoGridView(children: <Widget>[..._infoTilesThanks]),
+                  ],
+              ),
+            ),
           );
         }
         else if (_snapshot.hasError) {
@@ -66,14 +86,33 @@ class _InfoPageState extends State<InfoPage> {
   }
 
 }
+
+class InfoGridView extends StatelessWidget {
+  final List<Widget> children;
+  const InfoGridView({Key key, this.children}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 3,
+      crossAxisSpacing: 16.0,
+      mainAxisSpacing: 16.0,
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+      children: this.children,
+    );
+  }
+}
+
 class InfoTile extends StatelessWidget {
   final String label;
   final String data;
-  const InfoTile({Key key, @required this.label, this.data}) : super(key: key);
+  final String imageName;
+  const InfoTile({Key key, @required this.label, this.data, this.imageName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GreyBox(
+      decoration: imageBoxDecoration(this.imageName),
       label: this.label,
       fontSize: 15.0,
       onPressed: () {Navigator.of(context)

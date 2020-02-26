@@ -25,14 +25,11 @@ class ScheduleMenuRoute extends StatelessWidget {
         future: Hive.openBox(cityProvider.chosenCity.hiveName),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            List<String> stages = snapshot.data.get('stages');
+          // TODO ticket on why it works on mobile, but not on web 
+          // List<String> stages = snapshot.data.get("stages");
+            List<String> stages = snapshot.data.get("stages").cast<String>();
             List<PerformanceGroup> pfGroups = snapshot.data.get("performanceGroups")
               .cast<PerformanceGroup>();
-            
-            List<String> emptyStages = sceneShorts().where((stage) {
-              return pfGroups.where((pfg) => pfg.stage.toString() == stage).isEmpty;
-            }).toList();
-            print(emptyStages);
 
             List<String> emptyProblems = problemShorts().where((problem) {
               return pfGroups.where((pfg) => pfg.problem == problem).isEmpty;
@@ -50,17 +47,17 @@ class ScheduleMenuRoute extends StatelessWidget {
               child: ListView(
               // padding: EdgeInsets.only(left: 8.0, top: 8.0),
               children: <Widget>[
-                SearchField(),
+                // SearchField(),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: Headline(text: "Scena"),
                 ),
                 ScheduleTileList(
                   labels: stages,
-                  superScripts: sceneShorts(),
+                  superScripts: new List<String>.generate(stages.length, (i) => "${i + 1}"),
                   routeTitle: "Scena",
                   filterBy: "stage",
-                  emptyCategories: emptyStages,
+                  emptyCategories: [],
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
@@ -148,7 +145,18 @@ class ScheduleCategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    String _imageName;
+    switch (filterBy) {
+      case 'stage':
+        _imageName = "assets/graphics/Harmo 1.png";
+        break;
+      case 'problem':
+        _imageName = "assets/graphics/Harmo 2.png";
+        break;
+      case 'age':  
+        _imageName = "assets/graphics/Harmo 3.png";
+        break;
+    }
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Align(
@@ -162,6 +170,7 @@ class ScheduleCategoryTile extends StatelessWidget {
               isEmpty
               ? Container(color: Colors.red) 
               : GreyBox(
+              decoration: imageBoxDecoration(_imageName),
               label: this.label,
               fontSize: 13.0,
               onPressed: () {Navigator.of(context)

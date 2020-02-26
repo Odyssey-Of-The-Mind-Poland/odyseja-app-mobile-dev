@@ -3,8 +3,6 @@ import 'ootm_icon_pack.dart';
 import 'data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
-
 
 
 class PerformanceGroupWidget extends StatefulWidget {
@@ -359,35 +357,45 @@ class Headline extends StatelessWidget {
 class GreyBox extends StatelessWidget {
   final String label;
   final double fontSize;
+  final Decoration decoration;
   final GestureTapCallback onPressed;
-  GreyBox({this.onPressed, @required this.label, @required this.fontSize});
+  GreyBox({this.onPressed, @required this.label, @required this.fontSize, @required this.decoration});
 
   @override
   Widget build(BuildContext context) {
-  return Container(
-    child: RawMaterialButton(
-      onPressed: this.onPressed,
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            this.label,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: this.fontSize,
-              fontWeight: FontWeight.w500,
-              ), 
-            softWrap: true,
+    return Container(
+      child: RawMaterialButton(
+        
+        onPressed: this.onPressed,
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              this.label,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: this.fontSize,
+                fontWeight: FontWeight.w500,
+                ), 
+              softWrap: true,
+              ),
             ),
-          ),
+        ),
       ),
-    ),
-    decoration: greyBoxDecoration(),
+      decoration: this.decoration,
     );
   }
 }
 
+Decoration imageBoxDecoration(imageName) {
+  return BoxDecoration(
+    image: DecorationImage(image: AssetImage(imageName)),
+    // borderRadius: BorderRadius.circular(10.0),
+    // color: Color(0xFF333333),
+    boxShadow: [blackShadow()]
+  );
+}
 
 Decoration whiteBoxDecoration() {
   return BoxDecoration(
@@ -434,39 +442,34 @@ BoxShadow orangeShadow() {
 
 class AppBarOotm extends StatelessWidget implements PreferredSizeWidget {
   final bool leadingIcon;
+  final List<Widget> actions;
   final String title;
-  const AppBarOotm({Key key, this.leadingIcon, this.title}) : super(key: key);
+  final Widget bottom;
+  const AppBarOotm({Key key, this.leadingIcon, this.title, this.bottom, this.actions}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final endDrawerProvider = Provider.of<EndDrawerProvider>(context);
     return AppBar(
-    automaticallyImplyLeading: false,
-    leading: leadingIcon ?
-      IconButton(
-        icon: Icon(OotmIconPack.arrow_back),
-        onPressed: () => Navigator.of(context).maybePop())
-      : null,
-    title: Text(title),
-    centerTitle: false,
-    backgroundColor: Colors.transparent,
-    brightness: Brightness.light,
-    elevation: 0,
-    textTheme: TextTheme(
-      headline6: TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-        fontSize: 31,
-        )
-      ),
-    actions: <Widget>[
-      IconButton(
-        disabledColor: Colors.black,
-        icon: Icon(OotmIconPack.menu),
-        // onPressed: () => keyScaffold.currentState.openEndDrawer()
-        onPressed: () => endDrawerProvider.change()
-        )
-      ],
+      bottom: this.bottom,
+      automaticallyImplyLeading: false,
+      leading: leadingIcon ?
+        IconButton(
+          icon: Icon(OotmIconPack.arrow_back),
+          onPressed: () => Navigator.of(context).maybePop())
+        : null,
+      title: Text(title),
+      centerTitle: false,
+      backgroundColor: Colors.transparent,
+      brightness: Brightness.light,
+      elevation: 0,
+      textTheme: TextTheme(
+        headline6: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+          fontSize: 31,
+          )
+        ),
+      actions: this.actions,
     );
   }
 
