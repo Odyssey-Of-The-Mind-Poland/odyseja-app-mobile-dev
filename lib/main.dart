@@ -319,11 +319,24 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
     _controller.dispose();
     super.dispose();
   }
-
+  static const _routeList = [
+    '/',
+    '/info',
+    '/schedule',
+    '/favs',
+    ];
+  // bool visibility = false;
+  void _selectedTab(int index) {
+    // setState(() {
+    // });
+    _navigatorKey.currentState.pushNamed(_routeList[index]);
+  }
+  
   @override
   Widget build(BuildContext context) {
   final cityProvider = Provider.of<ChosenCity>(context);
     return Scaffold(
+      extendBody: true,
       // key: keyScaffold,
       body: Stack(
         children: <Widget>[
@@ -337,7 +350,8 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
                 _controller.reverse();
               }
               List<Widget> cityButtons= [];
-              double _offset = -0.25;
+              // double _offset = -0.25;
+              double _offset = -1.4166;
               List<City> cities = CitySet.cities.reversed.toList();
               bool isData;
               for (City city in cities) {
@@ -417,10 +431,120 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
           )
         ],
       ),
-      bottomNavigationBar: OotmNavBar(
-        navigatorKey: _navigatorKey,
-      )
+      // bottomNavigationBar: OotmNavBar(
+      //   navigatorKey: _navigatorKey,
+      // ),
+      bottomNavigationBar: OotmBottomAppBar(
+        onTabSelected: _selectedTab,
+        height: 56.0,
+        iconSize: 24.0,
+        selectedColor: Colors.orange,
+        items: [
+          BottomAppBarItem(iconData: OotmIconPack.navbar_home),
+          BottomAppBarItem(iconData: OotmIconPack.navbar_info),
+          BottomAppBarItem(iconData: OotmIconPack.navbar_schedule),
+          BottomAppBarItem(iconData: OotmIconPack.favs_outline),
+        ],
+      ),
+      // primary: true,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Transform.translate(
+        offset: Offset(0.0, 20.0),
+        child: CityButton()
+        ),
     );
+  }
+}
+
+class BottomAppBarItem {
+  BottomAppBarItem({this.iconData});
+  IconData iconData;
+}
+
+class OotmBottomAppBar extends StatefulWidget {
+  final List<BottomAppBarItem> items;
+  final ValueChanged<int> onTabSelected;
+  final Color selectedColor;
+  final double height;
+  final Color color;
+  final double iconSize;
+  OotmBottomAppBar({
+    Key key,
+    this.items,
+    this.onTabSelected,
+    this.selectedColor,
+    this.height,
+    this.color,
+    this.iconSize
+    }) : super(key: key);
+
+  @override
+  _OotmBottomAppBarState createState() => _OotmBottomAppBarState();
+}
+
+class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
+  int _selectedIndex = 0;
+  // GlobalKey bottomAppBarKey = GlobalKey();
+
+  _updateIndex(int index) {
+    widget.onTabSelected(index);
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> items = List.generate(widget.items.length, (int index) {
+      return _buildTabItem(
+        item: widget.items[index],
+        index: index,
+        onPressed: _updateIndex,
+      );
+    });
+    items.insert(items.length >> 1, _buildMiddleTabItem());
+
+    return  BottomAppBar(
+      // key: bottomAppBarKey,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: <Widget>[
+          NavBarBackground(),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: items,
+          ),
+        ],
+      ),
+      color: Colors.transparent,
+      elevation: 0.0,
+    );
+  }
+
+  Widget _buildTabItem({
+    BottomAppBarItem item,
+    int index,
+    ValueChanged<int> onPressed,
+    }) {
+    Color color = _selectedIndex == index ? widget.selectedColor : widget.color;
+    return Expanded(
+      child: SizedBox(
+        height: widget.height,
+        child: Material(
+          type: MaterialType.transparency,
+                  child: IconButton(
+            icon: Icon(item.iconData),
+            onPressed: () => onPressed(index),
+            iconSize: widget.iconSize,
+            color: color,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMiddleTabItem() {
+    return Expanded(child: SizedBox());
   }
 }
 
@@ -449,7 +573,7 @@ class _OotmNavBarState extends State<OotmNavBar> {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        navBarBackground(),
+        NavBarBackground(),
         BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.transparent,
@@ -479,13 +603,17 @@ class _OotmNavBarState extends State<OotmNavBar> {
               title: Text('Info')
             ),
             BottomNavigationBarItem(
-              icon: Transform.translate(
-                offset: Offset(0, -8),
-                child: SizedOverflowBox(
-                  size: Size(24.0, 24.0),
-                  child: CityButton())),
-              title: Text('City Selection'),
+              icon: SizedBox(),
+              title: SizedBox(),
               ),
+            // BottomNavigationBarItem(
+            //   icon: Transform.translate(
+            //     offset: Offset(0, -8),
+            //     child: SizedOverflowBox(
+            //       size: Size(24.0, 24.0),
+            //       child: CityButton())),
+            //   title: Text('City Selection'),
+            //   ),
             BottomNavigationBarItem(
               icon: Icon(OotmIconPack.navbar_schedule),
               title: Text('Harmonogram')
@@ -575,10 +703,18 @@ class ChosenCity extends ChangeNotifier {
   }
 }
 
+class NavBarBackground extends StatelessWidget {
+  final GlobalKey bottomBarKey;
+  const NavBarBackground({Key key, this.bottomBarKey}) : super(key: key);
 
-
-Widget navBarBackground() {
+  @override
+  Widget build(BuildContext context) {
+    // final keyContext = bottomBarKey.currentContext;
+    // final box = keyContext.findRenderObject() as RenderBox;
+    // final pos = box.localToGlobal(Offset.zero);
+    // print("BottomAppBarSize is: ${box.size.height}");
     return Container(
+      // height: box.size.height,
       height: 56.0,
       decoration: BoxDecoration(
         color: Color(0xFFFAFAFA),
@@ -596,7 +732,9 @@ Widget navBarBackground() {
         ),
       // child: Expansion(),
       );
+  }
 }
+
 
 class OotmEndDrawer extends StatelessWidget {
   final double endDrawerAnimationOffset;
