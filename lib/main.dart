@@ -336,6 +336,7 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
   Widget build(BuildContext context) {
   final cityProvider = Provider.of<ChosenCity>(context);
     return Scaffold(
+      extendBody: true,
       // key: keyScaffold,
       body: Stack(
         children: <Widget>[
@@ -482,6 +483,7 @@ class OotmBottomAppBar extends StatefulWidget {
 
 class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
   int _selectedIndex = 0;
+  // GlobalKey bottomAppBarKey = GlobalKey();
 
   _updateIndex(int index) {
     widget.onTabSelected(index);
@@ -492,30 +494,30 @@ class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
   @override
   Widget build(BuildContext context) {
     List<Widget> items = List.generate(widget.items.length, (int index) {
-    return _buildTabItem(
-      item: widget.items[index],
-      index: index,
-      onPressed: _updateIndex,
-    );
-  });
-  items.insert(items.length >> 1, _buildMiddleTabItem());
+      return _buildTabItem(
+        item: widget.items[index],
+        index: index,
+        onPressed: _updateIndex,
+      );
+    });
+    items.insert(items.length >> 1, _buildMiddleTabItem());
 
-  return BottomAppBar(
-        child: Stack(
-          // alignment: Alignment.,
-          children: <Widget>[
-            navBarBackground(),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: items,
-            ),
-          ],
-        ),
-        // shape: CircularNotchedRectangle(),
-        // color: Colors.white
-        color: Colors.transparent
-  );
+    return  BottomAppBar(
+      // key: bottomAppBarKey,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: <Widget>[
+          NavBarBackground(),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: items,
+          ),
+        ],
+      ),
+      color: Colors.transparent,
+      elevation: 0.0,
+    );
   }
 
   Widget _buildTabItem({
@@ -527,21 +529,11 @@ class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
     return Expanded(
       child: SizedBox(
         height: widget.height,
-        child: Material(
-          type: MaterialType.transparency,
-          // child: InkWell(
-          //   customBorder: new CircleBorder(),
-          //   // borderRadius: BorderRadius.circular(10.0),
-          //   onTap: () => onPressed(index),
-          //   child: Icon(item.iconData, color: color, size: widget.iconSize),
-          // ),
-          child: IconButton(
-            icon: Icon(item.iconData),
-            onPressed: () => onPressed(index),
-            iconSize: widget.iconSize,
-            color: color,
-
-          ),
+        child: IconButton(
+          icon: Icon(item.iconData),
+          onPressed: () => onPressed(index),
+          iconSize: widget.iconSize,
+          color: color,
         ),
       ),
     );
@@ -577,7 +569,7 @@ class _OotmNavBarState extends State<OotmNavBar> {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        navBarBackground(),
+        NavBarBackground(),
         BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.transparent,
@@ -707,10 +699,18 @@ class ChosenCity extends ChangeNotifier {
   }
 }
 
+class NavBarBackground extends StatelessWidget {
+  final GlobalKey bottomBarKey;
+  const NavBarBackground({Key key, this.bottomBarKey}) : super(key: key);
 
-
-Widget navBarBackground() {
+  @override
+  Widget build(BuildContext context) {
+    // final keyContext = bottomBarKey.currentContext;
+    // final box = keyContext.findRenderObject() as RenderBox;
+    // final pos = box.localToGlobal(Offset.zero);
+    // print("BottomAppBarSize is: ${box.size.height}");
     return Container(
+      // height: box.size.height,
       height: 56.0,
       decoration: BoxDecoration(
         color: Color(0xFFFAFAFA),
@@ -728,7 +728,9 @@ Widget navBarBackground() {
         ),
       // child: Expansion(),
       );
+  }
 }
+
 
 class OotmEndDrawer extends StatelessWidget {
   final double endDrawerAnimationOffset;
