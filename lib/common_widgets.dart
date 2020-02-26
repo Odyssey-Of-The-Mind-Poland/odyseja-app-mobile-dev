@@ -3,8 +3,6 @@ import 'ootm_icon_pack.dart';
 import 'data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
-
 
 
 class PerformanceGroupWidget extends StatefulWidget {
@@ -451,28 +449,27 @@ class AppBarOotm extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final endDrawerProvider = Provider.of<EndDrawerProvider>(context);
     return AppBar(
       bottom: this.bottom,
-    automaticallyImplyLeading: false,
-    leading: leadingIcon ?
-      IconButton(
-        icon: Icon(OotmIconPack.arrow_back),
-        onPressed: () => Navigator.of(context).maybePop())
-      : null,
-    title: Text(title),
-    centerTitle: false,
-    backgroundColor: Colors.transparent,
-    brightness: Brightness.light,
-    elevation: 0,
-    textTheme: TextTheme(
-      headline6: TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-        fontSize: 31,
-        )
-      ),
-    actions: this.actions,
+      automaticallyImplyLeading: false,
+      leading: leadingIcon ?
+        IconButton(
+          icon: Icon(OotmIconPack.arrow_back),
+          onPressed: () => Navigator.of(context).maybePop())
+        : null,
+      title: Text(title),
+      centerTitle: false,
+      backgroundColor: Colors.transparent,
+      brightness: Brightness.light,
+      elevation: 0,
+      textTheme: TextTheme(
+        headline6: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+          fontSize: 31,
+          )
+        ),
+      actions: this.actions,
     );
   }
 
