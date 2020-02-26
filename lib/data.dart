@@ -24,17 +24,15 @@ String urlProblems(String _city) {
   return  _address;
 }
 
-void firstRun() {
+void firstRunSync() {
   // FUTURE: getCities, to get events and dates for the current year.
   // FUTURE: getProblems, to get problem names for the current year.
   // CitySet.generate();
-  Box cityAgnostic = Hive.box("cityAgnostic");
   syncRegio();
   syncFinals();
-  cityAgnostic.put("firstRun", false);
 }
 
-void defaultRun() {
+void defaultRunSync() {
   // first city of regional eliminations; the start of the season
   DateTime regioSeasonS = CitySet.cities.first.eventDate;
   // last city of regional eliminations; the end of the season

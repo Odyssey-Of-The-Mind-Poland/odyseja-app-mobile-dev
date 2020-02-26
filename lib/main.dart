@@ -1,5 +1,6 @@
 /*Core classes of the OotmApp, responsible for app navigation and navBar.
 */
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -34,16 +35,7 @@ void main() async {
   Hive.registerAdapter(PerformanceGroupAdapter());
   Hive.registerAdapter(InfoAdapter());
   await Hive.openBox("cityAgnostic");
-  Box box = Hive.box("cityAgnostic");
   CitySet.generate();
-
-  if (box.get("firstRun", defaultValue: true) == true) {
-    print("firstRun");
-    firstRun();
-  } else {
-    print("defaultRun");
-    defaultRun();
-  }
   runApp(CentralProvider());
 }
 
@@ -68,9 +60,6 @@ class CentralProvider extends StatelessWidget {
   }
 }
 
-void showCitySelectionDialog() {
-}
-
 
 
 class MyApp extends StatelessWidget {
@@ -78,41 +67,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cityProvider = Provider.of<ChosenCity>(context);
-    Box box = Hive.box("cityAgnostic");
-    DateTime time = DateTime.now();
-    DateTime today = DateTime(time.year, time.month, time.day);
-    List<City> cities = CitySet.cities;
-    String savedHiveName = box.get("savedCity");
-    City savedCity;
-
-    if (savedHiveName != null) {
-      savedCity = cities.firstWhere((city) => city.hiveName == savedHiveName);
-    } else {
-      // TODO cities[0] assert that cities[0] has data, which might not be the case. ``
-      savedCity = cities[0];
-    }
-    cityProvider.chosenCity = savedCity;
-    
-    for (City city in cities) {
-      if (today.isAfter(city.eventDate)) {
-        if (today.isAfter(savedCity.eventDate)) {
-          showCitySelectionDialog();
-          print("time for city change!");
-          break;
-        }
-      }
-    }
-
-    
-    // cityProvider.chosenCity = CitySet.cities[5];
-    // Future<void> loadCityBox() async {
-    //   await Hive.openBox("Warszawa");
-    //   // await Hive.openBox("Katowice");
-    // }
-
-    // loadCityBox();
-
     return MaterialApp(
           // debugShowMaterialGrid: true,
           title: 'OotmApp',
@@ -124,11 +78,101 @@ class MyApp extends StatelessWidget {
             //   title: TextStyle(color: Colors.white),
             // )
             ),
-        home: MainFrame(),
+        home: DataManager(),
       );
   }
 }
 
+class DataManager extends StatelessWidget {
+  const DataManager({Key key}) : super(key: key);
+
+  Future<void> _showDialog(context, City interestingCity, ChosenCity cityProvider) async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+      // cityProvider._chosenCity = savedCity;
+        
+        return AlertDialog(
+          content: Container(
+            child: Column(
+                children: <Widget>[
+                  Text("Hejka, najbliższy etap konkursu to:"),
+
+                  Text("Czy chcesz ustawić ten konkurs?"),
+                ],
+              ),
+          ),
+          // actions: <Widget>[
+          //   CupertinoDialogAction(
+          //     child: Text("Nie")
+          //   ),
+          //   CupertinoDialogAction(
+          //     child: Text("Tak")
+          //   ),
+          //   ],
+          backgroundColor: Color(0xFF333333),
+        );
+      }
+    );  
+  }
+
+  City cityOfInteres(DateTime today) {
+    List<City> cities = CitySet.cities;
+    City cityOfInterest;
+    for (City city in cities) {
+      if (today.isBefore(city.eventDate)) {
+        cityOfInterest = city;
+        break;
+      } else if (today.isAtSameMomentAs(city.eventDate)) {
+        cityOfInterest = city;
+        break;
+      }
+    }
+    if (cityOfInterest == null)
+      cityOfInterest = cities.last;
+    return cityOfInterest;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final box = Hive.box("cityAgnostic");
+    final cityProvider = Provider.of<ChosenCity>(context, listen: false);
+
+    // sync data
+    if (box.get("firstRun", defaultValue: true) == true) {
+      print("firstRun");
+      firstRunSync();
+      box.put("firstRun", false);
+    } else {
+      print("defaultRun");
+      // defaultRunSync();
+    }
+    List<City> cities = CitySet.cities;
+    // DateTime time = DateTime.now();
+    // DateTime time = cities.last.eventDate;
+    DateTime time = cities[1].eventDate;
+    DateTime today = DateTime(time.year, time.month, time.day);
+    City savedCity;
+    String savedCityName = box.get("savedCity");
+    if (savedCityName != null) {
+      savedCity = cities.firstWhere((city) => city.hiveName == savedCityName);
+    } else {
+      savedCity = cityOfInteres(today);
+    }
+    cityProvider._chosenCity = savedCity;
+
+    City interestingCity = cityOfInteres(today);
+
+    if (interestingCity.eventDate.isAfter(savedCity.eventDate)
+      || (interestingCity.eventDate.isAtSameMomentAs(today) && interestingCity != savedCity)) {
+      Future.delayed(Duration.zero, () => _showDialog(context, interestingCity, cityProvider));
+    } 
+
+    
+
+    return MainFrame();
+  }
+}
 
 class MainFrame extends StatefulWidget {
 
@@ -214,7 +258,36 @@ class MainFrameWindow extends StatefulWidget {
   _MainFrameWindowState createState() => _MainFrameWindowState();
 }
 
-class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProviderStateMixin{
+class _MainFrameWindowState extends State<MainFrameWindow> {
+
+  @override
+  Widget build(BuildContext context) {
+
+    final cityProvider = Provider.of<ChosenCity>(context);
+    return FutureBuilder(
+      future: Hive.openBox("warszawa"),
+      // future: Hive.openBox(cityProvider.chosenCity.hiveName),
+      initialData: Text("Lol, brak danych"),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return DataScaffold();
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        return CircularProgressIndicator();
+      }
+    );
+  }
+}
+
+class DataScaffold extends StatefulWidget {
+  DataScaffold({Key key}) : super(key: key);
+
+  @override
+  _DataScaffoldState createState() => _DataScaffoldState();
+}
+
+class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderStateMixin {
   final _navigatorKey = GlobalKey<NavigatorState>();
   Animation<double> _animation;
   Animation<double> _fadeAnimation;
@@ -233,9 +306,9 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
       if (status == AnimationStatus.forward) {
         _visibility = true;
       } else if (status == AnimationStatus.dismissed) {
-        setState(() {
+        // setState(() {
         _visibility = false;
-        });
+        // });
       }
     });
     _fadeAnimation = Tween<double>(begin: 0.0, end: 0.7).animate(_animation);
@@ -247,7 +320,6 @@ class _MainFrameWindowState extends State<MainFrameWindow> with SingleTickerProv
     super.dispose();
   }
 
-  // bool visibility = false;
   @override
   Widget build(BuildContext context) {
   final cityProvider = Provider.of<ChosenCity>(context);
@@ -493,8 +565,10 @@ class CitySelector with ChangeNotifier {
 
 class ChosenCity extends ChangeNotifier {
   static final Box box = Hive.box("cityAgnostic");
+  // static final List<City> cities = CitySet.cities;
+  // static final String savedCity = box.get("savedCity");
+  // static City _chosenCity = cities.firstWhere((city) => city.hiveName == savedCity);
   City _chosenCity;
-
   City get chosenCity => _chosenCity;
   set chosenCity(City value) {
     _chosenCity = value;
