@@ -1,6 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:ootm_app/ootm_icon_pack.dart';
 // import 'package:hive_flutter/hive_flutter.dart';
 // import 'city.dart';
 import 'common_widgets.dart';
@@ -167,23 +168,30 @@ class ScheduleCategoryTile extends StatelessWidget {
           child: Stack(
             alignment: Alignment.topRight,
             children: [
-              isEmpty
-              ? Container(color: Colors.red) 
-              : GreyBox(
+              GreyBox(
               decoration: imageBoxDecoration(_imageName),
               label: this.label,
               fontSize: 13.0,
-              onPressed: () {Navigator.of(context)
+              onPressed: isEmpty ? null : 
+                () {Navigator.of(context)
                 .push(MaterialPageRoute<void>(builder: (BuildContext context) {
                   return ScheduleViewRoute(
                     title: routeTitle,
                     filterBy: this.filterBy,
                     filterValue: this.superScript,
                   );
-              })
-                );
+                }));
               }
             ),
+            if (isEmpty)
+              Container(
+                child: Center(child: Icon(OotmIconPack.locked, color: Colors.white)),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10.0)
+                ),
+
+              ),
             Transform.translate(
               offset: Offset(1.0,-1.0),
               child: SizedBox(
