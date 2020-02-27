@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/rendering.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // import 'package:intl/intl.dart';
@@ -145,7 +146,7 @@ class DataManager extends StatelessWidget {
       box.put("firstRun", false);
     } else {
       print("defaultRun");
-      defaultRunSync();
+      // defaultRunSync();
     }
     List<City> cities = CitySet.cities;
     DateTime time = DateTime.now();
@@ -170,7 +171,10 @@ class DataManager extends StatelessWidget {
 
     
 
-    return MainFrame();
+    return SafeArea(
+      top: false,
+      child: MainFrame()
+      );
   }
 }
 
@@ -325,13 +329,14 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
     '/schedule',
     '/favs',
     ];
-  // bool visibility = false;
+
+  // int _selectedRoute = 0; 
   void _selectedTab(int index) {
     // setState(() {
     // });
+    // _selectedRoute = index;
     _navigatorKey.currentState.pushNamed(_routeList[index]);
   }
-  
   @override
   Widget build(BuildContext context) {
   final cityProvider = Provider.of<ChosenCity>(context);
@@ -447,11 +452,6 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
         ],
       ),
       // primary: true,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Transform.translate(
-        offset: Offset(0.0, 20.0),
-        child: CityButton()
-        ),
     );
   }
 }
@@ -532,7 +532,7 @@ class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
         height: widget.height,
         child: Material(
           type: MaterialType.transparency,
-                  child: IconButton(
+          child: IconButton(
             icon: Icon(item.iconData),
             onPressed: () => onPressed(index),
             iconSize: widget.iconSize,
@@ -544,7 +544,15 @@ class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
   }
 
   Widget _buildMiddleTabItem() {
-    return Expanded(child: SizedBox());
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Transform.translate(
+          offset: Offset(0.0, -8.0),
+          child: CityButton()
+        ),
+      ),
+    );
   }
 }
 
@@ -645,17 +653,17 @@ class _CityButtonState extends State<CityButton> {
   final citySelectorProvider = Provider.of<CitySelector>(context);
   final cityProvider = Provider.of<ChosenCity>(context);
   bool _opened = citySelectorProvider.opened;
-    return RawMaterialButton(
-      onPressed: () {
-        setState(() {
-          citySelectorProvider.change();
-          // print([_opened, citySelectorProvider.opened]);
-        });
-      },
-      child: Container(
-        width: 56.0,
-        height: 56.0,
-        decoration: orangeBoxDecoration(),
+    return Container(
+      width: 56.0,
+      height: 56.0,
+      decoration: orangeBoxDecoration(),
+      child: RawMaterialButton(
+        onPressed: () {
+          setState(() {
+            citySelectorProvider.change();
+            // print([_opened, citySelectorProvider.opened]);
+          });
+        },
         child: _opened ?
             Icon(OotmIconPack.close,size: 24.0,color: Colors.white): 
             Column(
