@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
       return Scaffold(
         appBar: AppBarOotm(
           leadingIcon: false,
-          title: "Start",
+          title: Text("Start"),
           actions: <Widget>[
             IconButton(
               disabledColor: Colors.black,

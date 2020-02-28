@@ -20,7 +20,7 @@ class ScheduleMenuRoute extends StatelessWidget {
     return Scaffold(
       appBar: AppBarOotm(
         leadingIcon: false,
-        title: "Harmonogram",
+        title: Text("Harmonogram"),
       ),
       body: FutureBuilder(
         future: Hive.openBox(cityProvider.chosenCity.hiveName),
@@ -253,7 +253,7 @@ class ScheduleViewRoute extends StatelessWidget {
           return Scaffold(
             appBar: AppBarOotm(
               leadingIcon: true,
-              title: title,
+              title: Text(title),
             ),
               body: Column(
                 children: <Widget>[

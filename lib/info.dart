@@ -56,7 +56,7 @@ class _InfoPageState extends State<InfoPage> {
             child: Scaffold(
               appBar: AppBarOotm(
                 leadingIcon: false,
-                title: "Info",
+                title: Text("Info"),
                 bottom: TabBar(
                   indicatorColor: Color(0xFFFF951A),
                   labelPadding: EdgeInsets.only(bottom: 4.0),
@@ -120,7 +120,7 @@ class InfoTile extends StatelessWidget {
           return Scaffold(
             appBar: AppBarOotm(
               leadingIcon: true,
-              title: this.label,
+              title: Text(this.label),
             ),
             body: Markdown(data: this.data));
             // body: Markdown(data: "# headline \n something something",));

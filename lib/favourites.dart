@@ -23,7 +23,7 @@ class FavouritesPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBarOotm(
               leadingIcon: false,
-              title: "Ulubione",
+              title: Text("Ulubione"),
             ),
             body: FavouritesView(
               box: snapshot.data,

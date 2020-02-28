@@ -7,7 +7,7 @@ class DataPrivacyRoute extends StatelessWidget {
       return Scaffold(
         appBar: AppBarOotm(
           leadingIcon: true,
-          title: "Dane i Prywatność",
+          title: Text("Dane i Prywatność"),
         ),
         body: Text("Dane i Prywatność")
       );

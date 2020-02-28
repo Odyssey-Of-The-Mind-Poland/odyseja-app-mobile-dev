@@ -258,7 +258,7 @@ class PerformanceCard extends StatelessWidget {
       day = "Sobota";
     } else if (performance.city == "Gdynia_Niedziela"){
       finals = true;
-      day = "Niedziea";
+      day = "Niedziela";
     } else {
       finals = false;
     }
@@ -283,10 +283,7 @@ class PerformanceCard extends StatelessWidget {
                     performance.play,
                     style: TextStyle(
                       height: 1.5,
-                      color: performance.faved ?
-                        this.favColor
-                        :
-                        Colors.black,
+                      color: Colors.black,
                       fontSize: 23.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -297,10 +294,7 @@ class PerformanceCard extends StatelessWidget {
               Text(
                 performance.play,
                 style: TextStyle(
-                  color: performance.faved ?
-                    this.favColor
-                    :
-                    Colors.black,
+                  color: Colors.black,
                   fontSize: 23.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -442,22 +436,24 @@ BoxShadow orangeShadow() {
 
 class AppBarOotm extends StatelessWidget implements PreferredSizeWidget {
   final bool leadingIcon;
+  final Widget customLeading;
+  final Widget leading;
   final List<Widget> actions;
-  final String title;
+  final Widget title;
   final Widget bottom;
-  const AppBarOotm({Key key, this.leadingIcon, this.title, this.bottom, this.actions}) : super(key: key);
+  const AppBarOotm({Key key, this.leadingIcon, this.title, this.bottom, this.actions, this.leading, this.customLeading}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       bottom: this.bottom,
       automaticallyImplyLeading: false,
-      leading: leadingIcon ?
+      leading: leadingIcon ? customLeading ??
         IconButton(
           icon: Icon(OotmIconPack.arrow_back),
           onPressed: () => Navigator.of(context).maybePop())
         : null,
-      title: Text(title),
+      title: this.title,
       centerTitle: false,
       backgroundColor: Colors.transparent,
       brightness: Brightness.light,
