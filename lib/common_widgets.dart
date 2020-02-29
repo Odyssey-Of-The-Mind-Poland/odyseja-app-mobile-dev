@@ -198,46 +198,144 @@ class _SwipeStackState extends State<SwipeStack> {
   }
 
 
-  _showPerformancePopup(context) {
-    showDialog(
+  _showPerformancePopup(context) async {
+    bool isChange = false;
+    bool _faved = widget.performance.faved;
+    await showDialog(
+      barrierDismissible: true,
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            bool _faved = widget.performance.faved;
-            return CupertinoAlertDialog(
-              content: 
-                Text(
-                  """${widget.performance.team}\n
-                  Scena ${widget.performance.stage} - 
-                  Gr. wiekowa ${widget.performance.age} - 
-                  Problem ${widget.performance.problem}\n
-                  ${widget.performance.play} - Występ\n
-                  ${widget.performance.spontan} - Spontan
-                  """,
-                  style: TextStyle(color: _faved ? Colors.white : Colors.black),
+          builder: (context, setState) {
+            return OotmPopUp(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 24.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      // Nazwa drużyny
+                      Text(
+                        "${widget.performance.team}",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: _faved ? Color(0xFFFF951A) : Colors.white,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      SizedBox(height: 8.0),
+                      // parametry: scena - gr. wiekowa - problem
+                      Text(
+                        "Scena ${widget.performance.stage.substring(6,7)} - Gr. wiekowa ${widget.performance.age} - Problem ${widget.performance.problem}",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: _faved ? Color(0xFFFF951A) : Colors.white),
+                      ),
+                      SizedBox(height: 16.0),
+                      // godzina występu
+                      Text(
+                        "${widget.performance.play} - Występ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: _faved ? Color(0xFFFF951A) : Colors.white,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      // info o stawieniu się
+                      SizedBox(height: 8.0),
+                      Text(
+                        "(Drużyna powinna się stawić na godzinę przed występem)",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: _faved ? Color(0xFFFF951A) : Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 16.0),
+                      // godzina spontana
+                      Text("${widget.performance.spontan} - Spontan",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      SizedBox(height: 8.0),
+                      // info o stawieniu się
+                      Text(
+                        "(Drużyna powinna się stawić na godzinę przed występem)",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                      ),
+                    ],
                   ),
-              actions: <Widget>[
-                CupertinoDialogAction(
-                  child: _faved ? 
-                    Icon(OotmIconPack.favs_full) :
-                    Icon(OotmIconPack.favs_outline),
-                  onPressed: () {
-                    setState(() =>
-                      widget.performance.faved = !widget.performance.faved);
-                      widget.performance.save();
-                      super.setState(() {});
-                  }
                 ),
-                CupertinoDialogAction(
-                  child: Icon(OotmIconPack.close),
-                  onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
-                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    FlatButton(
+                      onPressed: () {
+                        isChange = !isChange;
+                        _faved = !_faved;
+                        setState(() {});
+                      },
+                      child: _faved ? 
+                        Icon(OotmIconPack.favs_full, color: Color(0xFFFF951A)) :
+                        Icon(OotmIconPack.favs_outline, color: Colors.white),
+                    ),
+                    FlatButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Icon(OotmIconPack.close, color: Colors.white, size: 16.0,),
+                    ),
+                  ],
+                )
               ],
-            );
-          }
+            ),
+          );
+          },
         );
       }
+    ).then((value) {
+      if (isChange) {
+        widget.performance.faved = !widget.performance.faved;
+        widget.performance.save();
+        super.setState(() {});
+      }
+    });
+  }
+}
+
+
+class OotmPopUp extends StatelessWidget {
+  final Widget child;
+  OotmPopUp({Key key, this.child}) : super(key: key);
+ 
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+       type: MaterialType.transparency,
+       child: Stack(
+         children: <Widget>[
+           GestureDetector(
+             onTap: () => Navigator.of(context).maybePop(),
+           ),
+           Padding(
+               padding: EdgeInsets.symmetric(horizontal: 16.0),
+               child: Align(
+                 alignment: Alignment.center,
+                 child: Container(
+                   decoration: greyBoxDecoration(),
+                   child: this.child,
+                 )
+               )
+           )
+         ])
     );
   }
 }
