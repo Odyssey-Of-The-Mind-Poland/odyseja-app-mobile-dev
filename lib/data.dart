@@ -38,7 +38,7 @@ void defaultRunSync() {
   DateTime regioSeasonE = CitySet.cities.elementAt(CitySet.cities.length - 2).eventDate;
   DateTime finalsSeason = CitySet.cities.last.eventDate;
   DateTime today = DateTime.now();
-  // syncRegio(); // DEBUG
+  syncRegio(); // DEBUG TODO
   if (today.isAfter(regioSeasonS.subtract(new Duration(days: 14)))) {
     if (today.isBefore(regioSeasonS.subtract(new Duration(days: 1)))) {
       syncRegio();
@@ -90,8 +90,9 @@ class CityData {
     final bool gotInfo = await _syncInfo();
     // syncStages();
 
-    if (gotSchedule == true && gotInfo == true) {
-    // if (gotSchedule == true) { // DEBUG
+    // TODO put proper info  
+    // if (gotSchedule == true && gotInfo == true) {
+    if (gotSchedule == true) { // DEBUG
       print([this.hiveName, "true"]);
       cityAgnostic.put(this.hiveName, true);
     } else {
@@ -159,8 +160,7 @@ class CityData {
     List<PerformanceGroup> pfGroups = new List<PerformanceGroup>();
     final List<String> problemsPresent = problemShorts();
     final List<String> agesPresent = ageShorts();
-
-    for (int i=0; i<stages.length; i++){
+    for (int i=1; i<stages.length+1; i++){
       for (String problem in problemsPresent) {
         for (String age in agesPresent) {
           List<Performance> groupData = pfList.where(
@@ -253,7 +253,8 @@ class City {
   }
   static List<String> apiNames() {
     const List<String> _events = [
-      "Wrocław",
+      // TODO Worcław or Wroclaw
+      "Wroclaw",
       "Poznań",
       "Katowice",
       "Warszawa",
@@ -357,8 +358,9 @@ class Performance extends HiveObject {
       id: json['id'],
       city: json['city'],
       team: json['team'],
-      problem: json['problem'],
+      problem: json['problem'] == "d" ? "J" : json['problem'],
       age: json['age'],
+      //  TODO json['performance'].length < 5 ?! 
       play: (json['performance'].length < 5)
       ? "0" + json['performance']
       : json['performance'],
@@ -413,7 +415,8 @@ class PerformanceGroup {
 
 List<String> problemList() {
   const List<String> _problems = [
-    "Juniorki",
+    // TODO finalne nazwy na juniorkow 
+    "Juniorzy",
     "Reakcja na ryzyko",
     "Co leci w sieci",
     "Perspektywa detektywa",

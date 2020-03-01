@@ -31,16 +31,13 @@ class ScheduleMenuRoute extends StatelessWidget {
             List<String> stages = snapshot.data.get("stages").cast<String>();
             List<PerformanceGroup> pfGroups = snapshot.data.get("performanceGroups")
               .cast<PerformanceGroup>();
-
             List<String> emptyProblems = problemShorts().where((problem) {
               return pfGroups.where((pfg) => pfg.problem == problem).isEmpty;
             }).toList();
-            print(emptyProblems);
             
             List<String> emptyAges = ageShorts().where((age) {
               return pfGroups.where((pfg) => pfg.age == age).isEmpty;
             }).toList();
-            print(emptyAges);
 
             return Column(
           children: <Widget>[

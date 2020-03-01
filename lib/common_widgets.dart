@@ -267,7 +267,7 @@ class _SwipeStackState extends State<SwipeStack> {
                       SizedBox(height: 8.0),
                       // info o stawieniu się
                       Text(
-                        "(Drużyna powinna się stawić na godzinę przed występem)",
+                        "(Drużyna powinna się stawić na 20 minut przed występem)",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white

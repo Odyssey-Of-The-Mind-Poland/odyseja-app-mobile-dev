@@ -161,13 +161,13 @@ class DataManager extends StatelessWidget {
       savedCity = cityOfInteres(today);
     }
     cityProvider._chosenCity = savedCity;
+    // TODO ask only once for a city change
+    // City interestingCity = cityOfInteres(today);
 
-    City interestingCity = cityOfInteres(today);
-
-    if (interestingCity.eventDate.isAfter(savedCity.eventDate)
-      || (interestingCity.eventDate.isAtSameMomentAs(today) && interestingCity != savedCity)) {
-      Future.delayed(Duration.zero, () => _showDialog(context, interestingCity, cityProvider));
-    } 
+    // if (interestingCity.eventDate.isAfter(savedCity.eventDate)
+    //   || (interestingCity.eventDate.isAtSameMomentAs(today) && interestingCity != savedCity)) {
+    //   Future.delayed(Duration.zero, () => _showDialog(context, interestingCity, cityProvider));
+    // } 
 
     
 
