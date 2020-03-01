@@ -16,12 +16,14 @@ class FavouritesPage extends StatelessWidget {
       // initialData: InitialData,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          List<String> stages = snapshot.data.get("stages");
+          // TODO ticket on why it works on mobile, but not on web 
+          // List<String> stages = snapshot.data.get("stages");
+          List<String> stages = snapshot.data.get("stages").cast<String>();
           List<PerformanceGroup> pfGroups = snapshot.data.get("performanceGroups").cast<PerformanceGroup>();
           return Scaffold(
             appBar: AppBarOotm(
               leadingIcon: false,
-              title: "Ulubione",
+              title: Text("Ulubione"),
             ),
             body: FavouritesView(
               box: snapshot.data,

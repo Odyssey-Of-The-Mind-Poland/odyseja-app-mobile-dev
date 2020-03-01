@@ -7,7 +7,7 @@ class HelpFeedbackRoute extends StatelessWidget {
       return Scaffold(
         appBar: AppBarOotm(
           leadingIcon: true,
-          title: "Pomoc i feedback",
+          title: Text("Pomoc i feedback"),
         ),
         body: Text("Pomoc i feedback")
       );

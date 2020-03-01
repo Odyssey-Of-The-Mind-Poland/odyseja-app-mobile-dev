@@ -24,24 +24,21 @@ String urlProblems(String _city) {
   return  _address;
 }
 
-void firstRun() {
+void firstRunSync() {
   // FUTURE: getCities, to get events and dates for the current year.
   // FUTURE: getProblems, to get problem names for the current year.
-  // CitySet.generate();
-  Box cityAgnostic = Hive.box("cityAgnostic");
   syncRegio();
   syncFinals();
-  cityAgnostic.put("firstRun", false);
 }
 
-void defaultRun() {
+void defaultRunSync() {
   // first city of regional eliminations; the start of the season
   DateTime regioSeasonS = CitySet.cities.first.eventDate;
   // last city of regional eliminations; the end of the season
   DateTime regioSeasonE = CitySet.cities.elementAt(CitySet.cities.length - 2).eventDate;
   DateTime finalsSeason = CitySet.cities.last.eventDate;
   DateTime today = DateTime.now();
-  syncRegio(); // DEBUG
+  syncRegio(); // DEBUG TODO
   if (today.isAfter(regioSeasonS.subtract(new Duration(days: 14)))) {
     if (today.isBefore(regioSeasonS.subtract(new Duration(days: 1)))) {
       syncRegio();
@@ -58,7 +55,7 @@ void syncRegio() {
   print("syncRegio");
   List<City> cities = CitySet.cities;
   for (City city in cities.sublist(0, cities.length - 1)) {
-    print(city.shortName);
+    print(city.shortName[0]);
     CityData(
       hiveName: city.hiveName,
       apiName: city.apiName,
@@ -69,10 +66,10 @@ void syncRegio() {
 void syncFinals() {
   print("syncFinals");
   City finals = CitySet.cities.last;
-  print(finals.shortName);
+  print(finals.shortName[0]);
   CityData(
     hiveName: finals.hiveName,
-    apiNameList: finals.apiName,
+    apiName: finals.apiName,
   ).syncData();
 }
 
@@ -81,10 +78,9 @@ void syncFinals() {
 class CityData {
   final String hiveName;
   final String apiName;
-  final List<String> apiNameList;
   Box cityBox;
   List<int> favIndices; 
-  CityData({@required this.hiveName, this.apiName, this.apiNameList});
+  CityData({@required this.hiveName, @required this.apiName});
 
   Future<void> syncData() async {
     this.cityBox = await Hive.openBox(this.hiveName);
@@ -94,43 +90,30 @@ class CityData {
     final bool gotInfo = await _syncInfo();
     // syncStages();
 
+    // TODO put proper info  
     // if (gotSchedule == true && gotInfo == true) {
     if (gotSchedule == true) { // DEBUG
       print([this.hiveName, "true"]);
       cityAgnostic.put(this.hiveName, true);
-      cityBox.close();
     } else {
       print([this.hiveName, "false"]);
       cityAgnostic.put(this.hiveName, false);
-      cityBox.close();
     }
+    this.cityBox.close();
 
   }
     
   Future<bool> _syncSchedule() async {
 
-    List<String> _apiNameList = new List<String>();
-    if (this.apiName != null && this.apiNameList == null) {
-      _apiNameList.add(this.apiName);
-    }
-    else if (this.apiName == null && this.apiNameList != null) {
-      _apiNameList = this.apiNameList;
-    }
-    else {
-      throw Exception("apiName and apiNameList fields cannot be used simultaneously!");
-    }
-
     List<Performance> pfList = new List<Performance>();
     try {
-      for (String _apiName in _apiNameList) {
-        final response = await http.get(urlSchedule(_apiName));
-        if (response.statusCode == 200) {
-          pfList.addAll(scheduleToList(response.body));
-        }
-        else return false;
-        if (pfList.isEmpty) {
-          return false;
-        }
+      final response = await http.get(urlSchedule(this.apiName));
+      if (response.statusCode == 200) {
+        pfList.addAll(scheduleToList(response.body));
+      }
+      else return false;
+      if (pfList.isEmpty) {
+        return false;
       }
     } catch (e) {
       throw Exception("Pobranie harmonogramu nie powiodło się.");
@@ -138,8 +121,7 @@ class CityData {
 
 
     if (this.cityBox.get("performances") != null) {
-      assert(true, "Loading old favs");
-      final List<String> boxKeys = this.cityBox.get("performances");
+      final List<String> boxKeys = this.cityBox.get("performances").cast<String>();
       final List<Performance> pfListOld = [for(String k in boxKeys) this.cityBox.get(k)];
       final List<Performance> pfListOldFavs = pfListOld.where((p) => p.faved == true).toList();
       final List<int> indexes = pfListOldFavs.map((p) => p.id).toList();
@@ -157,29 +139,28 @@ class CityData {
     // final List<String> keys = new List<String>.generate(pfList.length, (i) => "p$i");
     final List<String> keys = pfList.map((p) => "p${p.id}").toList();
     final Map map = Map.fromIterables(keys, pfList);
-    this.cityBox.putAll(map);
-    this.cityBox.put("performances", keys);
+    await this.cityBox.putAll(map);
+    await this.cityBox.put("performances", keys);
 
 
     // scrapping stages from the schedule
     List<String> stages = pfList.map((str) => str.stage.substring(6)).toSet().toList();
     stages.sort();
 
-    // TODO? Why the commented code below doesn't work as intended? 
+    // Why the commented code below doesn't work as intended? 
     // stages.forEach((str) => str.substring(4));
 
     final List<String> formattedStages = stages.map((s) => 
       capitalize(s.substring(4).toLowerCase())).toList();
     // print(uniq);
-    this.cityBox.put("stages", formattedStages);
+    await this.cityBox.put("stages", formattedStages);
 
 
     // creating problemGroups for easier access
     List<PerformanceGroup> pfGroups = new List<PerformanceGroup>();
     final List<String> problemsPresent = problemShorts();
     final List<String> agesPresent = ageShorts();
-
-    for (int i=0; i<stages.length; i++){
+    for (int i=1; i<stages.length+1; i++){
       for (String problem in problemsPresent) {
         for (String age in agesPresent) {
           List<Performance> groupData = pfList.where(
@@ -202,7 +183,7 @@ class CityData {
         }
       }
     }
-    this.cityBox.put("performanceGroups",pfGroups);
+    await this.cityBox.put("performanceGroups",pfGroups);
 
     return true;
   }
@@ -213,12 +194,12 @@ class CityData {
       if (response.statusCode == 200) {
         List<Info> infoList = infoToList(response.body);
         if (infoList.isNotEmpty) {
-          this.cityBox.put("info", infoList);
+          await this.cityBox.put("info", infoList);
           return true;
         }
       }
     } catch (e) {
-      throw Exception("Pobranie harmonogramu nie powiodło się.");
+      throw Exception("Pobranie info nie powiodło się.");
     }
     return false;
   }
@@ -253,9 +234,9 @@ class CitySet {
 
 
 class City {
-  dynamic apiName;
+  String apiName;
   String fullName;
-  String shortName;
+  List<String> shortName;
   String hiveName;
   DateTime eventDate;
 
@@ -270,15 +251,16 @@ class City {
       eventDate: eventDates()[idx],
     );
   }
-  static List<dynamic> apiNames() {
-    const List<dynamic> _events = [
-      "Wrocław",
+  static List<String> apiNames() {
+    const List<String> _events = [
+      // TODO Worcław or Wroclaw
+      "Wroclaw",
       "Poznań",
       "Katowice",
       "Warszawa",
       "Łódź",
       "Gdańsk",
-      ["Gdynia_sobota","Gdynia_niedziela"],
+      "Gdynia",
     ];
     return _events;
   }
@@ -294,27 +276,27 @@ class City {
     ];
     return _events;
   }
-  static List<String> shortNames() {
-    const List<String> _events = [
-      "WRO",
-      "POZ",
-      "KATO",
-      "WAW",
-      "ŁÓDŹ",
-      "GDA",
-      "GDY",
+  static List<List<String>> shortNames() {
+    const List<List<String>> _events = [
+      ["WRO", "CŁAW"],
+      ["POZ", "NAŃ"],
+      ["KATO", "WICE"],
+      ["WA", "WA"],
+      ["ŁÓ", "DŹ"],
+      ["GDA", "ŃSK"],
+      ["GDY", "NIA"],
       ];
     return _events;
   }
   static List<String> hiveNames() {
     const List<String> _events = [
-      "Wroclaw",
-      "Poznan",
-      "Katowice",
-      "Warszawa",
-      "Lodz",
-      "Gdansk",
-      "Gdynia",
+      "wroclaw",
+      "poznan",
+      "katowice",
+      "warszawa",
+      "lodz",
+      "gdansk",
+      "gdynia",
       ];
     return _events;
   }
@@ -376,9 +358,12 @@ class Performance extends HiveObject {
       id: json['id'],
       city: json['city'],
       team: json['team'],
-      problem: json['problem'],
+      problem: json['problem'] == "d" ? "J" : json['problem'],
       age: json['age'],
-      play: json['performance'],
+      //  TODO json['performance'].length < 5 ?! 
+      play: (json['performance'].length < 5)
+      ? "0" + json['performance']
+      : json['performance'],
       spontan: json['spontan'],
       stage: json['stage'],
       faved: false,
@@ -430,7 +415,8 @@ class PerformanceGroup {
 
 List<String> problemList() {
   const List<String> _problems = [
-    "Juniorki",
+    // TODO finalne nazwy na juniorkow 
+    "Juniorzy",
     "Reakcja na ryzyko",
     "Co leci w sieci",
     "Perspektywa detektywa",
@@ -449,10 +435,7 @@ List<String> ageList() {
     ];
   return _ages;
 }
-List<String> sceneShorts(){
-  const List<String> _shorts = ['1', '2', '3', '4', '5','6'];
-  return _shorts;
-}
+
 List<String> problemShorts(){
   const List<String> _shorts = ['J', '1', '2', '3', '4', '5'];
   return _shorts;

@@ -3,8 +3,6 @@ import 'ootm_icon_pack.dart';
 import 'data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
-
 
 
 class PerformanceGroupWidget extends StatefulWidget {
@@ -63,7 +61,9 @@ class _PerformanceGroupWidgetState extends State<PerformanceGroupWidget> with Au
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "ZOBACZ WSZYSTKO",
+                folded 
+                ? "ZOBACZ WSZYSTKO"
+                : "ZWIŃ",
                 style: TextStyle(
                   color: Color(0xFFFF951A)
                 ),
@@ -198,46 +198,144 @@ class _SwipeStackState extends State<SwipeStack> {
   }
 
 
-  _showPerformancePopup(context) {
-    showDialog(
+  _showPerformancePopup(context) async {
+    bool isChange = false;
+    bool _faved = widget.performance.faved;
+    await showDialog(
+      barrierDismissible: true,
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            bool _faved = widget.performance.faved;
-            return CupertinoAlertDialog(
-              content: 
-                Text(
-                  """${widget.performance.team}\n
-                  Scena ${widget.performance.stage} - 
-                  Gr. wiekowa ${widget.performance.age} - 
-                  Problem ${widget.performance.problem}\n
-                  ${widget.performance.play} - Występ\n
-                  ${widget.performance.spontan} - Spontan
-                  """,
-                  style: TextStyle(color: _faved ? Colors.white : Colors.black),
+          builder: (context, setState) {
+            return OotmPopUp(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 24.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      // Nazwa drużyny
+                      Text(
+                        "${widget.performance.team}",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: _faved ? Color(0xFFFF951A) : Colors.white,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      SizedBox(height: 8.0),
+                      // parametry: scena - gr. wiekowa - problem
+                      Text(
+                        "Scena ${widget.performance.stage.substring(6,7)} - Gr. wiekowa ${widget.performance.age} - Problem ${widget.performance.problem}",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: _faved ? Color(0xFFFF951A) : Colors.white),
+                      ),
+                      SizedBox(height: 16.0),
+                      // godzina występu
+                      Text(
+                        "${widget.performance.play} - Występ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: _faved ? Color(0xFFFF951A) : Colors.white,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      // info o stawieniu się
+                      SizedBox(height: 8.0),
+                      Text(
+                        "(Drużyna powinna się stawić na godzinę przed występem)",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: _faved ? Color(0xFFFF951A) : Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 16.0),
+                      // godzina spontana
+                      Text("${widget.performance.spontan} - Spontan",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      SizedBox(height: 8.0),
+                      // info o stawieniu się
+                      Text(
+                        "(Drużyna powinna się stawić na 20 minut przed występem)",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                      ),
+                    ],
                   ),
-              actions: <Widget>[
-                CupertinoDialogAction(
-                  child: _faved ? 
-                    Icon(OotmIconPack.favs_full) :
-                    Icon(OotmIconPack.favs_outline),
-                  onPressed: () {
-                    setState(() =>
-                      widget.performance.faved = !widget.performance.faved);
-                      widget.performance.save();
-                      super.setState(() {});
-                  }
                 ),
-                CupertinoDialogAction(
-                  child: Icon(OotmIconPack.close),
-                  onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
-                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    FlatButton(
+                      onPressed: () {
+                        isChange = !isChange;
+                        _faved = !_faved;
+                        setState(() {});
+                      },
+                      child: _faved ? 
+                        Icon(OotmIconPack.favs_full, color: Color(0xFFFF951A)) :
+                        Icon(OotmIconPack.favs_outline, color: Colors.white),
+                    ),
+                    FlatButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Icon(OotmIconPack.close, color: Colors.white, size: 16.0,),
+                    ),
+                  ],
+                )
               ],
-            );
-          }
+            ),
+          );
+          },
         );
       }
+    ).then((value) {
+      if (isChange) {
+        widget.performance.faved = !widget.performance.faved;
+        widget.performance.save();
+        super.setState(() {});
+      }
+    });
+  }
+}
+
+
+class OotmPopUp extends StatelessWidget {
+  final Widget child;
+  OotmPopUp({Key key, this.child}) : super(key: key);
+ 
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+       type: MaterialType.transparency,
+       child: Stack(
+         children: <Widget>[
+           GestureDetector(
+             onTap: () => Navigator.of(context).maybePop(),
+           ),
+           Padding(
+               padding: EdgeInsets.symmetric(horizontal: 16.0),
+               child: Align(
+                 alignment: Alignment.center,
+                 child: Container(
+                   decoration: greyBoxDecoration(),
+                   child: this.child,
+                 )
+               )
+           )
+         ])
     );
   }
 }
@@ -258,7 +356,7 @@ class PerformanceCard extends StatelessWidget {
       day = "Sobota";
     } else if (performance.city == "Gdynia_Niedziela"){
       finals = true;
-      day = "Niedziea";
+      day = "Niedziela";
     } else {
       finals = false;
     }
@@ -283,10 +381,7 @@ class PerformanceCard extends StatelessWidget {
                     performance.play,
                     style: TextStyle(
                       height: 1.5,
-                      color: performance.faved ?
-                        this.favColor
-                        :
-                        Colors.black,
+                      color: Colors.black,
                       fontSize: 23.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -297,10 +392,7 @@ class PerformanceCard extends StatelessWidget {
               Text(
                 performance.play,
                 style: TextStyle(
-                  color: performance.faved ?
-                    this.favColor
-                    :
-                    Colors.black,
+                  color: Colors.black,
                   fontSize: 23.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -357,35 +449,45 @@ class Headline extends StatelessWidget {
 class GreyBox extends StatelessWidget {
   final String label;
   final double fontSize;
+  final Decoration decoration;
   final GestureTapCallback onPressed;
-  GreyBox({this.onPressed, @required this.label, @required this.fontSize});
+  GreyBox({this.onPressed, @required this.label, @required this.fontSize, @required this.decoration});
 
   @override
   Widget build(BuildContext context) {
-  return Container(
-    child: RawMaterialButton(
-      onPressed: this.onPressed,
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            this.label,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: this.fontSize,
-              fontWeight: FontWeight.w500,
-              ), 
-            softWrap: true,
+    return Container(
+      child: RawMaterialButton(
+        
+        onPressed: this.onPressed,
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              this.label,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: this.fontSize,
+                fontWeight: FontWeight.w500,
+                ), 
+              softWrap: true,
+              ),
             ),
-          ),
+        ),
       ),
-    ),
-    decoration: greyBoxDecoration(),
+      decoration: this.decoration,
     );
   }
 }
 
+Decoration imageBoxDecoration(imageName) {
+  return BoxDecoration(
+    image: DecorationImage(image: AssetImage(imageName)),
+    // borderRadius: BorderRadius.circular(10.0),
+    // color: Color(0xFF333333),
+    boxShadow: [blackShadow()]
+  );
+}
 
 Decoration whiteBoxDecoration() {
   return BoxDecoration(
@@ -432,39 +534,36 @@ BoxShadow orangeShadow() {
 
 class AppBarOotm extends StatelessWidget implements PreferredSizeWidget {
   final bool leadingIcon;
-  final String title;
-  const AppBarOotm({Key key, this.leadingIcon, this.title}) : super(key: key);
+  final Widget customLeading;
+  final Widget leading;
+  final List<Widget> actions;
+  final Widget title;
+  final Widget bottom;
+  const AppBarOotm({Key key, this.leadingIcon, this.title, this.bottom, this.actions, this.leading, this.customLeading}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final endDrawerProvider = Provider.of<EndDrawerProvider>(context);
     return AppBar(
-    automaticallyImplyLeading: false,
-    leading: leadingIcon ?
-      IconButton(
-        icon: Icon(OotmIconPack.arrow_back),
-        onPressed: () => Navigator.of(context).maybePop())
-      : null,
-    title: Text(title),
-    centerTitle: false,
-    backgroundColor: Colors.transparent,
-    brightness: Brightness.light,
-    elevation: 0,
-    textTheme: TextTheme(
-      headline6: TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-        fontSize: 31,
-        )
-      ),
-    actions: <Widget>[
-      IconButton(
-        disabledColor: Colors.black,
-        icon: Icon(OotmIconPack.menu),
-        // onPressed: () => keyScaffold.currentState.openEndDrawer()
-        onPressed: () => endDrawerProvider.change()
-        )
-      ],
+      bottom: this.bottom,
+      automaticallyImplyLeading: false,
+      leading: leadingIcon ? customLeading ??
+        IconButton(
+          icon: Icon(OotmIconPack.arrow_back),
+          onPressed: () => Navigator.of(context).maybePop())
+        : null,
+      title: this.title,
+      centerTitle: false,
+      backgroundColor: Colors.transparent,
+      brightness: Brightness.light,
+      elevation: 0,
+      textTheme: TextTheme(
+        headline6: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+          fontSize: 31,
+          )
+        ),
+      actions: this.actions,
     );
   }
 
