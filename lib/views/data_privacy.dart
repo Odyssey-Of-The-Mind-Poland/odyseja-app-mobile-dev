@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import '../common_widgets.dart';
-
+import '../widgets/appbar.dart';
 class DataPrivacyRoute extends StatelessWidget {
   @override
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBarOotm(
           leadingIcon: true,
-          title: Text("O aplikacji"),
+          title: Text("Dane i Prywatność"),
         ),
-        body: Text("o Aplikacji")
+        body: Text("Dane i Prywatność")
       );
     }
 }

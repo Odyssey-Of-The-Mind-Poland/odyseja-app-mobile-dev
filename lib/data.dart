@@ -4,25 +4,17 @@ import 'dart:convert';
 import 'dart:async' show Future;
 import 'package:hive/hive.dart';
 import 'package:strings/strings.dart';
-part 'data.g.dart';
 
-String urlSchedule(String _city) {
-  final String _address = 
-    'http://grzybek.xyz:8081/timeTable/getLike?city=$_city&team=&problem=&age=&stage=';
-  return  _address;
-}
-String urlInfo(String _city) {
-  final String _address = 'http://grzybek.xyz:8081/info/getInfo?city=$_city';
-  return  _address;
-}
-String urlStages(String _city) {
-  final String _address = 'http://grzybek.xyz:8081/info/getInfo?city=$_city';
-  return  _address;
-}
-String urlProblems(String _city) {
-  final String _address = 'http://grzybek.xyz:8081/info/getInfo?city=$_city';
-  return  _address;
-}
+import 'data/city.dart';
+import 'data/city_set.dart';
+import 'data/divisions.dart';
+import 'data/info.dart';
+import 'data/performance.dart';
+import 'data/performance_group.dart';
+import 'data/problems.dart';
+import 'services/api_endpoints.dart';
+
+
 
 void firstRunSync() {
   // FUTURE: getCities, to get events and dates for the current year.
@@ -217,103 +209,6 @@ class CityData {
 }
 
 
-class CitySet {
-  static List<City> cities = new List<City>();
-
-  CitySet({cities});
-
-  factory CitySet.generate() {
-    cities.clear();
-      for (int i=0; i<City.hiveNames().length; i++) {
-        cities.add(new City.generate(i));
-      }
-    return CitySet(cities: cities);
-  }
-
-}
-
-
-class City {
-  String apiName;
-  String fullName;
-  List<String> shortName;
-  String hiveName;
-  DateTime eventDate;
-
-  City({this.apiName, this.fullName, this.shortName, this.hiveName, this.eventDate});
-
-  factory City.generate(int idx) { 
-    return City(
-      apiName: apiNames()[idx],
-      fullName: fullNames()[idx],
-      shortName: shortNames()[idx],
-      hiveName: hiveNames()[idx],
-      eventDate: eventDates()[idx],
-    );
-  }
-  static List<String> apiNames() {
-    const List<String> _events = [
-      // TODO Worcław or Wroclaw
-      "Wroclaw",
-      "Poznań",
-      "Katowice",
-      "Warszawa",
-      "Łódź",
-      "Gdańsk",
-      "Gdynia",
-    ];
-    return _events;
-  }
-  static List<String> fullNames() {
-    const List<String> _events = [
-      "Eliminacje Regionalne - Wrocław",
-      "Eliminacje Regionalne - Poznań",
-      "Eliminacje Regionalne - Katowice",
-      "Eliminacje Regionalne - Warszawa",
-      "Eliminacje Regionalne - Łódź",
-      "Eliminacje Regionalne - Gdańsk",
-      "Finał Ogólnopolski - Gdynia",
-    ];
-    return _events;
-  }
-  static List<List<String>> shortNames() {
-    const List<List<String>> _events = [
-      ["WRO", "CŁAW"],
-      ["POZ", "NAŃ"],
-      ["KATO", "WICE"],
-      ["WA", "WA"],
-      ["ŁÓ", "DŹ"],
-      ["GDA", "ŃSK"],
-      ["GDY", "NIA"],
-      ];
-    return _events;
-  }
-  static List<String> hiveNames() {
-    const List<String> _events = [
-      "wroclaw",
-      "poznan",
-      "katowice",
-      "warszawa",
-      "lodz",
-      "gdansk",
-      "gdynia",
-      ];
-    return _events;
-  }
-  static List<DateTime> eventDates() {
-    List<DateTime> _dates = [
-      DateTime(2020,02,29),
-      DateTime(2020,03,01),
-      DateTime(2020,03,07),
-      DateTime(2020,03,08),
-      DateTime(2020,03,14),
-      DateTime(2020,03,15),
-      DateTime(2020,04,04),
-      ];
-    return _dates;
-  }
-}
-
 
 List<Performance> scheduleToList(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
@@ -326,121 +221,4 @@ List<Info> infoToList(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
 
   return parsed.map<Info>((json) => Info.fromJson(json)).toList();
-}
-
-
-@HiveType(typeId: 0)
-class Performance extends HiveObject {
-  @HiveField(0)
-  final int id;
-  @HiveField(1)
-  final String city;
-  @HiveField(2)
-  final String team;
-  @HiveField(3)
-  final String problem;
-  @HiveField(4)
-  final String age;
-  @HiveField(5)
-  final String play;
-  @HiveField(6)
-  final String spontan;
-  @HiveField(7)
-  final String stage;
-  @HiveField(8)
-  bool faved;
-
-  Performance({this.faved, this.id, this.city, this.team,
-    this.problem, this.age, this.play, this.spontan, this.stage});
-
-  factory Performance.fromJson(Map<String, dynamic> json) {
-    return Performance(
-      id: json['id'],
-      city: json['city'],
-      team: json['team'],
-      problem: json['problem'] == "d" ? "J" : json['problem'],
-      age: json['age'],
-      //  TODO json['performance'].length < 5 ?! 
-      play: (json['performance'].length < 5)
-      ? "0" + json['performance']
-      : json['performance'],
-      spontan: json['spontan'],
-      stage: json['stage'],
-      faved: false,
-    );
-  }
-}
-
-@HiveType(typeId: 1)
-class Info extends HiveObject {
-  @HiveField(0)
-  final int id;
-  @HiveField(1)
-  final String infoText;
-  @HiveField(2)
-  final String city;
-  @HiveField(3)
-  final String infName;
-
-  Info({this.id, this.infoText, this.city, this.infName});
-
-  factory Info.fromJson(Map<String, dynamic> json) {
-    return Info(
-      id: json['id'],
-      infoText: json['infoText'],
-      city: json['city'],
-      infName: json['infName']
-    );
-  }
-}
-
-
-@HiveType(typeId: 2)
-class PerformanceGroup {
-  @HiveField(0)
-  final int stage;
-  @HiveField(1)
-  final String problem;
-  @HiveField(2)
-  final String age;
-  @HiveField(3)
-  final List<String> performanceKeys;
-
-  PerformanceGroup({@required this.stage, @required this.problem, @required this.age, @required this.performanceKeys});
-}
-// http://grzybek.xyz:8081/timeTable/getProblems
-// int id, String problemName, int problemNumber
-
-  // temporary solution
-
-List<String> problemList() {
-  const List<String> _problems = [
-    // TODO finalne nazwy na juniorkow 
-    "Juniorzy",
-    "Reakcja na ryzyko",
-    "Co leci w sieci",
-    "Perspektywa detektywa",
-    "Nisko zawieszona poprzeczka",
-    "Nonsensy z sensem"
-    ];
-  return _problems;
-}
-List<String> ageList() {
-  const List<String> _ages = [
-    "Juniorzy",
-    "<=V\nklasa",
-    "VI - VIII\nklasa",
-    "Lic./\ntechnik.",
-    "Uczelnie\nWyższe",
-    ];
-  return _ages;
-}
-
-List<String> problemShorts(){
-  const List<String> _shorts = ['J', '1', '2', '3', '4', '5'];
-  return _shorts;
-}
-List<String> ageShorts(){
-  const List<String> _shorts = ['J', 'I', 'II', 'III', 'IV'];
-  return _shorts;
 }

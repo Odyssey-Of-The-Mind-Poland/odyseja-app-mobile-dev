@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ootm_app/ootm_icon_pack.dart';
+import 'package:ootm_app/widgets/appbar.dart';
+import '../../data/ootm_icon_pack.dart';
 // import 'package:provider/provider.dart';
-import 'common_widgets.dart';
 
 class HomePage extends StatelessWidget {
   @override

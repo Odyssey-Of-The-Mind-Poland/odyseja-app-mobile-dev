@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:ootm_app/widgets/appbar.dart';
 import 'package:provider/provider.dart';
 // import 'city.dart';
-import 'data.dart';
-import 'common_widgets.dart';
 import 'package:hive/hive.dart';
-import 'main.dart';
+import '../../data/info.dart';
+import '../../main.dart';
+import '../../widgets/category_box.dart';
+import '../../widgets/box_decoration.dart';
 
 
 class InfoPage extends StatefulWidget {

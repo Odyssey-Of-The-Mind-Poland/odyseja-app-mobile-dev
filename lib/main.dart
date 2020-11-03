@@ -11,18 +11,22 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'package:ootm_app/routes/help_feedback.dart';
-import 'package:ootm_app/routes/data_privacy.dart';
 // Import routes
-import 'home.dart';
-import 'info.dart';
+import 'data/city.dart';
+import 'data/city_set.dart';
+import 'data/info.dart';
+import 'data/performance.dart';
+import 'data/performance_group.dart';
+import 'views/home/home.dart';
+import 'views/info/info.dart';
 // import 'city.dart';
-import 'favourites.dart';
-import 'schedule.dart';
+import 'views/favourites/favourites.dart';
+import 'views/schedule/schedule.dart';
 
-import 'ootm_icon_pack.dart';
+import 'data/ootm_icon_pack.dart';
 import 'data.dart';
-import 'common_widgets.dart';
+import 'themes.dart';
+import 'widgets/box_decoration.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,8 +56,8 @@ class CentralProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (context) => CitySelector()),
-        ChangeNotifierProvider(builder: (context) => ChosenCity()),
+        ChangeNotifierProvider(create: (_) => CitySelector()),
+        ChangeNotifierProvider(create: (_) => ChosenCity()),
         // ChangeNotifierProvider(builder: (context) => EndDrawerProvider()),
         ],
       child: MyApp()
@@ -71,14 +75,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
           // debugShowMaterialGrid: true,
           title: 'OotmApp',
-          theme: ThemeData(
-            primaryColor: Color(0xFFFF951A),
-            fontFamily: 'Raleway', // Odyssey Orange
-            // primaryTextTheme: TextTheme(
-            //   body1: TextStyle(color: Color(0xFF333333)),
-            //   title: TextStyle(color: Colors.white),
-            // )
-            ),
+          theme: defaultTheme(),
         home: WillPopScope(
           onWillPop: () async => await Navigator.of(context).maybePop(),
           child: DataManager()),
@@ -608,15 +605,14 @@ class _OotmNavBarState extends State<OotmNavBar> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(OotmIconPack.navbar_home),
-              title: Text('Home')
+              label: 'Home'
             ),
             BottomNavigationBarItem(
               icon: Icon(OotmIconPack.navbar_info),
-              title: Text('Info')
+              label: 'Info'
             ),
             BottomNavigationBarItem(
               icon: SizedBox(),
-              title: SizedBox(),
               ),
             // BottomNavigationBarItem(
             //   icon: Transform.translate(
@@ -624,15 +620,15 @@ class _OotmNavBarState extends State<OotmNavBar> {
             //     child: SizedOverflowBox(
             //       size: Size(24.0, 24.0),
             //       child: CityButton())),
-            //   title: Text('City Selection'),
+            //   label: 'City Selection',
             //   ),
             BottomNavigationBarItem(
               icon: Icon(OotmIconPack.navbar_schedule),
-              title: Text('Harmonogram')
+              label: 'Harmonogram'
             ),
             BottomNavigationBarItem(
               icon: Icon(OotmIconPack.favs_outline),
-              title: Text('Ulubione')
+              label: 'Ulubione'
             ),
           ],
     ),
@@ -798,11 +794,11 @@ class OotmEndDrawer extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return HelpFeedbackRoute();
-                  })
-                );
+                // Navigator.of(context).push(
+                //   MaterialPageRoute<void>(builder: (BuildContext context) {
+                //     return null;
+                //   })
+                // );
               },
             ),
             ListTile(
@@ -812,11 +808,11 @@ class OotmEndDrawer extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return DataPrivacyRoute();
-                  })
-                );
+                // Navigator.of(context).push(
+                //   MaterialPageRoute<void>(builder: (BuildContext context) {
+                //     return null;
+                //   })
+                // );
               },
             ),
           ],
@@ -865,4 +861,14 @@ Navigator navigatorDestinations(Key _navigatorKey) {
         );
       }
   );
+}
+
+class EndDrawerProvider with ChangeNotifier {
+  bool opened = false;
+
+  void change() {
+    opened = !opened;
+    // print(opened);
+    notifyListeners();
+  }
 }
