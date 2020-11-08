@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:strings/strings.dart';
 
 import 'data/city.dart';
-import 'data/city_set.dart';
+// import 'data/city_set.dart';
 import 'data/divisions.dart';
 import 'data/info.dart';
 import 'data/performance.dart';
