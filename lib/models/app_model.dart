@@ -1,6 +1,5 @@
-import '../data/city.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
-
 
 enum DateStatus {
   preEvent,
@@ -13,24 +12,18 @@ enum DateStatus {
 }
 
 
-class AppModel {
+class AppModel extends ChangeNotifier {
   DateStatus dateStatus;
-  String chosenCityName;
-  bool isRegioData;
-  bool isFinalsData;
+  bool isRegioData = false;
+  bool isFinalsData = false;
   Box mainBox;
+  String savedCity;
  
 
   Future<void> loadDatabase() async {
     mainBox = await Hive.openBox("mainBox");
     isRegioData = mainBox.get("isRegioData", defaultValue: false);
     isFinalsData = mainBox.get("isFinalsData", defaultValue: false);
+    savedCity = mainBox.get("chosenCity", defaultValue: "warszawa");
   }
-
-
-  Future<void> loadChosenCity() async {
-    mainBox = await Hive.openBox("mainBox");
-    chosenCityName = mainBox.get("chosenCity", defaultValue: "poznan");
-  }
-
 }

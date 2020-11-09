@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:ootm_app/data/city.dart';
 import 'package:ootm_app/data/divisions.dart';
@@ -10,25 +11,41 @@ import 'package:ootm_app/data/problems.dart';
 import 'package:strings/strings.dart';
 
 
-class CityDataModel {
-  City city;
+class CityDataModel extends ChangeNotifier {
   Box cityBox;
   List<Performance> pfList = [];
   List<Info> infoList = [];
-  List<String> stages;
+  List<String> stages = [];
+  List<PerformanceGroup> pfGroup = [];
+  City chosenCity = City(fullName: "", shortName: ["", ""]);
 
 
-  Future<void> loadCityDatabase() async {
-    this.cityBox = await Hive.openBox(this.city.hiveName);
-    this.pfList = cityBox.get("performances");
-    this.pfList = cityBox.get("performanceGroups");
-    this.stages = cityBox.get("stages");
-    this.infoList = cityBox.get("info");
+  Future<void> openCityDatabase() async {
+    this.cityBox = await Hive.openBox(this.chosenCity.hiveName);
   }
 
 
-  void closeCityDatabase() {
+  Future<void> loadCityDatabase() async {
+    List<String> boxKeys = this.cityBox.get("performances").cast<String>();
+    this.pfList = [for(String k in boxKeys) this.cityBox.get(k)];
+
+    // List<PerformanceGroup> pfGroupKeys = cityBox.get("performanceGroups").cast<PerformanceGroup>();
+    
+    this.stages = cityBox.get("stages").cast<String>();
+    this.infoList = cityBox.get("info").cast<Info>();
+    notifyListeners();
+  }
+
+
+  Future<void> closeCityDatabase() async {
     this.cityBox.close();
+    this.infoList.clear();
+    this.pfList.clear();
+  }
+
+
+  Future<void> loadChosenCity(String savedCity) async {
+    chosenCity = CitySet.cities.firstWhere((city) => city.hiveName == savedCity);
   }
 
 
