@@ -2,10 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ootm_app/models/city_data_model.dart';
 import 'package:ootm_app/widgets/appbar.dart';
 import 'package:provider/provider.dart';
-import 'package:ootm_app/main.dart';
-
 import '../../data/divisions.dart';
 import '../../data/performance.dart';
 import '../../data/performance_group.dart';
@@ -16,7 +15,7 @@ import '../../widgets/performance_group.dart';
 class FavouritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final cityProvider = Provider.of<ChosenCity>(context);
+    final cityProvider = Provider.of<CityDataModel>(context);
     return FutureBuilder(
       future: Hive.openBox(cityProvider.chosenCity.hiveName),
       // initialData: InitialData,

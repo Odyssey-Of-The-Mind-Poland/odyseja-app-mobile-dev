@@ -1,18 +1,14 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:ootm_app/models/city_data_model.dart';
 import 'package:ootm_app/widgets/appbar.dart';
-// import 'package:hive_flutter/hive_flutter.dart';
-// import 'city.dart';
-// import 'ootm_icon_pack.dart';
 import 'package:quiver/iterables.dart';
 import 'package:provider/provider.dart';
 import '../../data/divisions.dart';
 import '../../data/performance.dart';
 import '../../data/performance_group.dart';
 import '../../data/problems.dart';
-import '../../main.dart';
 import '../../data/ootm_icon_pack.dart';
 import '../../widgets/category_box.dart';
 import '../../widgets/box_decoration.dart';
@@ -24,7 +20,7 @@ class ScheduleMenuRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cityProvider = Provider.of<ChosenCity>(context);
+    final cityProvider = Provider.of<CityDataModel>(context);
     return FutureBuilder(
         future: Hive.openBox(cityProvider.chosenCity.hiveName),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -410,7 +406,7 @@ class ScheduleViewRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cityProvider = Provider.of<ChosenCity>(context);
+    final cityProvider = Provider.of<CityDataModel>(context);
     return FutureBuilder(
       future: Hive.openBox(cityProvider.chosenCity.hiveName),
       // initialData: null,
