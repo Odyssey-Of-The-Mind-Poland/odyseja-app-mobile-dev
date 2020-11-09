@@ -16,7 +16,7 @@ class CityDataModel extends ChangeNotifier {
   List<Performance> pfList = [];
   List<Info> infoList = [];
   List<String> stages = [];
-  List<PerformanceGroup> pfGroup = [];
+  List<PerformanceGroup> pfGroups = [];
   City chosenCity = City(fullName: "", shortName: ["", ""]);
 
 
@@ -29,8 +29,14 @@ class CityDataModel extends ChangeNotifier {
     List<String> boxKeys = this.cityBox.get("performances").cast<String>();
     this.pfList = [for(String k in boxKeys) this.cityBox.get(k)];
 
-    // List<PerformanceGroup> pfGroupKeys = cityBox.get("performanceGroups").cast<PerformanceGroup>();
-    
+    List<PerformanceGroup> pfGroupKeys = cityBox.get("performanceGroups").cast<PerformanceGroup>();
+    this.pfGroups = pfGroupKeys.map((pfgk) {
+      pfgk.performances = [
+        for(String k in pfgk.performanceKeys) this.cityBox.get(k)
+      ];
+      return pfgk;
+    }).toList();
+
     this.stages = cityBox.get("stages").cast<String>();
     this.infoList = cityBox.get("info").cast<Info>();
     notifyListeners();
