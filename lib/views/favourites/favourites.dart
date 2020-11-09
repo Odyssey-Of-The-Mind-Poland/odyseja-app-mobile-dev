@@ -11,6 +11,7 @@ import '../../data/performance_group.dart';
 import '../../data/problems.dart';
 import '../../widgets/headline.dart';
 import '../../widgets/performance_group.dart';
+import 'filter_set.dart';
 
 class FavouritesPage extends StatelessWidget {
   @override
@@ -21,8 +22,6 @@ class FavouritesPage extends StatelessWidget {
       // initialData: InitialData,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          // TODO ticket on why it works on mobile, but not on web 
-          // List<String> stages = snapshot.data.get("stages");
           List<String> stages = snapshot.data.get("stages").cast<String>();
           List<PerformanceGroup> pfGroups = snapshot.data.get("performanceGroups").cast<PerformanceGroup>();
           return Scaffold(
@@ -79,16 +78,6 @@ class _FavouritesViewState extends State<FavouritesView> {
         Expanded(
           child: ListView(
             children: <Widget>[
-            // CupertinoSlidingSegmentedControl(
-            //   backgroundColor: Colors.white,
-            //   thumbColor: Color(0xFFFF951A),
-            //   groupValue: _selected,
-            //   onValueChanged: (int index) => _selected = index,
-            //   children: {
-            //     0: Text("Wszystkie"),
-            //     1: Text("Filtry")
-            //   },
-            // ),
               Headline(text: "Scena"),
               FilterSet(
                 labels: List<String>.generate(this.widget.stages.length, (int i) => "${i+1}"),
@@ -148,76 +137,6 @@ class _FavouritesViewState extends State<FavouritesView> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class FilterSet extends StatefulWidget {
-  final List<String> labels;
-  final Function filter;
-
-  FilterSet({Key key, @required this.labels, @required this.filter}) : super(key: key);
-
-  @override
-  _FilterSetState createState() => _FilterSetState();
-}
-
-class _FilterSetState extends State<FilterSet> with AutomaticKeepAliveClientMixin{
-  List<String> categoryFilter = new List<String>();
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    List<Widget> filterChips = new List<Widget>();
-    for (String label in this.widget.labels) {
-        filterChips.add(
-          FilterButton(
-            label: label,
-            selected: categoryFilter.contains(label),
-            onSelected: (value) {
-              print(value);
-              if (value) {
-                categoryFilter.add(label);
-              } else {
-                categoryFilter.remove(label);
-              } 
-              this.widget.filter(categoryFilter);
-            } 
-          )
-        );
-      }
-    return Row(
-      children: <Widget>[...filterChips]);
-  }
-
-  @override
-  bool get wantKeepAlive => true;
-}
-
-
-class FilterButton extends StatelessWidget {
-  final String label;
-  final bool selected;
-  final ValueChanged onSelected;
-  const FilterButton({Key key, @required this.label, @required this.selected, @required this.onSelected}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FilterChip(
-      label: Text(
-        this.label,
-        style: TextStyle(
-          color: selected ? Colors.white : Colors.black,
-          fontSize: 17.0,
-          fontWeight: FontWeight.bold, 
-        ),
-        ),
-      selectedColor: Color(0xFFFF951A),
-      selectedShadowColor: Color(0xFFFF951A),
-      padding: EdgeInsets.all(8.0),
-      // la
-      showCheckmark: false,
-      selected: this.selected,
-      onSelected: this.onSelected,
     );
   }
 }
