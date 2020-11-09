@@ -45,9 +45,9 @@ class UpdateCommand extends BaseCommand {
 
   Future<bool> _download(List cities) async {
     for (City city in cities) {
-      cityDataModel.city = city;
-      assert(true, "city.shortName[0]");
-      cityDataModel.loadCityDatabase();
+      cityDataModel.chosenCity = city;
+      assert(true, print("city.shortName[0]"));
+      cityDataModel.openCityDatabase();
 
       String scheduleData = await DataService().downloadData(urlSchedule(city.apiName));
       if (scheduleData.isEmpty)
