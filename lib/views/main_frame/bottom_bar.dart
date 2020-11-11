@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:ootm_app/data/ootm_icon_pack.dart';
-import 'package:provider/provider.dart';
-
 import 'city_choice_button.dart';
-import 'main_frame.dart';
+
 
 class BottomAppBarItem {
   BottomAppBarItem({this.iconData, this.isActive});
   final IconData iconData;
   final bool isActive;
 }
+
 
 class OotmBottomAppBar extends StatefulWidget {
   final List<BottomAppBarItem> items;
@@ -32,9 +30,9 @@ class OotmBottomAppBar extends StatefulWidget {
   _OotmBottomAppBarState createState() => _OotmBottomAppBarState();
 }
 
+
 class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
   int _selectedIndex = 0;
-  // GlobalKey bottomAppBarKey = GlobalKey();
 
   _updateIndex(int index) {
     widget.onTabSelected(index);
@@ -54,7 +52,6 @@ class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
     items.insert(items.length >> 1, _buildMiddleTabItem());
 
     return  BottomAppBar(
-      // key: bottomAppBarKey,
       child: Stack(
         alignment: Alignment.topCenter,
         children: <Widget>[
@@ -107,97 +104,13 @@ class _OotmBottomAppBarState extends State<OotmBottomAppBar> {
 }
 
 
-class OotmNavBar extends StatefulWidget {
-  static const _routeList = [
-    '/',
-    '/info',
-    '/city',
-    '/schedule',
-    '/favs',
-    ];
-  final navigatorKey;
-  OotmNavBar({Key key, this.navigatorKey}) : super(key: key);
-
-  @override
-  _OotmNavBarState createState() => _OotmNavBarState();
-}
-
-class _OotmNavBarState extends State<OotmNavBar> {
-  int _selected = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    final citySelectorProvider = Provider.of<CitySelector>(context);
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        NavBarBackground(),
-        BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
-        selectedItemColor: Color(0xFFFF951A),
-        unselectedItemColor: Color(0xFF333333),
-        currentIndex: _selected,
-        onTap: (int index) {
-          if(index != 2) {
-            setState(() {
-              _selected = index;
-            });
-            widget.navigatorKey.currentState.pushNamed(OotmNavBar._routeList[index]);
-          } else {
-            citySelectorProvider.change();
-          }
-        },
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(OotmIconPack.navbar_home),
-              label: 'Home'
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(OotmIconPack.navbar_info),
-              label: 'Info'
-            ),
-            BottomNavigationBarItem(
-              icon: SizedBox(),
-              ),
-            // BottomNavigationBarItem(
-            //   icon: Transform.translate(
-            //     offset: Offset(0, -8),
-            //     child: SizedOverflowBox(
-            //       size: Size(24.0, 24.0),
-            //       child: CityButton())),
-            //   label: 'City Selection',
-            //   ),
-            BottomNavigationBarItem(
-              icon: Icon(OotmIconPack.navbar_schedule),
-              label: 'Harmonogram'
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(OotmIconPack.favs_outline),
-              label: 'Ulubione'
-            ),
-          ],
-    ),
-    ]
-  );
-  }
-}
-
 class NavBarBackground extends StatelessWidget {
   final GlobalKey bottomBarKey;
   const NavBarBackground({Key key, this.bottomBarKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final keyContext = bottomBarKey.currentContext;
-    // final box = keyContext.findRenderObject() as RenderBox;
-    // final pos = box.localToGlobal(Offset.zero);
-    // print("BottomAppBarSize is: ${box.size.height}");
     return Container(
-      // height: box.size.height,
       height: 56.0,
       decoration: BoxDecoration(
         color: Color(0xFFFAFAFA),
@@ -213,7 +126,6 @@ class NavBarBackground extends StatelessWidget {
             )
           ],
         ),
-      // child: Expansion(),
       );
   }
 }

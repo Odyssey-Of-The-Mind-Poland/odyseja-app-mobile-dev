@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:ootm_app/views/main_frame/end_drawer.dart';
 import 'package:ootm_app/widgets/appbar.dart';
 import '../../data/ootm_icon_pack.dart';
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   @override
     Widget build(BuildContext context) {
-      // final endDrawerProvider = Provider.of<EndDrawerProvider>(context);
+      final endDrawerProvider = Provider.of<EndDrawerProvider>(context);
       return Scaffold(
         appBar: AppBarOotm(
           leadingIcon: false,
           title: Text("Start"),
-          // actions: <Widget>[
-          //   IconButton(
-          //     disabledColor: Colors.black,
-          //     icon: Icon(OotmIconPack.menu),
-          //     onPressed: () => endDrawerProvider.change()
-          //   )
-          // ],
+          actions: <Widget>[
+            IconButton(
+              disabledColor: Colors.black,
+              icon: Icon(OotmIconPack.menu),
+              onPressed: () => endDrawerProvider.change()
+            )
+          ],
         ),
         // body: Text("Home"));
         // body: Padding(

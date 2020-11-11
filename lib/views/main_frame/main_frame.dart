@@ -9,6 +9,86 @@ import 'package:ootm_app/widgets/box_decoration.dart';
 import 'package:provider/provider.dart';
 
 import '../../router.dart';
+import 'end_drawer.dart';
+
+
+
+class MainFrame extends StatefulWidget {
+
+  const MainFrame({Key key}) : super(key: key);
+  @override
+  _MainFrameState createState() => _MainFrameState();
+}
+
+class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixin{
+  AnimationController _controller;
+  Animation<Offset> _offsetAnimation;
+  static const double endDrawerAnimationOffset = -0.70;
+  // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _offsetAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: const Offset(endDrawerAnimationOffset, 0.0)
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.linear,
+    ));
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    // Hive.close();
+    super.dispose();
+  }
+  
+  
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.topRight,
+      children: <Widget>[
+        OotmEndDrawer(
+          endDrawerAnimationOffset: endDrawerAnimationOffset,
+        ),
+        Consumer<EndDrawerProvider>(
+          builder: (context, endDrawerProvider, child) {
+            if(endDrawerProvider.opened) {
+              _controller.forward();
+            } else {
+              _controller.reverse();
+            }
+            return SlideTransition(
+              position: _offsetAnimation,
+              child: GestureDetector(
+                onPanUpdate: (details) {
+                  if (details.delta.dx > 0) {
+                    // swiping in right direction
+                    if (endDrawerProvider.opened) {
+                      endDrawerProvider.change();
+                    }
+                  }
+                },
+                onTap: endDrawerProvider.opened ? 
+                () => endDrawerProvider.change() : null,
+                child: AbsorbPointer(
+                  absorbing: endDrawerProvider.opened,
+                  
+                  child: MainFrameWindow()
+                ),
+              ),
+            );
+          }
+        )
+      ],
+    ); 
+  }
+}
+
 
 class MainFrameWindow extends StatefulWidget {
   MainFrameWindow({Key key}) : super(key: key);
