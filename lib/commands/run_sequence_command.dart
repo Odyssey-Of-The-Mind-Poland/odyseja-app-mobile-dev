@@ -15,6 +15,8 @@ class RunSequenceCommand extends BaseCommand {
     await cityDataModel.loadChosenCity(appModel.savedCity);
     await cityDataModel.openCityDatabase();
     await cityDataModel.loadCityDatabase();
+    // process favouristes
+    favModel.favList = cityDataModel.pfGroups;
   }
   
 }

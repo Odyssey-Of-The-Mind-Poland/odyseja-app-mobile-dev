@@ -28,11 +28,12 @@ class CityDataModel extends ChangeNotifier {
   Future<void> loadCityDatabase() async {
     List<String> boxKeys = this.cityBox.get("performances").cast<String>();
     this.pfList = [for(String k in boxKeys) this.cityBox.get(k)];
-
     List<PerformanceGroup> pfGroupKeys = cityBox.get("performanceGroups").cast<PerformanceGroup>();
     this.pfGroups = pfGroupKeys.map((pfgk) {
       pfgk.performances = [
-        for(String k in pfgk.performanceKeys) this.cityBox.get(k)
+        // for(String k in pfgk.performanceKeys) this.cityBox.get(k)
+        // TODO: whole performancegroup concept should be rewritten
+        for(String k in pfgk.performanceKeys) this.pfList.firstWhere((element) => element.id == int.parse(k.substring(1)))
       ];
       return pfgk;
     }).toList();
@@ -42,11 +43,18 @@ class CityDataModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updatePerformanceList(Performance performance) async {
+    performance.save();
+    int idx = this.pfList.indexOf(performance);
+    this.pfList[idx].faved = performance.faved;
+    
+  }
 
   Future<void> closeCityDatabase() async {
     this.cityBox.close();
     this.infoList.clear();
     this.pfList.clear();
+    this.pfGroups.clear();
   }
 
 

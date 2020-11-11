@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ootm_app/models/city_data_model.dart';
+import 'package:ootm_app/models/fav_model.dart';
 import 'package:ootm_app/widgets/appbar.dart';
 import 'package:provider/provider.dart';
 import '../../data/divisions.dart';
@@ -16,61 +15,46 @@ import 'filter_set.dart';
 class FavouritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final cityProvider = Provider.of<CityDataModel>(context);
-    return FutureBuilder(
-      future: Hive.openBox(cityProvider.chosenCity.hiveName),
-      // initialData: InitialData,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          List<String> stages = snapshot.data.get("stages").cast<String>();
-          List<PerformanceGroup> pfGroups = snapshot.data.get("performanceGroups").cast<PerformanceGroup>();
           return Scaffold(
             appBar: AppBarOotm(
               leadingIcon: false,
               title: Text("Ulubione"),
             ),
             body: FavouritesView(
-              box: snapshot.data,
-              pfGroups: pfGroups,
-              stages: stages,
             ),
           );
-        } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
-        }
-        return CircularProgressIndicator();
-      }
-    );
   }
 }
 
 class FavouritesView extends StatefulWidget {
-  final Box box;
-  final List<PerformanceGroup> pfGroups;
-  final List<String> stages;
-  FavouritesView({Key key, this.box, this.pfGroups, this.stages}) : super(key: key);
+  FavouritesView({Key key}) : super(key: key);
 
   @override
   _FavouritesViewState createState() => _FavouritesViewState();
 }
 
 class _FavouritesViewState extends State<FavouritesView> {
+  List<PerformanceGroup> pfGroups;
+  List<String> stages;
+
   List<String> stageFilter = [];
   List<String> problemFilter = [];
   List<String> ageFilter = [];
 
   List<PerformanceGroup> filter() {
-    
-    return this.widget.pfGroups.where((pf) =>
+    return pfGroups.where((pf) =>
       (stageFilter.isNotEmpty ? stageFilter.contains(pf.stage.toString()) : true) &&
       (problemFilter.isNotEmpty ? problemFilter.contains(pf.problem) : true) &&
       (ageFilter.isNotEmpty ? ageFilter.contains(pf.age) : true)
-       
     ).toList();
-
   }
+
   @override
   Widget build(BuildContext context) {
+    final cityProvider = Provider.of<CityDataModel>(context);
+    final favProvider = Provider.of<FavModel>(context);
+    pfGroups = favProvider.favList;
+    stages = cityProvider.stages;
     
     List<PerformanceGroup> filteredPfGroups = filter();
     return Column(
@@ -80,7 +64,7 @@ class _FavouritesViewState extends State<FavouritesView> {
             children: <Widget>[
               Headline(text: "Scena"),
               FilterSet(
-                labels: List<String>.generate(this.widget.stages.length, (int i) => "${i+1}"),
+                labels: List<String>.generate(stages.length, (int i) => "${i+1}"),
                 filter: (List<String> categoryFilter) {
                   stageFilter = categoryFilter;
                   setState(() {});
@@ -102,10 +86,7 @@ class _FavouritesViewState extends State<FavouritesView> {
                   setState(() {});
                 },   
               ),
-              ValueListenableBuilder(
-                valueListenable: widget.box.listenable(),
-                builder: (context, value, child) {
-                  return Column(
+         Column(
                     children: <Widget>[
                       ListView.builder(
                         primary: false,
@@ -113,10 +94,7 @@ class _FavouritesViewState extends State<FavouritesView> {
                         shrinkWrap: true,
                         itemCount: filteredPfGroups.length,
                         itemBuilder: (BuildContext context, int i) {
-                          
-                          List<String> groupBoxKeys = filteredPfGroups[i].performanceKeys;
-                          List<Performance> performances = [for(String k in groupBoxKeys) this.widget.box.get(k)];
-                          performances.retainWhere((p) => p.faved == true);
+                          List<Performance> performances = filteredPfGroups[i].performances;
                           if (performances.isNotEmpty) {
                             return new PerformanceGroupWidget(
                               key: UniqueKey(),
@@ -130,9 +108,7 @@ class _FavouritesViewState extends State<FavouritesView> {
                         },
                       ),
                     ],
-                  );
-                },
-              ),
+                  )
             ],
           ),
         ),

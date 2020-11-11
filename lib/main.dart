@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'data/info.dart';
 import 'data/performance.dart';
 import 'data/performance_group.dart';
+import 'models/fav_model.dart';
 import 'views/main_frame/main_frame.dart';
 import 'themes.dart';
 import 'models/app_model.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (c) => CitySelector()),
         ChangeNotifierProvider(create: (c) => AppModel()),
         ChangeNotifierProvider(create: (c) => CityDataModel()),
+        ChangeNotifierProvider(create: (c) => FavModel()),
         // ChangeNotifierProvider(create: (c) => ChosenCityModel()),
         // ChangeNotifierProvider(builder: (context) => EndDrawerProvider()),
         ],

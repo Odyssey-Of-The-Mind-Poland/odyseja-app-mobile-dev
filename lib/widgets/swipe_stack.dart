@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:ootm_app/commands/faved_command.dart';
 import 'package:ootm_app/data/ootm_icon_pack.dart';
 import 'package:ootm_app/data/performance.dart';
 import 'performance_card.dart';
@@ -14,6 +15,13 @@ class SwipeStack extends StatefulWidget {
 }
 
 class _SwipeStackState extends State<SwipeStack> {
+  
+  void _handleFavouriting() async {
+    setState(() =>
+    widget.performance.faved = !widget.performance.faved
+    );
+    await FavedCommand().save(widget.performance);
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -56,11 +64,7 @@ class _SwipeStackState extends State<SwipeStack> {
               child: widget.performance.faved ? 
                 Icon(OotmIconPack.favs_full, color: Colors.white) :
                 Icon(OotmIconPack.favs_outline, color: Colors.white),
-              onPressed: () {
-                setState(() =>
-                widget.performance.faved = !widget.performance.faved);
-                widget.performance.save();
-              },
+              onPressed: _handleFavouriting,
             )
           ],
           secondaryActions: <Widget>[
@@ -188,9 +192,7 @@ class _SwipeStackState extends State<SwipeStack> {
       }
     ).then((value) {
       if (isChange) {
-        widget.performance.faved = !widget.performance.faved;
-        widget.performance.save();
-        super.setState(() {});
+        _handleFavouriting();
       }
     });
   }
