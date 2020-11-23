@@ -22,5 +22,5 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
-         name: up.apk 
+         name: LappkaOmmera.apk 
          path: build/app/outputs/apk/app.apk
