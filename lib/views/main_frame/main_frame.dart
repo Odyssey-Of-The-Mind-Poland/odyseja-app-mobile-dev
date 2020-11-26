@@ -4,15 +4,17 @@ import 'package:ootm_app/commands/run_sequence_command.dart';
 import 'package:ootm_app/data/city.dart';
 import 'package:ootm_app/data/ootm_icon_pack.dart';
 import 'package:ootm_app/models/city_data_model.dart';
+import 'package:ootm_app/views/favourites/favourites.dart';
+import 'package:ootm_app/views/home/home.dart';
+import 'package:ootm_app/views/info/info.dart';
 import 'package:ootm_app/views/main_frame/bottom_bar.dart';
+import 'package:ootm_app/views/schedule/schedule.dart';
 import 'package:ootm_app/widgets/box_decoration.dart';
 import 'package:provider/provider.dart';
-
-import '../../router.dart';
 import 'end_drawer.dart';
 
-
-
+// TODO Add a loading screen, which would allow async data loading functions to finish
+// one per screen vs one for the whole app
 class MainFrame extends StatefulWidget {
 
   const MainFrame({Key key}) : super(key: key);
@@ -24,7 +26,6 @@ class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMix
   AnimationController _controller;
   Animation<Offset> _offsetAnimation;
   static const double endDrawerAnimationOffset = -0.70;
-  // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   void initState() {
     super.initState();
     _controller = AnimationController(
@@ -42,7 +43,6 @@ class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMix
   @override
   void dispose() {
     _controller.dispose();
-    // Hive.close();
     super.dispose();
   }
   
@@ -140,7 +140,8 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
   Animation<double> _fadeAnimation;
   AnimationController _controller;
   bool _visibility = false;
-  // Box box = Hive.box("mainBox");
+
+  int _currentIndex = 0;
 
   void initState() {
     super.initState();
@@ -166,30 +167,86 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
     _controller.dispose();
     super.dispose();
   }
-  static const _routeList = [
-    '/',
-    '/info',
-    '/schedule',
-    '/favs',
-    ];
 
-  // int _selectedRoute = 0; 
-  void _selectedTab(int index) {
-    // setState(() {
-    // });
-    // _selectedRoute = index;
-    _navigatorKey.currentState.pushNamed(_routeList[index]);
+  static final _infoKey = GlobalKey<NavigatorState>();
+  static final _scheduleKey = GlobalKey<NavigatorState>();
+
+  static final homePage = HomePage();
+  static final infoPage = InfoPage();
+  static final schedulePage = ScheduleMenuRoute();
+  static final favPage = FavouritesPage();
+
+  final pages = [
+    MyPage(
+      key: Key('info'),
+      name: '1',
+      builder: (context) => Navigator(
+      key: _infoKey,
+      onGenerateRoute: (settings) => MaterialPageRoute(
+        settings: settings,
+        maintainState: true,
+        builder: (context) => infoPage,
+        ),
+      )
+    ),
+    MyPage(
+      key: Key('schedule'),
+      name: '2',
+      builder: (context) => Navigator(
+        key: _scheduleKey,
+        onGenerateRoute: (settings) => MaterialPageRoute(
+          settings: settings,
+          maintainState: true,
+          builder: (context) => schedulePage
+        ),
+      )
+    ),
+    MyPage(
+      key: Key('favourites'),
+      name: '3',
+      builder: (context) => favPage),
+    MyPage(
+      key: Key('home'),
+      name: '0',
+      builder: (context) => homePage
+    ), 
+  ];
+
+  Future<bool> onWillPop() async {
+    return !await _infoKey.currentState.maybePop()
+      || !await _scheduleKey.currentState.maybePop();
   }
+  
+  void _selectedTab(int index) async {
+    if (index != _currentIndex) {
+      setState(() {
+        var element = pages.firstWhere((element) => element.name == index.toString());
+        this.pages.remove(element);
+        this.pages.add(element);
+      });
+      _currentIndex = index;
+    } else if (index == 1) {
+      await _infoKey.currentState.maybePop();
+    } else if (index == 2) {
+      await _scheduleKey.currentState.maybePop();
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
-  // final cityProvider = Provider.of<ChosenCity>(context);
   final cityProvider = Provider.of<CityDataModel>(context);
     return Scaffold(
       extendBody: true,
-      // key: keyScaffold,
       body: Stack(
         children: <Widget>[
-          navigatorDestinations(_navigatorKey),
+          WillPopScope(
+            onWillPop: () => onWillPop(),
+            child: Navigator(
+              key: _navigatorKey,
+              onPopPage: (route, result) => false,
+              pages: List.of(pages),
+            )
+          ),
           Consumer<CitySelector>(
             builder: (context, citySelector, widget) {
               if (citySelector.opened) {
@@ -285,7 +342,7 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
       //   navigatorKey: _navigatorKey,
       // ),
       bottomNavigationBar: OotmBottomAppBar(
-        onTabSelected: _selectedTab,
+        onTabSelected: (val) => _selectedTab(val),
         height: 56.0,
         iconSize: 24.0,
         selectedColor: Colors.orange,
@@ -309,4 +366,26 @@ class CitySelector with ChangeNotifier {
     opened = !opened;
     notifyListeners();
   }
+}
+
+
+class MyPage<T> extends Page<T> {
+  const MyPage({
+    LocalKey key,
+    @required String name,
+    @required this.builder,
+  }) : super(key: key, name: name);
+
+  final WidgetBuilder builder;
+
+  @override
+  Route<T> createRoute(BuildContext context) {
+    return MaterialPageRoute(
+      settings: this,
+      builder: builder,
+    );
+  }
+
+  @override
+  String toString() => '$name';
 }
