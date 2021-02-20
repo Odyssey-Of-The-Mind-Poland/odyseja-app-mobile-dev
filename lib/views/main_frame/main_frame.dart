@@ -77,8 +77,7 @@ class _MainFrameState extends State<MainFrame>
                   ? () => endDrawerProvider.change()
                   : null,
               child: AbsorbPointer(
-                  absorbing: endDrawerProvider.opened,
-                  child: MainFrameWindow()),
+                  absorbing: endDrawerProvider.opened, child: DataScaffold()),
             ),
           );
         })
@@ -110,7 +109,7 @@ class _MainFrameWindowState extends State<MainFrameWindow> {
             if (snapshot.hasError)
               return Text("${snapshot.error}");
             else
-              return DataScaffold();
+              return MainFrame();
           }
           return Center(
               child: Container(
@@ -221,8 +220,10 @@ class _DataScaffoldState extends State<DataScaffold>
 
   @override
   Widget build(BuildContext context) {
-    final cityProvider = Provider.of<CityDataModel>(context);
+    // final cityProvider = Provider.of<CityDataModel>(context);
+    final cs = Provider.of<CitySelector>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       extendBody: true,
       body: Stack(
         children: <Widget>[
@@ -246,7 +247,7 @@ class _DataScaffoldState extends State<DataScaffold>
               List<City> cities = CitySet.cities.reversed.toList();
               bool isData = true;
               for (City city in cities) {
-                // isData = box.get(city.hiveName, defaultValue: false);
+                isData = ["warszawa"].contains(city.hiveName);
                 cityButtons.add(new SlideTransition(
                   position: new Tween<Offset>(
                     begin: Offset(0.0, 1.0),
@@ -255,18 +256,18 @@ class _DataScaffoldState extends State<DataScaffold>
                     curve: Curves.easeInOut,
                     parent: _controller,
                   )),
-                  child: RawMaterialButton(
-                    onPressed: isData
-                        ? () {
-                            // cityProvider.chosenCity = city;
-                            ChangeCityCommand().change(city);
-                            citySelector.change();
-                            // } : Scaffold.of(context).showSnackBar(SnackBar(content: Text("Prosimy uzbroić się w cierpliwość :)"))),
-                          }
-                        : null,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40.0, vertical: 4.0),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 4.0),
+                    child: RawMaterialButton(
+                      onPressed: isData
+                          ? () {
+                              // cityProvider.chosenCity = city;
+                              ChangeCityCommand().change(city);
+                              citySelector.change();
+                              // } : Scaffold.of(context).showSnackBar(SnackBar(content: Text("Prosimy uzbroić się w cierpliwość :)"))),
+                            }
+                          : null,
                       child: Flex(
                         direction: Axis.horizontal,
                         children: <Widget>[
@@ -274,7 +275,9 @@ class _DataScaffoldState extends State<DataScaffold>
                             child: Container(
                               alignment: Alignment.center,
                               height: 40.0,
-                              decoration: orangeBoxDecoration(),
+                              decoration: isData
+                                  ? orangeBoxDecoration()
+                                  : greyBoxDecoration(),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -308,15 +311,14 @@ class _DataScaffoldState extends State<DataScaffold>
                 _offset -= 1;
               }
 
-              return _visibility
+              return cs.opened
                   ? Stack(
                       alignment: Alignment.bottomCenter,
                       children: <Widget>[
                         FadeTransition(
                           opacity: _fadeAnimation,
-                          // child: ModalBarrier(color: Colors.red,),
-                          child: IgnorePointer(
-                            ignoring: true,
+                          child: GestureDetector(
+                            onTap: citySelector.change,
                             child: Container(
                               decoration: BoxDecoration(color: Colors.black),
                             ),
@@ -334,7 +336,12 @@ class _DataScaffoldState extends State<DataScaffold>
       //   navigatorKey: _navigatorKey,
       // ),
       bottomNavigationBar: OotmBottomAppBar(
-        onTabSelected: (val) => _selectedTab(val),
+        onTabSelected: (val) {
+          if (cs.opened) {
+            cs.change();
+          }
+          _selectedTab(val);
+        },
         height: 56.0,
         iconSize: 24.0,
         selectedColor: Colors.orange,

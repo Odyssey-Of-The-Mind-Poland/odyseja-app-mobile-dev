@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
             // debugShowMaterialGrid: true,
             title: 'OotmApp',
             theme: defaultTheme(),
-            home: MainFrame(),
+            home: MainFrameWindow(),
           );
         }));
   }
