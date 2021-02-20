@@ -19,7 +19,6 @@ import 'models/app_model.dart';
 import 'models/city_data_model.dart';
 import 'commands/base_command.dart' as Commands;
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
@@ -34,29 +33,27 @@ void main() async {
   runApp(MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext _) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (c) => CitySelector()),
-        ChangeNotifierProvider(create: (c) => AppModel()),
-        ChangeNotifierProvider(create: (c) => CityDataModel()),
-        ChangeNotifierProvider(create: (c) => FavModel()),
-        ChangeNotifierProvider(create: (c) => EndDrawerProvider()),
+        providers: [
+          ChangeNotifierProvider(create: (c) => CitySelector()),
+          ChangeNotifierProvider(create: (c) => AppModel()),
+          ChangeNotifierProvider(create: (c) => CityDataModel()),
+          ChangeNotifierProvider(create: (c) => FavModel()),
+          ChangeNotifierProvider(create: (c) => EndDrawerProvider()),
         ],
-      child: Builder(builder: (context) {
-        Commands.init(context);
-        return MaterialApp(
-          // debugShowMaterialGrid: true,
-          title: 'OotmApp',
-          theme: defaultTheme(),
-          home: MainFrame(),
-        );
-      })
-    );
+        child: Builder(builder: (context) {
+          Commands.init(context);
+          return MaterialApp(
+            // debugShowMaterialGrid: true,
+            title: 'OotmApp',
+            theme: defaultTheme(),
+            home: MainFrame(),
+          );
+        }));
   }
 }

@@ -18,7 +18,7 @@ class _InfoPageState extends State<InfoPage> {
     final cityProvider = Provider.of<CityDataModel>(context);
     // List<Info> info = _snapshot.data.get("info").cast<Info>();
     List<Info> info = cityProvider.infoList;
-    List<Widget> _infoTilesAll = new List<Widget>();
+    List<Widget> _infoTilesAll = [];
     for (Info _infoItem in info.sublist(0, 9)) {
       _infoTilesAll.add(new InfoTile(
         label: _infoItem.infName,
@@ -26,7 +26,7 @@ class _InfoPageState extends State<InfoPage> {
         imageName: "assets/graphics/Info 1.png",
       ));
     }
-    List<Widget> _infoTilesTeams = new List<Widget>();
+    List<Widget> _infoTilesTeams = [];
     for (Info _infoItem in info.sublist(9, 18)) {
       _infoTilesTeams.add(new InfoTile(
         label: _infoItem.infName,
@@ -34,7 +34,7 @@ class _InfoPageState extends State<InfoPage> {
         imageName: "assets/graphics/Info 3.png",
       ));
     }
-    List<Widget> _infoTilesThanks = new List<Widget>();
+    List<Widget> _infoTilesThanks = [];
     for (Info _infoItem in info.sublist(18, 21)) {
       _infoTilesThanks.add(new InfoTile(
         label: _infoItem.infName,

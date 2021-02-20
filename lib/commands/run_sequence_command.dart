@@ -1,11 +1,9 @@
 import 'package:ootm_app/commands/check_date_command.dart';
-import 'package:ootm_app/commands/update_Command.dart';
+// import 'package:ootm_app/commands/update_Command.dart';
 import 'package:ootm_app/data/city.dart';
 import 'base_command.dart';
 
 class RunSequenceCommand extends BaseCommand {
-
-
   Future<void> run() async {
     assert(true, print("run()"));
     CitySet.generate();
@@ -18,5 +16,4 @@ class RunSequenceCommand extends BaseCommand {
     // process favouristes
     favModel.favList = cityDataModel.pfGroups;
   }
-  
 }

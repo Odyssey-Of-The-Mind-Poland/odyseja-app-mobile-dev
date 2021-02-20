@@ -8,20 +8,18 @@ import 'performance_popup.dart';
 
 class SwipeStack extends StatefulWidget {
   final Performance performance;
-  
+
   const SwipeStack({Key key, this.performance}) : super(key: key);
   @override
   _SwipeStackState createState() => _SwipeStackState();
 }
 
 class _SwipeStackState extends State<SwipeStack> {
-  
   void _handleFavouriting() async {
-    setState(() =>
-    widget.performance.faved = !widget.performance.faved
-    );
+    setState(() => widget.performance.faved = !widget.performance.faved);
     await FavedCommand().save(widget.performance);
   }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -36,8 +34,9 @@ class _SwipeStackState extends State<SwipeStack> {
                 height: 48.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: widget.performance.faved ? 
-                  Color(0xFFFF951A) : Color(0xFF333333),
+                  color: widget.performance.faved
+                      ? Color(0xFFFF951A)
+                      : Color(0xFF333333),
                   // boxShadow: z,
                 ),
               ),
@@ -57,13 +56,15 @@ class _SwipeStackState extends State<SwipeStack> {
           actionPane: SlidableBehindActionPane(),
           actionExtentRatio: 0.30,
           child: RawMaterialButton(
-            onPressed: () => _showPerformancePopup(context),
-            child: PerformanceCard(performance: widget.performance, favColor: Color(0xFFFF951A))),
+              onPressed: () => _showPerformancePopup(context),
+              child: PerformanceCard(
+                  performance: widget.performance,
+                  favColor: Color(0xFFFF951A))),
           actions: <Widget>[
             RawMaterialButton(
-              child: widget.performance.faved ? 
-                Icon(OotmIconPack.favs_full, color: Colors.white) :
-                Icon(OotmIconPack.favs_outline, color: Colors.white),
+              child: widget.performance.faved
+                  ? Icon(OotmIconPack.favs_full, color: Colors.white)
+                  : Icon(OotmIconPack.favs_outline, color: Colors.white),
               onPressed: _handleFavouriting,
             )
           ],
@@ -86,111 +87,116 @@ class _SwipeStackState extends State<SwipeStack> {
     );
   }
 
-
   _showPerformancePopup(context) async {
     bool isChange = false;
     bool _faved = widget.performance.faved;
     await showDialog(
-      barrierDismissible: true,
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return OotmPopUp(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 24.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      // Nazwa drużyny
-                      Text(
-                        "${widget.performance.team}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: _faved ? Color(0xFFFF951A) : Colors.white,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold
+        barrierDismissible: true,
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return OotmPopUp(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding:
+                          const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 24.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          // Nazwa drużyny
+                          Text(
+                            "${widget.performance.team}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color:
+                                    _faved ? Color(0xFFFF951A) : Colors.white,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 8.0),
+                          // parametry: scena - gr. wiekowa - problem
+                          Text(
+                            "Scena ${widget.performance.stage.substring(6, 7)} - Gr. wiekowa ${widget.performance.age} - Problem ${widget.performance.problem}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color:
+                                    _faved ? Color(0xFFFF951A) : Colors.white),
+                          ),
+                          SizedBox(height: 16.0),
+                          // godzina występu
+                          Text(
+                            "${widget.performance.play} - Występ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color:
+                                    _faved ? Color(0xFFFF951A) : Colors.white,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          // info o stawieniu się
+                          SizedBox(height: 8.0),
+                          Text(
+                            "(Drużyna powinna się stawić na 15 minut przed występem)",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: _faved ? Color(0xFFFF951A) : Colors.white,
+                            ),
+                          ),
+                          SizedBox(height: 16.0),
+                          // godzina spontana
+                          Text(
+                            "${widget.performance.spontan} - Spontan",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 8.0),
+                          // info o stawieniu się
+                          Text(
+                            "(Drużyna powinna się stawić na 20 minut przed występem)",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            isChange = !isChange;
+                            _faved = !_faved;
+                            setState(() {});
+                          },
+                          child: _faved
+                              ? Icon(OotmIconPack.favs_full,
+                                  color: Color(0xFFFF951A))
+                              : Icon(OotmIconPack.favs_outline,
+                                  color: Colors.white),
                         ),
-                      ),
-                      SizedBox(height: 8.0),
-                      // parametry: scena - gr. wiekowa - problem
-                      Text(
-                        "Scena ${widget.performance.stage.substring(6,7)} - Gr. wiekowa ${widget.performance.age} - Problem ${widget.performance.problem}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: _faved ? Color(0xFFFF951A) : Colors.white),
-                      ),
-                      SizedBox(height: 16.0),
-                      // godzina występu
-                      Text(
-                        "${widget.performance.play} - Występ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: _faved ? Color(0xFFFF951A) : Colors.white,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      // info o stawieniu się
-                      SizedBox(height: 8.0),
-                      Text(
-                        "(Drużyna powinna się stawić na 15 minut przed występem)",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: _faved ? Color(0xFFFF951A) : Colors.white,
-                        ),
-                      ),
-                      SizedBox(height: 16.0),
-                      // godzina spontana
-                      Text("${widget.performance.spontan} - Spontan",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Icon(
+                            OotmIconPack.close,
                             color: Colors.white,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold
+                            size: 16.0,
                           ),
                         ),
-                      SizedBox(height: 8.0),
-                      // info o stawieniu się
-                      Text(
-                        "(Drużyna powinna się stawić na 20 minut przed występem)",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: () {
-                        isChange = !isChange;
-                        _faved = !_faved;
-                        setState(() {});
-                      },
-                      child: _faved ? 
-                        Icon(OotmIconPack.favs_full, color: Color(0xFFFF951A)) :
-                        Icon(OotmIconPack.favs_outline, color: Colors.white),
-                    ),
-                    FlatButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Icon(OotmIconPack.close, color: Colors.white, size: 16.0,),
-                    ),
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
+                ),
+              );
+            },
           );
-          },
-        );
-      }
-    ).then((value) {
+        }).then((value) {
       if (isChange) {
         _handleFavouriting();
       }
