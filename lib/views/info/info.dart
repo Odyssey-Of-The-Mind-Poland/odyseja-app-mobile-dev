@@ -14,9 +14,7 @@ class InfoPage extends StatefulWidget {
 class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
-    print("info");
     final cityProvider = Provider.of<CityDataModel>(context);
-    // List<Info> info = _snapshot.data.get("info").cast<Info>();
     List<Info> info = cityProvider.infoList;
     List<Widget> _infoTilesAll = [];
     for (Info _infoItem in info.sublist(0, 9)) {

@@ -5,7 +5,6 @@ import 'base_command.dart';
 
 class RunSequenceCommand extends BaseCommand {
   Future<void> run() async {
-    assert(true, print("run()"));
     CitySet.generate();
     await CheckDateCommand().checkDate();
     await appModel.loadDatabase();

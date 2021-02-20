@@ -16,13 +16,13 @@ import 'end_drawer.dart';
 // TODO Add a loading screen, which would allow async data loading functions to finish
 // one per screen vs one for the whole app
 class MainFrame extends StatefulWidget {
-
   const MainFrame({Key key}) : super(key: key);
   @override
   _MainFrameState createState() => _MainFrameState();
 }
 
-class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixin{
+class _MainFrameState extends State<MainFrame>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<Offset> _offsetAnimation;
   static const double endDrawerAnimationOffset = -0.70;
@@ -33,20 +33,20 @@ class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMix
       vsync: this,
     );
     _offsetAnimation = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(endDrawerAnimationOffset, 0.0)
-    ).animate(CurvedAnimation(
+            begin: Offset.zero,
+            end: const Offset(endDrawerAnimationOffset, 0.0))
+        .animate(CurvedAnimation(
       parent: _controller,
       curve: Curves.linear,
     ));
   }
+
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
-  
-  
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -56,39 +56,36 @@ class _MainFrameState extends State<MainFrame> with SingleTickerProviderStateMix
           endDrawerAnimationOffset: endDrawerAnimationOffset,
         ),
         Consumer<EndDrawerProvider>(
-          builder: (context, endDrawerProvider, child) {
-            if(endDrawerProvider.opened) {
-              _controller.forward();
-            } else {
-              _controller.reverse();
-            }
-            return SlideTransition(
-              position: _offsetAnimation,
-              child: GestureDetector(
-                onPanUpdate: (details) {
-                  if (details.delta.dx > 0) {
-                    // swiping in right direction
-                    if (endDrawerProvider.opened) {
-                      endDrawerProvider.change();
-                    }
-                  }
-                },
-                onTap: endDrawerProvider.opened ? 
-                () => endDrawerProvider.change() : null,
-                child: AbsorbPointer(
-                  absorbing: endDrawerProvider.opened,
-                  
-                  child: MainFrameWindow()
-                ),
-              ),
-            );
+            builder: (context, endDrawerProvider, child) {
+          if (endDrawerProvider.opened) {
+            _controller.forward();
+          } else {
+            _controller.reverse();
           }
-        )
+          return SlideTransition(
+            position: _offsetAnimation,
+            child: GestureDetector(
+              onPanUpdate: (details) {
+                if (details.delta.dx > 0) {
+                  // swiping in right direction
+                  if (endDrawerProvider.opened) {
+                    endDrawerProvider.change();
+                  }
+                }
+              },
+              onTap: endDrawerProvider.opened
+                  ? () => endDrawerProvider.change()
+                  : null,
+              child: AbsorbPointer(
+                  absorbing: endDrawerProvider.opened,
+                  child: MainFrameWindow()),
+            ),
+          );
+        })
       ],
-    ); 
+    );
   }
 }
-
 
 class MainFrameWindow extends StatefulWidget {
   MainFrameWindow({Key key}) : super(key: key);
@@ -97,31 +94,29 @@ class MainFrameWindow extends StatefulWidget {
 }
 
 class _MainFrameWindowState extends State<MainFrameWindow> {
-  bool isLoading = true;
-
-
   Future<bool> run() async {
     await RunSequenceCommand().run();
-    print("done");
+    // print("done");
     return true;
   }
-
 
   @override
   Widget build(BuildContext context) {
     // final cityProvider = Provider.of<AppModel>(context);
     return FutureBuilder(
-      future: run(),
-      initialData: Text("Lol, brak danych"),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return DataScaffold();
-        } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
-        }
-        return CircularProgressIndicator();
-      }
-    );
+        future: run(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError)
+              return Text("${snapshot.error}");
+            else
+              return DataScaffold();
+          }
+          return Center(
+              child: Container(
+                  color: Theme.of(context).canvasColor,
+                  child: Center(child: CircularProgressIndicator())));
+        });
   }
 }
 
@@ -132,9 +127,8 @@ class DataScaffold extends StatefulWidget {
   _DataScaffoldState createState() => _DataScaffoldState();
 }
 
-class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderStateMixin {
-  
-  
+class _DataScaffoldState extends State<DataScaffold>
+    with SingleTickerProviderStateMixin {
   final _navigatorKey = GlobalKey<NavigatorState>();
   Animation<double> _animation;
   Animation<double> _fadeAnimation;
@@ -149,16 +143,18 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
       duration: const Duration(milliseconds: 400),
       vsync: this,
     );
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut,)
-      ..addStatusListener((status) {
-      if (status == AnimationStatus.forward) {
-        _visibility = true;
-      } else if (status == AnimationStatus.dismissed) {
-        // setState(() {
-        _visibility = false;
-        // });
-      }
-    });
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    )..addStatusListener((status) {
+        if (status == AnimationStatus.forward) {
+          _visibility = true;
+        } else if (status == AnimationStatus.dismissed) {
+          // setState(() {
+          _visibility = false;
+          // });
+        }
+      });
     _fadeAnimation = Tween<double>(begin: 0.0, end: 0.7).animate(_animation);
   }
 
@@ -178,49 +174,40 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
 
   final pages = [
     MyPage(
-      key: Key('info'),
-      name: '1',
-      builder: (context) => Navigator(
-      key: _infoKey,
-      onGenerateRoute: (settings) => MaterialPageRoute(
-        settings: settings,
-        maintainState: true,
-        builder: (context) => infoPage,
-        ),
-      )
-    ),
+        key: Key('info'),
+        name: '1',
+        builder: (context) => Navigator(
+              key: _infoKey,
+              onGenerateRoute: (settings) => MaterialPageRoute(
+                settings: settings,
+                maintainState: true,
+                builder: (context) => infoPage,
+              ),
+            )),
     MyPage(
-      key: Key('schedule'),
-      name: '2',
-      builder: (context) => Navigator(
-        key: _scheduleKey,
-        onGenerateRoute: (settings) => MaterialPageRoute(
-          settings: settings,
-          maintainState: true,
-          builder: (context) => schedulePage
-        ),
-      )
-    ),
-    MyPage(
-      key: Key('favourites'),
-      name: '3',
-      builder: (context) => favPage),
-    MyPage(
-      key: Key('home'),
-      name: '0',
-      builder: (context) => homePage
-    ), 
+        key: Key('schedule'),
+        name: '2',
+        builder: (context) => Navigator(
+              key: _scheduleKey,
+              onGenerateRoute: (settings) => MaterialPageRoute(
+                  settings: settings,
+                  maintainState: true,
+                  builder: (context) => schedulePage),
+            )),
+    MyPage(key: Key('favourites'), name: '3', builder: (context) => favPage),
+    MyPage(key: Key('home'), name: '0', builder: (context) => homePage),
   ];
 
   Future<bool> onWillPop() async {
-    return !await _infoKey.currentState.maybePop()
-      || !await _scheduleKey.currentState.maybePop();
+    return !await _infoKey.currentState.maybePop() ||
+        !await _scheduleKey.currentState.maybePop();
   }
-  
+
   void _selectedTab(int index) async {
     if (index != _currentIndex) {
       setState(() {
-        var element = pages.firstWhere((element) => element.name == index.toString());
+        var element =
+            pages.firstWhere((element) => element.name == index.toString());
         this.pages.remove(element);
         this.pages.add(element);
       });
@@ -231,31 +218,29 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
       await _scheduleKey.currentState.maybePop();
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
-  final cityProvider = Provider.of<CityDataModel>(context);
+    final cityProvider = Provider.of<CityDataModel>(context);
     return Scaffold(
       extendBody: true,
       body: Stack(
         children: <Widget>[
           WillPopScope(
-            onWillPop: () => onWillPop(),
-            child: Navigator(
-              key: _navigatorKey,
-              onPopPage: (route, result) => false,
-              pages: List.of(pages),
-            )
-          ),
+              onWillPop: () => onWillPop(),
+              child: Navigator(
+                key: _navigatorKey,
+                onPopPage: (route, result) => false,
+                pages: List.of(pages),
+              )),
           Consumer<CitySelector>(
             builder: (context, citySelector, widget) {
               if (citySelector.opened) {
                 _controller.forward();
-              }
-              else {
+              } else {
                 _controller.reverse();
               }
-              List<Widget> cityButtons= [];
+              List<Widget> cityButtons = [];
               // double _offset = -0.25;
               double _offset = -1.4166;
               List<City> cities = CitySet.cities.reversed.toList();
@@ -265,75 +250,82 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
                 cityButtons.add(new SlideTransition(
                   position: new Tween<Offset>(
                     begin: Offset(0.0, 1.0),
-                    end: Offset(0.0, _offset), 
+                    end: Offset(0.0, _offset),
                   ).animate(new CurvedAnimation(
                     curve: Curves.easeInOut,
                     parent: _controller,
                   )),
                   child: RawMaterialButton(
-                    onPressed: isData ? () {
-                      // cityProvider.chosenCity = city;
-                      ChangeCityCommand().change(city);
-                      citySelector.change();
-                    // } : Scaffold.of(context).showSnackBar(SnackBar(content: Text("Prosimy uzbroić się w cierpliwość :)"))),
-                    } : null,
+                    onPressed: isData
+                        ? () {
+                            // cityProvider.chosenCity = city;
+                            ChangeCityCommand().change(city);
+                            citySelector.change();
+                            // } : Scaffold.of(context).showSnackBar(SnackBar(content: Text("Prosimy uzbroić się w cierpliwość :)"))),
+                          }
+                        : null,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 4.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40.0, vertical: 4.0),
                       child: Flex(
                         direction: Axis.horizontal,
                         children: <Widget>[
                           Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 40.0,
-                            decoration: orangeBoxDecoration(),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  city.fullName,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 40.0,
+                              decoration: orangeBoxDecoration(),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    city.fullName,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                if (!isData) Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(OotmIconPack.locked, size: 14.0, color: Colors.white,),
-                                ), 
-                              ],
+                                  if (!isData)
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Icon(
+                                        OotmIconPack.locked,
+                                        size: 14.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
                       ),
                     ),
                   ),
                 ));
-                _offset-=1;
+                _offset -= 1;
               }
-              
-              return  
-              _visibility ? Stack(
-                alignment: Alignment.bottomCenter,
-                children: <Widget>[
-                  FadeTransition(
-                    opacity: _fadeAnimation,
-                    // child: ModalBarrier(color: Colors.red,),
-                    child: IgnorePointer(
-                      ignoring: true,
-                                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black
+
+              return _visibility
+                  ? Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: <Widget>[
+                        FadeTransition(
+                          opacity: _fadeAnimation,
+                          // child: ModalBarrier(color: Colors.red,),
+                          child: IgnorePointer(
+                            ignoring: true,
+                            child: Container(
+                              decoration: BoxDecoration(color: Colors.black),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  ...cityButtons,
-                ],
-              ) : SizedBox();
+                        ...cityButtons,
+                      ],
+                    )
+                  : SizedBox();
             },
           )
         ],
@@ -349,7 +341,8 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
         items: [
           BottomAppBarItem(iconData: OotmIconPack.navbar_home, isActive: true),
           BottomAppBarItem(iconData: OotmIconPack.navbar_info, isActive: true),
-          BottomAppBarItem(iconData: OotmIconPack.navbar_schedule, isActive: true),
+          BottomAppBarItem(
+              iconData: OotmIconPack.navbar_schedule, isActive: true),
           BottomAppBarItem(iconData: OotmIconPack.favs_outline, isActive: true),
         ],
       ),
@@ -357,7 +350,6 @@ class _DataScaffoldState extends State<DataScaffold> with SingleTickerProviderSt
     );
   }
 }
-
 
 class CitySelector with ChangeNotifier {
   bool opened = false;
@@ -367,7 +359,6 @@ class CitySelector with ChangeNotifier {
     notifyListeners();
   }
 }
-
 
 class MyPage<T> extends Page<T> {
   const MyPage({
