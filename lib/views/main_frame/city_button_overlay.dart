@@ -47,7 +47,7 @@ class _CityButtonOverlayState extends State<CityButtonOverlay>
     List<City> cities = CitySet.cities.reversed.toList();
     bool isData = true;
     for (City city in cities) {
-      // isData = ["warszawa"].contains(city.hiveName);
+      isData = ["wroclaw", "poznan"].contains(city.hiveName);
       cityButtons.add(new SlideTransition(
         position: new Tween<Offset>(
           begin: Offset(0.0, 1.0),
