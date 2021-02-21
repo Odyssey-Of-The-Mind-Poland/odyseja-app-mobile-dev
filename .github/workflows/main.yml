@@ -1,8 +1,12 @@
 name: build-apk
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
 
 jobs:
   build:
@@ -15,8 +19,14 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: '1.26.0-17.6.pre'
+          channel: 'beta' # 'dev', 'alpha', default to: 'stable'
       - run: flutter pub get
+      
+          # Statically analyze the Dart code for any errors.
+      - run: flutter analyze .
+    
+      # Run widget tests for our flutter project.
+      - run: flutter test
       - run: flutter build apk
         
       - name: Upload Artifacts
