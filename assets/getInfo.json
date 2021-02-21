@@ -1,26 +1,254 @@
 [
     {
         "id": 0,
-        "city": "warszawa",
-        "infoText": "Międzynar. Centrum Edukacji Montessori - Warszawa",
-        "infName": " Problem 2: Do zobaczenia w ukryciu:"
+        "city": "wroclaw",
+        "infoText": "***Witaj na Eliminacjach Regionalnych 2019 we Wrocławiu!***\n\n***Broszurkę, którą trzymasz w rękach, zawieszono na upominkowej smyczy, na której widnieje napis: Odyseja Umysłu rozbudza emocje! Przekonaj się dziś na własnej skórze, jakie uczucia program wzbudza w Tobie.***\n\n***Zapewne - podobnie jak inni Odyseusze, Trenerzy i Wolontariusze - odczuwasz podekscytowanie w związku z tym, jakie wrażenia przyniesie czas wieńczący tygodnie przygotowań obfitujących w wyzwania. Przed nami intensywny dzień, więc aby niczego nie przegapić i nigdzie się nie spóźnić, uważnie przeczytaj niniejszą książeczkę - zwłaszcza informacje o konkursie w odpowiednim mieście oraz strony: 4, 5 i 50, zaś żeby odysejowa przygoda była kompletna: także stronę 51.***\n\n***Chcąc zaspokoić ciekawość, jak można rozwiązać problemy, nad którymi aż do tego roku nikt nigdy wcześniej się nie głowił - obejrzyj jak najwięcej występów. Z pewnością jedne wprawią Cię w zdziwienie, a inne w zachwyt - ale żadne dwa nie będą takie same. I o to chodzi!***\n\n***Jeśli masz ochotę poczuć radość - skorzystaj z atrakcji, jakie przygotowaliśmy. Uczestnicy mogą w Strefie Ekspresji wyżyć się artystycznie, a w Strefie Zabaw - wyszaleć się przed Spontanem. Trenerzy mogą w Strefie Luzu chwilę odpocząć w dobrym towarzystwie, przepłukać zdarte gardło, a także zyskać inspirującego „gotowca” na zajęcia z drużyną. Każdy może zrobić sobie fotkę z przesympatycznym szopem Omerem oraz odwiedzić sklepik z kreatywnymi pamiątkami. Zapraszamy też na Ceremonię Ogłoszenia Wyników, o której uroczystą i wzruszającą atmosferę wieczorem zadbamy wszyscy razem.***\n\n***Masz dużo powodów do dumy i satysfakcji - bo wiesz, jak wiele udało Ci się doświadczyć, przeżyć, dokonać i osiągnąć. Dlatego niezależnie, czy pojedziesz na Finał Ogólnopolski, czy nie - uśmiechnij się do siebie i do innych, wrzuć na luz, graj fair, spodziewaj się niespodziewanego i naciesz każdą chwilą. A jeśli w stosunku do kogoś odczuwasz wdzięczność za to, że masz okazję tu być - daj temu wyraz. Może oklaskami, a może zwykłym-niezwykłym „dziękuję”, powiedzianym prosto w oczy.***\n\n***Wreszcie, mam nadzieję, że nasze tegoroczne logo skłoni Cię do zadumy. Zadumy nad podróżą, jaką jest Odyseja Umysłu. Podróżą, w której marzenia wznoszą nas ponad nijakość, powiew świeżego myślenia popycha naprzód, a moc wspólnego tworzenia dodaje pozytywnej energii. Podróżą, która prowadzi przez jedyne w swoim rodzaju zdarzenia, spotkania i sytuacje - a wiedzie ku osobistym odkryciom. Podróżą pełną pięknych widoków na przyszłość - także Twoją!***",
+        "infName": "Witaj we Wrocławiu!"
     },
     {
         "id": 1,
         "city": "wroclaw",
-        "infoText": "Międzynar. Centrum Edukacji Montessori - Warszawa",
-        "infName": " Problem 2: Do zobaczenia w ukryciu:"
+        "infoText": "# Parking\n## Drużyny\nOgraniczona liczba autokarów i minibusów może bezpłatnie zaparkować na terenie szkoły. Nadliczbowe pojazdy będą przekierowywane na parking przy pobliskiej Galerii Przymorze (około 7 minut jazdy od miejsca konkursu).\n## Kibice\nZmotoryzowani goście muszą samodzielnie znaleźć sobie miejsce postojowe w okolicy. Bezpośrednio POD SZKOŁĄ NIE WOLNO PARKOWAĆ!\n# Szatnia\nParter: sale 16 i 19 - na prawo od wejścia do szkoły",
+        "infName": "Parking I szatnia"
+    },
+    {
+        "id": 2,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Co, gdzie I kiedy"
+    },
+    {
+        "id": 3,
+        "city": "wroclaw",
+        "infoText": "1) Szeryfowie w czerwonych koszulkach dbają o porządek i bezpieczeństwo - dlatego słuchaj ich zaleceń!\n2) Nie zgub numerka z szatni! Kara za utracony numerek wynosi 10 zł.\n3) Pilnuj swojej własności. Nie odpowiadamy za to, co ci zginie - a po konkursie nic nikomu nie odsyłamy.\n4) Znalezione przedmioty wartościowe zanieś do szatni - tam też zapytaj, jeżeli coś zgubisz.\n5) Nie pal i nie śmieć - ani nigdzie wewnątrz gmachu, ani w jego otoczeniu.\n6) Nie uszkodź rekwizytów drużyn ani niczego na obiekcie! Zauważone zniszczenia i awarie zgłaszaj Szeryfom.\n7) Do budynku nie wolno zamówić ani wnieść z zewnątrz brudzącego jedzenia (pizzy, zapiekanek itp.).\n8) Posiłki prosimy spożywać tylko na terenie konkursowego bufetu (gdzie - sprawdź na str. 8, 17, 23, 28, 36 lub 43).\n9) W razie nagłej potrzeby - możesz zgłosić się do punktu pierwszej pomocy medycznej.\n10)  Masz pytanie? Odwiedź Punkt Informacyjny. Nie wiesz, jak dokądś trafić? Poproś Szeryfa o pomoc.",
+        "infName": "Ważne zasady"
+    },
+    {
+        "id": 4,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Szoping u Omera"
+    },
+    {
+        "id": 5,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Jedzenie"
+    },
+    {
+        "id": 6,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Więcej o Odysei"
+    },
+    {
+        "id": 7,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Problemy 2019-20"
+    },
+    {
+        "id": 8,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Dołącz do nas!"
+    },
+    {
+        "id": 9,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Przed występem"
+    },
+    {
+        "id": 10,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Po występie"
+    },
+    {
+        "id": 11,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Spontany"
+    },
+    {
+        "id": 12,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Wyniki surowe"
+    },
+    {
+        "id": 13,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Zabawa dla drużyn"
+    },
+    {
+        "id": 14,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Info miejsckie "
+    },
+    {
+        "id": 15,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Awans I co dalej?"
+    },
+    {
+        "id": 16,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Zalicz atrakcje"
+    },
+    {
+        "id": 17,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Co po konkursie"
+    },
+    {
+        "id": 18,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Dzięki, Patroni!"
+    },
+    {
+        "id": 19,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Dzięki, Partnerzy!"
+    },
+    {
+        "id": 20,
+        "city": "wroclaw",
+        "infoText": "",
+        "infName": "Dzięki, Ochotnicy!"
+    },
+    {
+        "id": 0,
+        "city": "poznan",
+        "infoText": "***Witaj na Eliminacjach Regionalnych 2019 w Poznaniu!***\n\n***Broszurkę, którą trzymasz w rękach, zawieszono na upominkowej smyczy, na której widnieje napis: Odyseja Umysłu rozbudza emocje! Przekonaj się dziś na własnej skórze, jakie uczucia program wzbudza w Tobie.***\n\n***Zapewne - podobnie jak inni Odyseusze, Trenerzy i Wolontariusze - odczuwasz podekscytowanie w związku z tym, jakie wrażenia przyniesie czas wieńczący tygodnie przygotowań obfitujących w wyzwania. Przed nami intensywny dzień, więc aby niczego nie przegapić i nigdzie się nie spóźnić, uważnie przeczytaj niniejszą książeczkę - zwłaszcza informacje o konkursie w odpowiednim mieście oraz strony: 4, 5 i 50, zaś żeby odysejowa przygoda była kompletna: także stronę 51.***\n\n***Chcąc zaspokoić ciekawość, jak można rozwiązać problemy, nad którymi aż do tego roku nikt nigdy wcześniej się nie głowił - obejrzyj jak najwięcej występów. Z pewnością jedne wprawią Cię w zdziwienie, a inne w zachwyt - ale żadne dwa nie będą takie same. I o to chodzi!***\n\n***Jeśli masz ochotę poczuć radość - skorzystaj z atrakcji, jakie przygotowaliśmy. Uczestnicy mogą w Strefie Ekspresji wyżyć się artystycznie, a w Strefie Zabaw - wyszaleć się przed Spontanem. Trenerzy mogą w Strefie Luzu chwilę odpocząć w dobrym towarzystwie, przepłukać zdarte gardło, a także zyskać inspirującego „gotowca” na zajęcia z drużyną. Każdy może zrobić sobie fotkę z przesympatycznym szopem Omerem oraz odwiedzić sklepik z kreatywnymi pamiątkami. Zapraszamy też na Ceremonię Ogłoszenia Wyników, o której uroczystą i wzruszającą atmosferę wieczorem zadbamy wszyscy razem.***\n\n***Masz dużo powodów do dumy i satysfakcji - bo wiesz, jak wiele udało Ci się doświadczyć, przeżyć, dokonać i osiągnąć. Dlatego niezależnie, czy pojedziesz na Finał Ogólnopolski, czy nie - uśmiechnij się do siebie i do innych, wrzuć na luz, graj fair, spodziewaj się niespodziewanego i naciesz każdą chwilą. A jeśli w stosunku do kogoś odczuwasz wdzięczność za to, że masz okazję tu być - daj temu wyraz. Może oklaskami, a może zwykłym-niezwykłym „dziękuję”, powiedzianym prosto w oczy.***\n\n***Wreszcie, mam nadzieję, że nasze tegoroczne logo skłoni Cię do zadumy. Zadumy nad podróżą, jaką jest Odyseja Umysłu. Podróżą, w której marzenia wznoszą nas ponad nijakość, powiew świeżego myślenia popycha naprzód, a moc wspólnego tworzenia dodaje pozytywnej energii. Podróżą, która prowadzi przez jedyne w swoim rodzaju zdarzenia, spotkania i sytuacje - a wiedzie ku osobistym odkryciom. Podróżą pełną pięknych widoków na przyszłość - także Twoją!***",
+        "infName": "Witaj w Poznaniu!"
+    },
+    {
+        "id": 1,
+        "city": "poznan",
+        "infoText": "# Parking\n## Drużyny\nOgraniczona liczba autokarów i minibusów może bezpłatnie zaparkować na terenie szkoły. Nadliczbowe pojazdy będą przekierowywane na parking przy pobliskiej Galerii Przymorze (około 7 minut jazdy od miejsca konkursu).\n## Kibice\nZmotoryzowani goście muszą samodzielnie znaleźć sobie miejsce postojowe w okolicy. Bezpośrednio POD SZKOŁĄ NIE WOLNO PARKOWAĆ!\n# Szatnia\nParter: sale 16 i 19 - na prawo od wejścia do szkoły",
+        "infName": "Parking I szatnia"
     },
     {
         "id": 2,
         "city": "poznan",
-        "infoText": "Międzynar. Centrum Edukacji Montessori - Warszawa",
-        "infName": " Problem 2: Do zobaczenia w ukryciu:"
+        "infoText": "",
+        "infName": "Co, gdzie I kiedy"
     },
     {
         "id": 3,
-        "city": "katowice",
-        "infoText": "Międzynar. Centrum Edukacji Montessori - Warszawa",
-        "infName": " Problem 2: Do zobaczenia w ukryciu:"
+        "city": "poznan",
+        "infoText": "1) Szeryfowie w czerwonych koszulkach dbają o porządek i bezpieczeństwo - dlatego słuchaj ich zaleceń!\n2) Nie zgub numerka z szatni! Kara za utracony numerek wynosi 10 zł.\n3) Pilnuj swojej własności. Nie odpowiadamy za to, co ci zginie - a po konkursie nic nikomu nie odsyłamy.\n4) Znalezione przedmioty wartościowe zanieś do szatni - tam też zapytaj, jeżeli coś zgubisz.\n5) Nie pal i nie śmieć - ani nigdzie wewnątrz gmachu, ani w jego otoczeniu.\n6) Nie uszkodź rekwizytów drużyn ani niczego na obiekcie! Zauważone zniszczenia i awarie zgłaszaj Szeryfom.\n7) Do budynku nie wolno zamówić ani wnieść z zewnątrz brudzącego jedzenia (pizzy, zapiekanek itp.).\n8) Posiłki prosimy spożywać tylko na terenie konkursowego bufetu (gdzie - sprawdź na str. 8, 17, 23, 28, 36 lub 43).\n9) W razie nagłej potrzeby - możesz zgłosić się do punktu pierwszej pomocy medycznej.\n10)  Masz pytanie? Odwiedź Punkt Informacyjny. Nie wiesz, jak dokądś trafić? Poproś Szeryfa o pomoc.",
+        "infName": "Ważne zasady"
+    },
+    {
+        "id": 4,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Szoping u Omera"
+    },
+    {
+        "id": 5,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Jedzenie"
+    },
+    {
+        "id": 6,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Więcej o Odysei"
+    },
+    {
+        "id": 7,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Problemy 2019-20"
+    },
+    {
+        "id": 8,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Dołącz do nas!"
+    },
+    {
+        "id": 9,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Przed występem"
+    },
+    {
+        "id": 10,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Po występie"
+    },
+    {
+        "id": 11,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Spontany"
+    },
+    {
+        "id": 12,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Wyniki surowe"
+    },
+    {
+        "id": 13,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Zabawa dla drużyn"
+    },
+    {
+        "id": 14,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Info miejsckie "
+    },
+    {
+        "id": 15,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Awans I co dalej?"
+    },
+    {
+        "id": 16,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Zalicz atrakcje"
+    },
+    {
+        "id": 17,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Co po konkursie"
+    },
+    {
+        "id": 18,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Dzięki, Patroni!"
+    },
+    {
+        "id": 19,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Dzięki, Partnerzy!"
+    },
+    {
+        "id": 20,
+        "city": "poznan",
+        "infoText": "",
+        "infName": "Dzięki, Ochotnicy!"
     }
 ]
