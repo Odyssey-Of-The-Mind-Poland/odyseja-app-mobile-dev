@@ -128,12 +128,6 @@ class _DataScaffoldState extends State<DataScaffold> {
   static final _navigatorKey = GlobalKey<NavigatorState>();
   static final _infoKey = GlobalKey<NavigatorState>();
   static final _scheduleKey = GlobalKey<NavigatorState>();
-
-  static final homePage = HomePage();
-  static final infoPage = InfoPage();
-  static final schedulePage = ScheduleMenuRoute();
-  static final favPage = FavouritesPage();
-
   int _currentIndex = 0;
 
   final pages = [
@@ -145,7 +139,7 @@ class _DataScaffoldState extends State<DataScaffold> {
               onGenerateRoute: (settings) => MaterialPageRoute(
                 settings: settings,
                 maintainState: true,
-                builder: (context) => infoPage,
+                builder: (context) => InfoPage(),
               ),
             )),
     MyPage(
@@ -156,10 +150,13 @@ class _DataScaffoldState extends State<DataScaffold> {
               onGenerateRoute: (settings) => MaterialPageRoute(
                   settings: settings,
                   maintainState: true,
-                  builder: (context) => schedulePage),
+                  builder: (context) => ScheduleMenuRoute()),
             )),
-    MyPage(key: Key('favourites'), name: '3', builder: (context) => favPage),
-    MyPage(key: Key('home'), name: '0', builder: (context) => homePage),
+    MyPage(
+        key: Key('favourites'),
+        name: '3',
+        builder: (context) => FavouritesPage()),
+    MyPage(key: Key('home'), name: '0', builder: (context) => HomePage()),
   ];
 
   Future<bool> onWillPop() async {

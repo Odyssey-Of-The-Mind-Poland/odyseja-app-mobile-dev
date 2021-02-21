@@ -23,21 +23,28 @@ class Performance extends HiveObject {
   @HiveField(8)
   bool faved;
 
-  Performance({this.faved, this.id, this.city, this.team,
-    this.problem, this.age, this.play, this.spontan, this.stage});
+  Performance(
+      {this.faved,
+      this.id,
+      this.city,
+      this.team,
+      this.problem,
+      this.age,
+      this.play,
+      this.spontan,
+      this.stage});
 
   factory Performance.fromJson(Map<String, dynamic> json) {
     return Performance(
       id: json['id'],
       city: json['city'],
       team: json['team'],
-      //  TODO json['problem']== "d" ? "J"
-      problem: json['problem'] == "d" ? "J" : json['problem'],
+      problem: json['problem'],
       age: json['age'],
-      //  TODO json['performance'].length < 5 ?! 
+      //  TODO json['performance'].length < 5 ?!
       play: (json['performance'].length < 5)
-      ? "0" + json['performance']
-      : json['performance'],
+          ? "0" + json['performance']
+          : json['performance'],
       spontan: json['spontan'],
       stage: json['stage'],
       faved: false,
