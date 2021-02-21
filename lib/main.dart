@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ootm_app/views/main_frame/city_buttons_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext _) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (c) => CitySelector()),
+          ChangeNotifierProvider(create: (c) => CityButtonsController()),
           ChangeNotifierProvider(create: (c) => AppModel()),
           ChangeNotifierProvider(create: (c) => CityDataModel()),
           ChangeNotifierProvider(create: (c) => FavModel()),
