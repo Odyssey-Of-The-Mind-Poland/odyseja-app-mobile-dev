@@ -60,6 +60,8 @@ flutter:
     - assets/graphics/Info 1.png
     - assets/graphics/Info 2.png
     - assets/graphics/Info 3.png
+    - assets/getAll.json
+    - assets/getInfo.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

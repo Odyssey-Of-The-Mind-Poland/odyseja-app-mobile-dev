@@ -1,0 +1,3122 @@
+[
+    {
+        "id": 238,
+        "city": "warszawa",
+        "team": "Międzynar. Centrum Edukacji Montessori - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:15",
+        "spontan": "14:25",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 239,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 357 - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:40",
+        "spontan": "15:40",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 240,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 2 - Olsztyn",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:20",
+        "spontan": "16:00",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 241,
+        "city": "warszawa",
+        "team": "Niepubliczna SP NASZA SZKOŁA - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:45",
+        "spontan": "14:45",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 242,
+        "city": "warszawa",
+        "team": "The International School - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:10",
+        "spontan": "15:20",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 243,
+        "city": "warszawa",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [A] - Białystok",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:50",
+        "spontan": "15:25",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 244,
+        "city": "warszawa",
+        "team": "Społecz. Szkoła Podstawowa nr 26 S.T.O. - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:15",
+        "spontan": "15:45",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 245,
+        "city": "warszawa",
+        "team": "LI Liceum Ogólnokształcące - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa III",
+        "performance": "12:40",
+        "spontan": "16:05",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 246,
+        "city": "warszawa",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [B] - Białystok",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa I",
+        "performance": "14:00",
+        "spontan": "11:40",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 247,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 357 - Warszawa",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa I",
+        "performance": "14:25",
+        "spontan": "11:20",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 248,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 2 - Olsztyn",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa I",
+        "performance": "14:50",
+        "spontan": "11:00",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 249,
+        "city": "warszawa",
+        "team": "Niepubliczna Szkoła SKRZYDŁA - Lublin",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:30",
+        "spontan": "12:15",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 250,
+        "city": "warszawa",
+        "team": "Stowarzyszenie ISKIERKI WYOBRAŹNI - Warszawa",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:55",
+        "spontan": "12:35",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 251,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 7 - Świdnik",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "16:20",
+        "spontan": "12:55",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 252,
+        "city": "warszawa",
+        "team": "Niepubliczna Szkoła SKRZYDŁA - Lublin",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:00",
+        "spontan": "12:20",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 253,
+        "city": "warszawa",
+        "team": "The International School - Warszawa",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:25",
+        "spontan": "15:10",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 254,
+        "city": "warszawa",
+        "team": "Niepub. Szkoła Tosi i Franka - Grodzisk Mazowiecki",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:50",
+        "spontan": "12:40",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 255,
+        "city": "warszawa",
+        "team": "Zespół Szkół S.T.O. - Białystok",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:15",
+        "spontan": "14:10",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 256,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 4 - Zielonka",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:55",
+        "spontan": "13:00",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 257,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 5 - Nowy Dwór Mazowiecki",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:20",
+        "spontan": "14:50",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 258,
+        "city": "warszawa",
+        "team": "Międzynar. Centrum Edukacji Montessori - Warszawa",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:45",
+        "spontan": "14:30",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 259,
+        "city": "warszawa",
+        "team": "Prywatna SP nr 72 SZKOŁA MARZEŃ - Piaseczno",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:25",
+        "spontan": "10:00",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 260,
+        "city": "warszawa",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [A] - Białystok",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:50",
+        "spontan": "9:20",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 261,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 289 - Warszawa",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:15",
+        "spontan": "9:40",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 262,
+        "city": "warszawa",
+        "team": "Niepubliczna Szkoła SKRZYDŁA - Lublin",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:40",
+        "spontan": "9:45",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 263,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 357 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:30",
+        "spontan": "11:15",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 264,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 10 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:50",
+        "spontan": "11:35",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 265,
+        "city": "warszawa",
+        "team": "Stowarzyszenie Kultury i Edukacji - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:10",
+        "spontan": "11:55",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 266,
+        "city": "warszawa",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [B] - Białystok",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:45",
+        "spontan": "12:15",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 267,
+        "city": "warszawa",
+        "team": "Stowarzyszenie ISKIERKI WYOBRAŹNI - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:05",
+        "spontan": "13:25",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 268,
+        "city": "warszawa",
+        "team": "Zespół Szkół Fundacji FABRYCZNA 10 - Białystok",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:25",
+        "spontan": "13:45",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 269,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 289 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:00",
+        "spontan": "14:05",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 270,
+        "city": "warszawa",
+        "team": "Poradnia Psychologiczno-Pedagogiczna - Działdowo",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:20",
+        "spontan": "14:25",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 271,
+        "city": "warszawa",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [A] - Białystok",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:40",
+        "spontan": "15:05",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 272,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 4 - Zielonka",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:15",
+        "spontan": "9:35",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 273,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 5 - Nowy Dwór Mazowiecki",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:35",
+        "spontan": "9:55",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 274,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 65 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:55",
+        "spontan": "10:15",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 275,
+        "city": "warszawa",
+        "team": "Prywatna Szkoła Podstawowa EUREKA - Zalesie Górne",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "13:15",
+        "spontan": "10:35",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 276,
+        "city": "warszawa",
+        "team": "LI Liceum Ogólnokształcące - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:25",
+        "spontan": "10:05",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 277,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 2 - Augustów",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:45",
+        "spontan": "10:45",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 278,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 1 - Wasilków",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:05",
+        "spontan": "10:25",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 279,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 5 - Świdnik",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "15:55",
+        "spontan": "-",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 280,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 5 - Świdnik",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "16:15",
+        "spontan": "-",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 281,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 214 z Oddz.Integr. - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:30",
+        "spontan": "11:25",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 282,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 112 - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:50",
+        "spontan": "12:25",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 283,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 7 - Świdnik",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:10",
+        "spontan": "13:35",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 284,
+        "city": "warszawa",
+        "team": "Niepubliczna Szkoła Podstawowa nr 81 - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:30",
+        "spontan": "13:55",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 285,
+        "city": "warszawa",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [B] - Białystok",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:10",
+        "spontan": "11:45",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 286,
+        "city": "warszawa",
+        "team": "Stowarzyszenie Kultury i Edukacji - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:30",
+        "spontan": "12:05",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 287,
+        "city": "warszawa",
+        "team": "Zespół Szkolno-Przedszkolny - Lesznowola",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:50",
+        "spontan": "14:35",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 288,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 15 - Olsztyn",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:25",
+        "spontan": "15:15",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 289,
+        "city": "warszawa",
+        "team": "Zespół Szkół S.T.O. - Białystok",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:45",
+        "spontan": "14:15",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 290,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 2 - Olsztyn",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:05",
+        "spontan": "15:55",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 291,
+        "city": "warszawa",
+        "team": "Niepubliczna Szkoła Podstawowa COGITO - Płock",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:25",
+        "spontan": "15:35",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 292,
+        "city": "warszawa",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [B] - Białystok",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:35",
+        "spontan": "10:35",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 293,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 214 z Oddz.Integr. - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:55",
+        "spontan": "10:55",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 294,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 1 - Wasilków",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "14:15",
+        "spontan": "11:15",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 295,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 358 - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "14:35",
+        "spontan": "11:35",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 296,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 214 z Oddz.Integr. - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:20",
+        "spontan": "10:20",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 297,
+        "city": "warszawa",
+        "team": "Dwujęzyczna SP EDUKACJA SPOŁECZNA - Łomianki",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:40",
+        "spontan": "9:20",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 298,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 1 - Wasilków",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "16:00",
+        "spontan": "10:00",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 299,
+        "city": "warszawa",
+        "team": "IV Liceum Ogólnokształcące NORWID - Białystok",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "16:20",
+        "spontan": "9:40",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 300,
+        "city": "warszawa",
+        "team": "Fundacja AKADEMIA AKTYWNEGO ROZWOJU - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "8:30",
+        "spontan": "11:10",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 301,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa Fundacji CHOCIMSKA - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "8:50",
+        "spontan": "11:30",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 302,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 214 z Oddz.Integr. - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:10",
+        "spontan": "11:50",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 303,
+        "city": "warszawa",
+        "team": "Niepubliczna Szkoła SKRZYDŁA - Lublin",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:45",
+        "spontan": "12:10",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 304,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 7 - Świdnik",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:05",
+        "spontan": "13:20",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 305,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 10 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:25",
+        "spontan": "13:40",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 306,
+        "city": "warszawa",
+        "team": "Zespół Szkół S.T.O. - Białystok",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:00",
+        "spontan": "14:00",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 307,
+        "city": "warszawa",
+        "team": "Stowarzyszenie ISKIERKI WYOBRAŹNI - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:20",
+        "spontan": "14:35",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 308,
+        "city": "warszawa",
+        "team": "Niepubliczna SP NASZA SZKOŁA - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:40",
+        "spontan": "14:55",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 309,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 15 - Olsztyn",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:00",
+        "spontan": "15:15",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 310,
+        "city": "warszawa",
+        "team": "Stowarzyszenie AQUEDUCT - Budy Michałowskie",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:10",
+        "spontan": "15:50",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 311,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 267 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:30",
+        "spontan": "16:10",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 312,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 52 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:50",
+        "spontan": "10:30",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 313,
+        "city": "warszawa",
+        "team": "Niepub. Szkoła Tosi i Franka - Grodzisk Mazowiecki",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "14:25",
+        "spontan": "16:30",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 314,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 289 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "14:45",
+        "spontan": "9:50",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 315,
+        "city": "warszawa",
+        "team": "Szkoła Podstawowa nr 68 z Oddz. Integr. - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:05",
+        "spontan": "10;10",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 316,
+        "city": "warszawa",
+        "team": "Bednarska Szkoła Podstawowa - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:25",
+        "spontan": "9:30",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 317,
+        "city": "warszawa",
+        "team": "Międzynar. Centrum Edukacji Montessori - Warszawa",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "16:15",
+        "spontan": "-",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 318,
+        "city": "warszawa",
+        "team": "Niepubliczna Szkoła SKRZYDŁA - Lublin",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "16:35",
+        "spontan": "-",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 319,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 21 - Wrocław",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:00",
+        "spontan": "11:40",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 320,
+        "city": "wroclaw",
+        "team": "Pracownia Psychoedukacji AFFIRMO - Namysłów",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:25",
+        "spontan": "13:50",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 321,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 4 - Bolesławiec",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:50",
+        "spontan": "13:30",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 322,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:30",
+        "spontan": "15:05",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 323,
+        "city": "wroclaw",
+        "team": "Zespół Szkolno-Przedszkolny nr 12 - Wrocław",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:55",
+        "spontan": "14:10",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 324,
+        "city": "wroclaw",
+        "team": "Publiczna Szkoła Podstawowa nr 33 - Opole",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:20",
+        "spontan": "14:45",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 325,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 5 - Nysa",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa III",
+        "performance": "12:00",
+        "spontan": "15:55",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 326,
+        "city": "wroclaw",
+        "team": "IX Publiczne Liceum Ogólnokształcące - Opole",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa III",
+        "performance": "12:25",
+        "spontan": "15:15",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 327,
+        "city": "wroclaw",
+        "team": "Zespół Szkół Elektrycznych - Opole",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa III",
+        "performance": "12:50",
+        "spontan": "15:35",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 328,
+        "city": "wroclaw",
+        "team": "Zespół Szkolno-Przedszkolny nr 16 - Wrocław",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "13:50",
+        "spontan": "-",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 329,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "14:10",
+        "spontan": "-",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 330,
+        "city": "wroclaw",
+        "team": "Zespół Szkół Społecznych - Kłodzko",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:45",
+        "spontan": "12:50",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 331,
+        "city": "wroclaw",
+        "team": "Społecz. Szkoła Podstawowa im. Rady Europy - Lubin",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:05",
+        "spontan": "13:30",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 332,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:40",
+        "spontan": "15:15",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 333,
+        "city": "wroclaw",
+        "team": "Publiczna Szkoła Podstawowa nr 33 - Opole",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:00",
+        "spontan": "15:35",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 334,
+        "city": "wroclaw",
+        "team": "Zespół Szkolno-Przedszkolny nr 16 - Wrocław",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:20",
+        "spontan": "14:55",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 335,
+        "city": "wroclaw",
+        "team": "Zespół Szkół Elektrycznych - Opole",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa III",
+        "performance": "11:00",
+        "spontan": "15:35",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 336,
+        "city": "wroclaw",
+        "team": "Publiczne Gimnazjum Dwujęzyczne nr 9 - Opole",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa III",
+        "performance": "11:20",
+        "spontan": "15:55",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 337,
+        "city": "wroclaw",
+        "team": "Zespół Szkolno-Przedszkolny nr 16 - Wrocław",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:35",
+        "spontan": "9:35",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 338,
+        "city": "wroclaw",
+        "team": "Pracownia Psychoedukacji AFFIRMO - Namysłów",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:55",
+        "spontan": "10:50",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 339,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa im. Wandy Chotomskiej - Kiełczów",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "13:15",
+        "spontan": "9:55",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 340,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 2 - Trzebnica",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "13:55",
+        "spontan": "10:15",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 341,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "14:15",
+        "spontan": "11:10",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 342,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 3 - Trzebnica",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa II",
+        "performance": "14:45",
+        "spontan": "10:05",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 343,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 2 - Trzebnica",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:05",
+        "spontan": "10:25",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 344,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 4 - Bolesławiec",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:25",
+        "spontan": "10:55",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 345,
+        "city": "wroclaw",
+        "team": "Zespół Szkół Elektrycznych - Opole",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:55",
+        "spontan": "13:05",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 346,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:30",
+        "spontan": "11:00",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 347,
+        "city": "wroclaw",
+        "team": "Zespół Szkolno-Przedszkolny nr 16 - Wrocław",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:50",
+        "spontan": "11:20",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 348,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 3 - Trzebnica",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:10",
+        "spontan": "13:10",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 349,
+        "city": "wroclaw",
+        "team": "Publiczna Szkoła Podstawowa nr 37 - Wałbrzych",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:30",
+        "spontan": "14:30",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 350,
+        "city": "wroclaw",
+        "team": "Pracownia Psychoedukacji AFFIRMO - Namysłów",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:05",
+        "spontan": "13:50",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 351,
+        "city": "wroclaw",
+        "team": "Poradnia Psycholog.-Pedagogiczna nr 9 - Wrocław",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:25",
+        "spontan": "15:10",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 352,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 1 - Głogówek",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:45",
+        "spontan": "15:30",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 353,
+        "city": "wroclaw",
+        "team": "Zespół Szkół Ogólnokształcących S.T.O. - Kluczbork",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:05",
+        "spontan": "14:50",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 354,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa w Gołuszowicach - Głubczyce",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:40",
+        "spontan": "9:20",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 355,
+        "city": "wroclaw",
+        "team": "Zespół Szkolno-Przedszkolny - Przeworno",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:00",
+        "spontan": "9:40",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 356,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:20",
+        "spontan": "10:00",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 357,
+        "city": "wroclaw",
+        "team": "Gminny Ośrodek Kultury - Tarnów Opolski",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:30",
+        "spontan": "11:35",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 358,
+        "city": "wroclaw",
+        "team": "Zespół Szkolno-Przedszkolny - Przeworno",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:50",
+        "spontan": "9:40",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 359,
+        "city": "wroclaw",
+        "team": "Stowarzyszenie CREOARTE - Nysa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:10",
+        "spontan": "10:55",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 360,
+        "city": "wroclaw",
+        "team": "Publiczne Gimnazjum Dwujęzyczne nr 9 - Opole",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:30",
+        "spontan": "10:00",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 361,
+        "city": "wroclaw",
+        "team": "Zespół Szkół Społecznych - Kłodzko",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:05",
+        "spontan": "12:45",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 362,
+        "city": "wroclaw",
+        "team": "Zespół Szkół Akademickich PWr. - Wrocław",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:25",
+        "spontan": "13:25",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 363,
+        "city": "wroclaw",
+        "team": "Zespoł Szkół Ekonomicznych - Opole",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:45",
+        "spontan": "14:00",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 364,
+        "city": "wroclaw",
+        "team": "X Liceum Ogólnokształcące - Wrocław",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "16:20",
+        "spontan": "10:20",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 365,
+        "city": "wroclaw",
+        "team": "Publiczna Szkoła Podstawowa nr 37 - Wałbrzych",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "16:40",
+        "spontan": "14:20",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 366,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 4 - Bogatynia",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "17:00",
+        "spontan": "11:15",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 367,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 4 - Bolesławiec",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:00",
+        "spontan": "11:15",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 368,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 3 - Nysa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:20",
+        "spontan": "11:35",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 369,
+        "city": "wroclaw",
+        "team": "Publiczna Szkoła Podstawowa nr 2 - Świebodzice",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:40",
+        "spontan": "12:05",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 370,
+        "city": "wroclaw",
+        "team": "Zespół Szkół Ogólnokształcących S.T.O. - Kluczbork",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:15",
+        "spontan": "12:25",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 371,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 4 - Bogatynia",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:35",
+        "spontan": "14:45",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 372,
+        "city": "wroclaw",
+        "team": "Społecz. Szkoła Podstawowa im. Rady Europy - Lubin",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:55",
+        "spontan": "13:35",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 373,
+        "city": "wroclaw",
+        "team": "Zespół Szkolno-Przedszkolny nr 12 - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:30",
+        "spontan": "14:25",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 374,
+        "city": "wroclaw",
+        "team": "Pracownia Psychoedukacji AFFIRMO - Namysłów",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:50",
+        "spontan": "13:55",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 375,
+        "city": "wroclaw",
+        "team": "X Liceum Ogólnokształcące - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:00",
+        "spontan": "9:50",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 376,
+        "city": "wroclaw",
+        "team": "Stowarzyszenie CREOARTE - Nysa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:20",
+        "spontan": "9:30",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 377,
+        "city": "wroclaw",
+        "team": "Zespół Szkół Ogólnokształcących nr 1 - Opole",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:40",
+        "spontan": "12:00",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 378,
+        "city": "wroclaw",
+        "team": "IX Publiczne Liceum Ogólnokształcące - Opole",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:15",
+        "spontan": "11:05",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 379,
+        "city": "wroclaw",
+        "team": "Stowarzyszenie EVVIVA L'ARTE - Oleśnica",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:35",
+        "spontan": "10:45",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 380,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 83 - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:55",
+        "spontan": "12:20",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 381,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 3 - Trzebnica",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:30",
+        "spontan": "10:10",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 382,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 4 - Bogatynia",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:50",
+        "spontan": "11:25",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 383,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:45",
+        "spontan": "11:30",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 384,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 51 - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:05",
+        "spontan": "13:00",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 385,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 8 - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:25",
+        "spontan": "13:20",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 386,
+        "city": "wroclaw",
+        "team": "Zespół Szkół Społecznych - Kłodzko",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:05",
+        "spontan": "12:40",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 387,
+        "city": "wroclaw",
+        "team": "Publiczna Szkoła Podstawowa nr 37 - Wałbrzych",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:25",
+        "spontan": "14:35",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 388,
+        "city": "wroclaw",
+        "team": "Zespół Szkolno-Przedszkolny - Przeworno",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:45",
+        "spontan": "15:10",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 389,
+        "city": "wroclaw",
+        "team": "Zespół Szkolno-Przedszkolny nr 20 - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:05",
+        "spontan": "13:55",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 390,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa nr 1 - Głogówek",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:45",
+        "spontan": "15:30",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 391,
+        "city": "wroclaw",
+        "team": "Publiczna Szkoła Podstawowa nr 1 - Opole",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:05",
+        "spontan": "14:15",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 392,
+        "city": "wroclaw",
+        "team": "Szkoła Podstawowa w Gołuszowicach - Głubczyce",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:25",
+        "spontan": "15:50",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 393,
+        "city": "wroclaw",
+        "team": "Stowarzyszenie EVVIVA L'ARTE - Oleśnica",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa IV",
+        "performance": "13:05",
+        "spontan": "10:30",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 614,
+        "city": "poznan",
+        "team": "Międzynar. Centrum Edukacji Montessori - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:15",
+        "spontan": "14:25",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 615,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 357 - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:40",
+        "spontan": "15:40",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 616,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 2 - Olsztyn",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:20",
+        "spontan": "16:00",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 617,
+        "city": "poznan",
+        "team": "Niepubliczna SP NASZA SZKOŁA - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:45",
+        "spontan": "14:45",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 618,
+        "city": "poznan",
+        "team": "The International School - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:10",
+        "spontan": "15:20",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 619,
+        "city": "poznan",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [A] - Białystok",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:50",
+        "spontan": "15:25",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 620,
+        "city": "poznan",
+        "team": "Społecz. Szkoła Podstawowa nr 26 S.T.O. - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:15",
+        "spontan": "15:45",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 621,
+        "city": "poznan",
+        "team": "LI Liceum Ogólnokształcące - Warszawa",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa III",
+        "performance": "12:40",
+        "spontan": "16:05",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 622,
+        "city": "poznan",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [B] - Białystok",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa I",
+        "performance": "14:00",
+        "spontan": "11:40",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 623,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 357 - Warszawa",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa I",
+        "performance": "14:25",
+        "spontan": "11:20",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 624,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 2 - Olsztyn",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa I",
+        "performance": "14:50",
+        "spontan": "11:00",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 625,
+        "city": "poznan",
+        "team": "Niepubliczna Szkoła SKRZYDŁA - Lublin",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:30",
+        "spontan": "12:15",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 626,
+        "city": "poznan",
+        "team": "Stowarzyszenie ISKIERKI WYOBRAŹNI - Warszawa",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:55",
+        "spontan": "12:35",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 627,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 7 - Świdnik",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "16:20",
+        "spontan": "12:55",
+        "stage": "SCENA 1 – STOŁÓWKA"
+    },
+    {
+        "id": 628,
+        "city": "poznan",
+        "team": "Niepubliczna Szkoła SKRZYDŁA - Lublin",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:00",
+        "spontan": "12:20",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 629,
+        "city": "poznan",
+        "team": "The International School - Warszawa",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:25",
+        "spontan": "15:10",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 630,
+        "city": "poznan",
+        "team": "Niepub. Szkoła Tosi i Franka - Grodzisk Mazowiecki",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:50",
+        "spontan": "12:40",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 631,
+        "city": "poznan",
+        "team": "Zespół Szkół S.T.O. - Białystok",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:15",
+        "spontan": "14:10",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 632,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 4 - Zielonka",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:55",
+        "spontan": "13:00",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 633,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 5 - Nowy Dwór Mazowiecki",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:20",
+        "spontan": "14:50",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 634,
+        "city": "poznan",
+        "team": "Międzynar. Centrum Edukacji Montessori - Warszawa",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:45",
+        "spontan": "14:30",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 635,
+        "city": "poznan",
+        "team": "Prywatna SP nr 72 SZKOŁA MARZEŃ - Piaseczno",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:25",
+        "spontan": "10:00",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 636,
+        "city": "poznan",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [A] - Białystok",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:50",
+        "spontan": "9:20",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 637,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 289 - Warszawa",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:15",
+        "spontan": "9:40",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 638,
+        "city": "poznan",
+        "team": "Niepubliczna Szkoła SKRZYDŁA - Lublin",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:40",
+        "spontan": "9:45",
+        "stage": "SCENA 2 – DUŻA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 639,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 357 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:30",
+        "spontan": "11:15",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 640,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 10 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:50",
+        "spontan": "11:35",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 641,
+        "city": "poznan",
+        "team": "Stowarzyszenie Kultury i Edukacji - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:10",
+        "spontan": "11:55",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 642,
+        "city": "poznan",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [B] - Białystok",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:45",
+        "spontan": "12:15",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 643,
+        "city": "poznan",
+        "team": "Stowarzyszenie ISKIERKI WYOBRAŹNI - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:05",
+        "spontan": "13:25",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 644,
+        "city": "poznan",
+        "team": "Zespół Szkół Fundacji FABRYCZNA 10 - Białystok",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:25",
+        "spontan": "13:45",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 645,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 289 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:00",
+        "spontan": "14:05",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 646,
+        "city": "poznan",
+        "team": "Poradnia Psychologiczno-Pedagogiczna - Działdowo",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:20",
+        "spontan": "14:25",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 647,
+        "city": "poznan",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [A] - Białystok",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:40",
+        "spontan": "15:05",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 648,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 4 - Zielonka",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:15",
+        "spontan": "9:35",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 649,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 5 - Nowy Dwór Mazowiecki",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:35",
+        "spontan": "9:55",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 650,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 65 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:55",
+        "spontan": "10:15",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 651,
+        "city": "poznan",
+        "team": "Prywatna Szkoła Podstawowa EUREKA - Zalesie Górne",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "13:15",
+        "spontan": "10:35",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 652,
+        "city": "poznan",
+        "team": "LI Liceum Ogólnokształcące - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:25",
+        "spontan": "10:05",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 653,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 2 - Augustów",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:45",
+        "spontan": "10:45",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 654,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 1 - Wasilków",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:05",
+        "spontan": "10:25",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 655,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 5 - Świdnik",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "15:55",
+        "spontan": "-",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 656,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 5 - Świdnik",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "16:15",
+        "spontan": "-",
+        "stage": "SCENA 3 – MAŁA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 657,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 214 z Oddz.Integr. - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:30",
+        "spontan": "11:25",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 658,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 112 - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:50",
+        "spontan": "12:25",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 659,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 7 - Świdnik",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:10",
+        "spontan": "13:35",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 660,
+        "city": "poznan",
+        "team": "Niepubliczna Szkoła Podstawowa nr 81 - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:30",
+        "spontan": "13:55",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 661,
+        "city": "poznan",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [B] - Białystok",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:10",
+        "spontan": "11:45",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 662,
+        "city": "poznan",
+        "team": "Stowarzyszenie Kultury i Edukacji - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:30",
+        "spontan": "12:05",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 663,
+        "city": "poznan",
+        "team": "Zespół Szkolno-Przedszkolny - Lesznowola",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:50",
+        "spontan": "14:35",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 664,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 15 - Olsztyn",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:25",
+        "spontan": "15:15",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 665,
+        "city": "poznan",
+        "team": "Zespół Szkół S.T.O. - Białystok",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:45",
+        "spontan": "14:15",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 666,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 2 - Olsztyn",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:05",
+        "spontan": "15:55",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 667,
+        "city": "poznan",
+        "team": "Niepubliczna Szkoła Podstawowa COGITO - Płock",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:25",
+        "spontan": "15:35",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 668,
+        "city": "poznan",
+        "team": "Stowarzysz. Oświatowe KALINOWA 5 [B] - Białystok",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:35",
+        "spontan": "10:35",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 669,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 214 z Oddz.Integr. - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:55",
+        "spontan": "10:55",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 670,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 1 - Wasilków",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "14:15",
+        "spontan": "11:15",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 671,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 358 - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "14:35",
+        "spontan": "11:35",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 672,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 214 z Oddz.Integr. - Warszawa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:20",
+        "spontan": "10:20",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 673,
+        "city": "poznan",
+        "team": "Dwujęzyczna SP EDUKACJA SPOŁECZNA - Łomianki",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:40",
+        "spontan": "9:20",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 674,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 1 - Wasilków",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "16:00",
+        "spontan": "10:00",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 675,
+        "city": "poznan",
+        "team": "IV Liceum Ogólnokształcące NORWID - Białystok",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "16:20",
+        "spontan": "9:40",
+        "stage": "SCENA 4 – FIKOLANDIA"
+    },
+    {
+        "id": 676,
+        "city": "poznan",
+        "team": "Fundacja AKADEMIA AKTYWNEGO ROZWOJU - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "8:30",
+        "spontan": "11:10",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 677,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa Fundacji CHOCIMSKA - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "8:50",
+        "spontan": "11:30",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 678,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 214 z Oddz.Integr. - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:10",
+        "spontan": "11:50",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 679,
+        "city": "poznan",
+        "team": "Niepubliczna Szkoła SKRZYDŁA - Lublin",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:45",
+        "spontan": "12:10",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 680,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 7 - Świdnik",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:05",
+        "spontan": "13:20",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 681,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 10 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:25",
+        "spontan": "13:40",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 682,
+        "city": "poznan",
+        "team": "Zespół Szkół S.T.O. - Białystok",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:00",
+        "spontan": "14:00",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 683,
+        "city": "poznan",
+        "team": "Stowarzyszenie ISKIERKI WYOBRAŹNI - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:20",
+        "spontan": "14:35",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 684,
+        "city": "poznan",
+        "team": "Niepubliczna SP NASZA SZKOŁA - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:40",
+        "spontan": "14:55",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 685,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 15 - Olsztyn",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:00",
+        "spontan": "15:15",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 686,
+        "city": "poznan",
+        "team": "Stowarzyszenie AQUEDUCT - Budy Michałowskie",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:10",
+        "spontan": "15:50",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 687,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 267 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:30",
+        "spontan": "16:10",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 688,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 52 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "13:50",
+        "spontan": "10:30",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 689,
+        "city": "poznan",
+        "team": "Niepub. Szkoła Tosi i Franka - Grodzisk Mazowiecki",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "14:25",
+        "spontan": "16:30",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 690,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 289 - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "14:45",
+        "spontan": "9:50",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 691,
+        "city": "poznan",
+        "team": "Szkoła Podstawowa nr 68 z Oddz. Integr. - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:05",
+        "spontan": "10;10",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 692,
+        "city": "poznan",
+        "team": "Bednarska Szkoła Podstawowa - Warszawa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:25",
+        "spontan": "9:30",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 693,
+        "city": "poznan",
+        "team": "Międzynar. Centrum Edukacji Montessori - Warszawa",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "16:15",
+        "spontan": "-",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 694,
+        "city": "poznan",
+        "team": "Niepubliczna Szkoła SKRZYDŁA - Lublin",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "16:35",
+        "spontan": "-",
+        "stage": "SCENA 5 – ŚREDNIA SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 695,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 21 - Wrocław",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:00",
+        "spontan": "11:40",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 696,
+        "city": "katowice",
+        "team": "Pracownia Psychoedukacji AFFIRMO - Namysłów",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:25",
+        "spontan": "13:50",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 697,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 4 - Bolesławiec",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:50",
+        "spontan": "13:30",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 698,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:30",
+        "spontan": "15:05",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 699,
+        "city": "katowice",
+        "team": "Zespół Szkolno-Przedszkolny nr 12 - Wrocław",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:55",
+        "spontan": "14:10",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 700,
+        "city": "katowice",
+        "team": "Publiczna Szkoła Podstawowa nr 33 - Opole",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:20",
+        "spontan": "14:45",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 701,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 5 - Nysa",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa III",
+        "performance": "12:00",
+        "spontan": "15:55",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 702,
+        "city": "katowice",
+        "team": "IX Publiczne Liceum Ogólnokształcące - Opole",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa III",
+        "performance": "12:25",
+        "spontan": "15:15",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 703,
+        "city": "katowice",
+        "team": "Zespół Szkół Elektrycznych - Opole",
+        "problem": " Problem 1: Ekipa Omeratunkowa:",
+        "age": " Grupa wiekowa III",
+        "performance": "12:50",
+        "spontan": "15:35",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 704,
+        "city": "katowice",
+        "team": "Zespół Szkolno-Przedszkolny nr 16 - Wrocław",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "13:50",
+        "spontan": "-",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 705,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": "  Mali muzealnicy",
+        "age": " Problem dla Juniorów",
+        "performance": "14:10",
+        "spontan": "-",
+        "stage": "SCENA 1 – SALA GIMNASTYCZNA"
+    },
+    {
+        "id": 706,
+        "city": "katowice",
+        "team": "Zespół Szkół Społecznych - Kłodzko",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:45",
+        "spontan": "12:50",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 707,
+        "city": "katowice",
+        "team": "Społecz. Szkoła Podstawowa im. Rady Europy - Lubin",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:05",
+        "spontan": "13:30",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 708,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:40",
+        "spontan": "15:15",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 709,
+        "city": "katowice",
+        "team": "Publiczna Szkoła Podstawowa nr 33 - Opole",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:00",
+        "spontan": "15:35",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 710,
+        "city": "katowice",
+        "team": "Zespół Szkolno-Przedszkolny nr 16 - Wrocław",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:20",
+        "spontan": "14:55",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 711,
+        "city": "katowice",
+        "team": "Zespół Szkół Elektrycznych - Opole",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa III",
+        "performance": "11:00",
+        "spontan": "15:35",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 712,
+        "city": "katowice",
+        "team": "Publiczne Gimnazjum Dwujęzyczne nr 9 - Opole",
+        "problem": " Problem 4: Balsa z polotem:",
+        "age": " Grupa wiekowa III",
+        "performance": "11:20",
+        "spontan": "15:55",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 713,
+        "city": "katowice",
+        "team": "Zespół Szkolno-Przedszkolny nr 16 - Wrocław",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:35",
+        "spontan": "9:35",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 714,
+        "city": "katowice",
+        "team": "Pracownia Psychoedukacji AFFIRMO - Namysłów",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:55",
+        "spontan": "10:50",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 715,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa im. Wandy Chotomskiej - Kiełczów",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "13:15",
+        "spontan": "9:55",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 716,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 2 - Trzebnica",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "13:55",
+        "spontan": "10:15",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 717,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa I",
+        "performance": "14:15",
+        "spontan": "11:10",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 718,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 3 - Trzebnica",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa II",
+        "performance": "14:45",
+        "spontan": "10:05",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 719,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 2 - Trzebnica",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:05",
+        "spontan": "10:25",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 720,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 4 - Bolesławiec",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa II",
+        "performance": "15:25",
+        "spontan": "10:55",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 721,
+        "city": "katowice",
+        "team": "Zespół Szkół Elektrycznych - Opole",
+        "problem": " Problem 2: Do zobaczenia w ukryciu:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:55",
+        "spontan": "13:05",
+        "stage": "SCENA 2 – SALA KOREKCYJNA 2"
+    },
+    {
+        "id": 722,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:30",
+        "spontan": "11:00",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 723,
+        "city": "katowice",
+        "team": "Zespół Szkolno-Przedszkolny nr 16 - Wrocław",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:50",
+        "spontan": "11:20",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 724,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 3 - Trzebnica",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:10",
+        "spontan": "13:10",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 725,
+        "city": "katowice",
+        "team": "Publiczna Szkoła Podstawowa nr 37 - Wałbrzych",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:30",
+        "spontan": "14:30",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 726,
+        "city": "katowice",
+        "team": "Pracownia Psychoedukacji AFFIRMO - Namysłów",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:05",
+        "spontan": "13:50",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 727,
+        "city": "katowice",
+        "team": "Poradnia Psycholog.-Pedagogiczna nr 9 - Wrocław",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:25",
+        "spontan": "15:10",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 728,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 1 - Głogówek",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:45",
+        "spontan": "15:30",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 729,
+        "city": "katowice",
+        "team": "Zespół Szkół Ogólnokształcących S.T.O. - Kluczbork",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:05",
+        "spontan": "14:50",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 730,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa w Gołuszowicach - Głubczyce",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:40",
+        "spontan": "9:20",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 731,
+        "city": "katowice",
+        "team": "Zespół Szkolno-Przedszkolny - Przeworno",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:00",
+        "spontan": "9:40",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 732,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa II",
+        "performance": "12:20",
+        "spontan": "10:00",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 733,
+        "city": "katowice",
+        "team": "Gminny Ośrodek Kultury - Tarnów Opolski",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:30",
+        "spontan": "11:35",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 734,
+        "city": "katowice",
+        "team": "Zespół Szkolno-Przedszkolny - Przeworno",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:50",
+        "spontan": "9:40",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 735,
+        "city": "katowice",
+        "team": "Stowarzyszenie CREOARTE - Nysa",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:10",
+        "spontan": "10:55",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 736,
+        "city": "katowice",
+        "team": "Publiczne Gimnazjum Dwujęzyczne nr 9 - Opole",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:30",
+        "spontan": "10:00",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 737,
+        "city": "katowice",
+        "team": "Zespół Szkół Społecznych - Kłodzko",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:05",
+        "spontan": "12:45",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 738,
+        "city": "katowice",
+        "team": "Zespół Szkół Akademickich PWr. - Wrocław",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:25",
+        "spontan": "13:25",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 739,
+        "city": "katowice",
+        "team": "Zespoł Szkół Ekonomicznych - Opole",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:45",
+        "spontan": "14:00",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 740,
+        "city": "katowice",
+        "team": "X Liceum Ogólnokształcące - Wrocław",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "16:20",
+        "spontan": "10:20",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 741,
+        "city": "katowice",
+        "team": "Publiczna Szkoła Podstawowa nr 37 - Wałbrzych",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "16:40",
+        "spontan": "14:20",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 742,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 4 - Bogatynia",
+        "problem": " Problem 3: W pracowni mistrza Leonarda:",
+        "age": " Grupa wiekowa III",
+        "performance": "17:00",
+        "spontan": "11:15",
+        "stage": "SCENA 3 – SALA KOREKCYJNA 1"
+    },
+    {
+        "id": 743,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 4 - Bolesławiec",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:00",
+        "spontan": "11:15",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 744,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 3 - Nysa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:20",
+        "spontan": "11:35",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 745,
+        "city": "katowice",
+        "team": "Publiczna Szkoła Podstawowa nr 2 - Świebodzice",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "9:40",
+        "spontan": "12:05",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 746,
+        "city": "katowice",
+        "team": "Zespół Szkół Ogólnokształcących S.T.O. - Kluczbork",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:15",
+        "spontan": "12:25",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 747,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 4 - Bogatynia",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:35",
+        "spontan": "14:45",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 748,
+        "city": "katowice",
+        "team": "Społecz. Szkoła Podstawowa im. Rady Europy - Lubin",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "10:55",
+        "spontan": "13:35",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 749,
+        "city": "katowice",
+        "team": "Zespół Szkolno-Przedszkolny nr 12 - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:30",
+        "spontan": "14:25",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 750,
+        "city": "katowice",
+        "team": "Pracownia Psychoedukacji AFFIRMO - Namysłów",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa II",
+        "performance": "11:50",
+        "spontan": "13:55",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 751,
+        "city": "katowice",
+        "team": "X Liceum Ogólnokształcące - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:00",
+        "spontan": "9:50",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 752,
+        "city": "katowice",
+        "team": "Stowarzyszenie CREOARTE - Nysa",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:20",
+        "spontan": "9:30",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 753,
+        "city": "katowice",
+        "team": "Zespół Szkół Ogólnokształcących nr 1 - Opole",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "13:40",
+        "spontan": "12:00",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 754,
+        "city": "katowice",
+        "team": "IX Publiczne Liceum Ogólnokształcące - Opole",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:15",
+        "spontan": "11:05",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 755,
+        "city": "katowice",
+        "team": "Stowarzyszenie EVVIVA L'ARTE - Oleśnica",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:35",
+        "spontan": "10:45",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 756,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 83 - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "14:55",
+        "spontan": "12:20",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 757,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 3 - Trzebnica",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:30",
+        "spontan": "10:10",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 758,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 4 - Bogatynia",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa III",
+        "performance": "15:50",
+        "spontan": "11:25",
+        "stage": "SCENA 4 – SALA 104"
+    },
+    {
+        "id": 759,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa TAK - Opole",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "8:45",
+        "spontan": "11:30",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 760,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 51 - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:05",
+        "spontan": "13:00",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 761,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 8 - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "9:25",
+        "spontan": "13:20",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 762,
+        "city": "katowice",
+        "team": "Zespół Szkół Społecznych - Kłodzko",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:05",
+        "spontan": "12:40",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 763,
+        "city": "katowice",
+        "team": "Publiczna Szkoła Podstawowa nr 37 - Wałbrzych",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:25",
+        "spontan": "14:35",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 764,
+        "city": "katowice",
+        "team": "Zespół Szkolno-Przedszkolny - Przeworno",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "10:45",
+        "spontan": "15:10",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 765,
+        "city": "katowice",
+        "team": "Zespół Szkolno-Przedszkolny nr 20 - Wrocław",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:05",
+        "spontan": "13:55",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 766,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa nr 1 - Głogówek",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "11:45",
+        "spontan": "15:30",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 767,
+        "city": "katowice",
+        "team": "Publiczna Szkoła Podstawowa nr 1 - Opole",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:05",
+        "spontan": "14:15",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 768,
+        "city": "katowice",
+        "team": "Szkoła Podstawowa w Gołuszowicach - Głubczyce",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa I",
+        "performance": "12:25",
+        "spontan": "15:50",
+        "stage": "SCENA 5 – SALA 102"
+    },
+    {
+        "id": 769,
+        "city": "katowice",
+        "team": "Stowarzyszenie EVVIVA L'ARTE - Oleśnica",
+        "problem": " Problem 5: Spory o pozory:",
+        "age": " Grupa wiekowa IV",
+        "performance": "13:05",
+        "spontan": "10:30",
+        "stage": "SCENA 5 – SALA 102"
+    }
+]

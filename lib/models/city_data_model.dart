@@ -62,7 +62,7 @@ class CityDataModel extends ChangeNotifier {
         CitySet.cities.firstWhere((city) => city.hiveName == savedCity);
   }
 
-  void storeSchedule() async {
+  Future<void> storeSchedule() async {
     // keep favourites between updates
     if (this.cityBox.get("performances") != null) {
       final List<String> boxKeys =
@@ -131,7 +131,7 @@ class CityDataModel extends ChangeNotifier {
     await this.cityBox.put("performanceGroups", pfGroups);
   }
 
-  void storeInfo() {
+  Future<void> storeInfo() async {
     this.cityBox.put("info", this.infoList);
   }
 
