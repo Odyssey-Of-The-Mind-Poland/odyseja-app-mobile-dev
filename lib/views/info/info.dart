@@ -17,26 +17,26 @@ class _InfoPageState extends State<InfoPage> {
     final cityProvider = Provider.of<CityDataModel>(context);
     List<Info> info = cityProvider.infoList;
     List<Widget> _infoTilesAll = [];
-    for (Info _infoItem in info.sublist(0, 9)) {
+    for (int i = 0; i < 9; i++) {
       _infoTilesAll.add(new InfoTile(
-        label: _infoItem.infName,
-        data: _infoItem.infoText,
+        label: info[i].infName,
+        index: i,
         imageName: "assets/graphics/Info 1.png",
       ));
     }
     List<Widget> _infoTilesTeams = [];
-    for (Info _infoItem in info.sublist(9, 18)) {
+    for (int i = 9; i < 18; i++) {
       _infoTilesTeams.add(new InfoTile(
-        label: _infoItem.infName,
-        data: _infoItem.infoText,
+        label: info[i].infName,
+        index: i,
         imageName: "assets/graphics/Info 3.png",
       ));
     }
     List<Widget> _infoTilesThanks = [];
-    for (Info _infoItem in info.sublist(18, 21)) {
+    for (int i = 18; i < 21; i++) {
       _infoTilesThanks.add(new InfoTile(
-        label: _infoItem.infName,
-        data: _infoItem.infoText,
+        label: info[i].infName,
+        index: i,
         imageName: "assets/graphics/Info 2.png",
       ));
     }
